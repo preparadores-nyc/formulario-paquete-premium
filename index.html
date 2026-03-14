@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NYC Preparadores - Plataforma de Documentos</title>
+    <link rel="icon" type="image/png" href="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20miniatura%20preparadores%20nyc.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-glow: #0088ff;
+            --secondary-glow: #00d2ff;
+            --glass-bg: rgba(15, 20, 30, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --input-bg: rgba(255, 255, 255, 0.06);
+            --success: #00e676;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #050505; /* Fallback */
+        }
+
+        body {
+            /* Imagen de fondo solicitada */
+            background-image: url('https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2014%20mar%202026%2c%2005_53_40%20a.m..png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        h1, h2, h3, h4, h5, button {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Cabecera Flotante (Pill Header) */
+        .header-container {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 12px 40px;
+            border-radius: 100px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .header img {
+            max-height: 45px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
+        }
+
+        .header h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #ffffff, var(--secondary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Contenedor Principal Amplio */
+        .container {
+            max-width: 1440px;
+            width: 100%;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 30px;
+            padding: 0 40px;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .container { 
+                grid-template-columns: 1fr; 
+                padding: 0 20px;
+            }
+            .header { border-radius: 20px; padding: 15px; flex-direction: column; gap: 10px; text-align: center;}
+        }
+
+        /* Tarjetas de Cristal */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 1px solid var(--glass-border);
+            width: 100%;
+        }
+
+        .preview-section {
+            position: sticky;
+            top: 110px; 
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, var(--secondary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: -20px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* Formularios Exclusivos */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full-width { grid-column: span 1; }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            font-size: 1rem;
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* Estilo opciones select oscuras para legibilidad */
+        select option {
+            background-color: #111827;
+            color: #fff;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-glow);
+            background-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 136, 255, 0.2);
+        }
+
+        /* Botón de Acción Radical */
+        button {
+            background: linear-gradient(135deg, var(--primary-glow), #0055ff);
+            color: white;
+            border: none;
+            padding: 18px 24px;
+            width: 100%;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            grid-column: span 2;
+            box-shadow: 0 10px 25px rgba(0, 136, 255, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 136, 255, 0.6);
+            background: linear-gradient(135deg, #0099ff, #0044ff);
+        }
+
+        /* Loading Spinner */
+        .loader {
+            display: none;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top: 3px solid var(--secondary-glow);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            grid-column: span 2;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Cajas de Vista Previa Translúcidas */
+        .preview-box {
+            background: rgba(0,0,0,0.2);
+            border-radius: 16px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px dashed rgba(255,255,255,0.2);
+        }
+
+        .pdf-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .anti-download-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent;
+            z-index: 10;
+        }
+
+        /* Carrusel de Liquidaciones */
+        .liquidaciones-wrapper {
+            margin-top: 5px;
+            width: 100%;
+        }
+
+        .liquidaciones-wrapper h4 {
+            color: var(--text-main);
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .liquidaciones-grid {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            width: 100%;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-glow) rgba(255,255,255,0.1);
+        }
+
+        .liquidaciones-grid::-webkit-scrollbar { height: 8px; }
+        .liquidaciones-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
+        .liquidaciones-grid::-webkit-scrollbar-thumb { background-color: var(--primary-glow); border-radius: 4px; }
+
+        .liq-item {
+            min-width: 190px;
+            height: 250px;
+            background: rgba(0,0,0,0.3);
+            position: relative;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .liq-title {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-main);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 8px;
+            text-align: center;
+            z-index: 5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .preview-box-small {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            position: relative;
+        }
+
+        .liq-blurred {
+            filter: blur(8px);
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .liq-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--text-main);
+            z-index: 20;
+            font-size: 1.1rem;
+            text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
+            letter-spacing: 1px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .success-msg { 
+            color: var(--success); 
+            font-weight: 500; 
+            text-align: center; 
+            margin-top: 15px; 
+            padding: 12px;
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            border-radius: 8px;
+            display: none;
+            grid-column: span 2;
+        }
+
+        /* Color de los iconos del calendario (Datepicker) */
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <header class="header">
+            <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20nyc%20(no%20background).png" alt="NYC Preparadores Logo">
+            <h3>Emisión y Resguardo</h3>
+        </header>
+    </div>
+
+    <div class="container">
+        <div class="card" id="form-card">
+            <h2>Datos del Contribuyente</h2>
+            <p class="subtitle">Ingrese los datos para generar los documentos cifrados.</p>
+            
+            <form id="slGroupForm" class="form-grid">
+                
+                <div class="form-group full-width">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="nombre" required placeholder="Ej: Juan Pérez">
+                </div>
+
+                <div class="form-group">
+                    <label>RUT (Con puntos y guión)</label>
+                    <input type="text" id="rut" required placeholder="Ej: 12.345.678-9">
+                </div>
+
+                <div class="form-group">
+                    <label>Fecha de Nacimiento</label>
+                    <input type="date" id="fechaNacimiento" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Nacionalidad</label>
+                    <input type="text" id="nacionalidad" required placeholder="Ej: Chilena">
+                </div>
+
+                <div class="form-group">
+                    <label>Estado Civil</label>
+                    <select id="estadoCivil" required>
+                        <option value="Soltero(a)">Soltero(a)</option>
+                        <option value="Casado(a)">Casado(a)</option>
+                        <option value="Divorciado(a)">Divorciado(a)</option>
+                        <option value="Viudo(a)">Viudo(a)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Género</label>
+                    <select id="genero" required>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Antigüedad Laboral (Fecha inicio)</label>
+                    <input type="date" id="antiguedad" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Dirección Completa (Dirección, Comuna)</label>
+                    <input type="text" id="direccion" required placeholder="Ej: Av. Providencia 1234, Providencia">
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Región</label>
+                    <select id="region" required>
+                        <option value="Región de Arica y Parinacota">Región de Arica y Parinacota</option>
+                        <option value="Región de Tarapacá">Región de Tarapacá</option>
+                        <option value="Región de Antofagasta">Región de Antofagasta</option>
+                        <option value="Región de Atacama">Región de Atacama</option>
+                        <option value="Región de Coquimbo">Región de Coquimbo</option>
+                        <option value="Región de Valparaíso">Región de Valparaíso</option>
+                        <option value="Región Metropolitana de Santiago">Región Metropolitana de Santiago</option>
+                        <option value="Región del Libertador General Bernardo O'Higgins">Región del Libertador General Bernardo O'Higgins</option>
+                        <option value="Región del Maule">Región del Maule</option>
+                        <option value="Región de Ñuble">Región de Ñuble</option>
+                        <option value="Región del Biobío">Región del Biobío</option>
+                        <option value="Región de La Araucanía">Región de La Araucanía</option>
+                        <option value="Región de Los Ríos">Región de Los Ríos</option>
+                        <option value="Región de Los Lagos">Región de Los Lagos</option>
+                        <option value="Región de Aysén del General Carlos Ibáñez del Campo">Región de Aysén del General Carlos Ibáñez del Campo</option>
+                        <option value="Región de Magallanes y de la Antártica Chilena">Región de Magallanes y de la Antártica Chilena</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" required placeholder="tu@correo.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Cargo deseado</label>
+                    <input type="text" id="cargo" required placeholder="Ej: Ingeniero">
+                </div>
+
+                <div class="form-group">
+                    <label>Sueldo Líquido (SIN PUNTOS)</label>
+                    <input type="number" id="sueldo" required placeholder="Ej: 800000">
+                </div>
+
+                <div class="form-group">
+                    <label>AFP</label>
+                    <select id="afp" required>
+                        <option value="Capital">Capital</option>
+                        <option value="Cuprum">Cuprum</option>
+                        <option value="Habitat">Habitat</option>
+                        <option value="Modelo">Modelo</option>
+                        <option value="PlanVital">PlanVital</option>
+                        <option value="Provida">Provida</option>
+                        <option value="Uno">Uno</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Contrato</label>
+                    <select id="contrato" required>
+                        <option value="Contrato General Agencia">Contrato General Agencia</option>
+                        <option value="Contrato General Agencia 2">Contrato General Agencia 2</option>
+                        <option value="Contrato General Agencia 3">Contrato General Agencia 3</option>
+                        <option value="Contrato General Agencia 4">Contrato General Agencia 4</option>
+                        <option value="Contrato Salud">Contrato Salud</option>
+                        <option value="Contrato Informatica">Contrato Informatica</option>
+                        <option value="Contrato Farmacia">Contrato Farmacia</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="btnSubmit">Procesar Emisión</button>
+                <div class="loader" id="loader"></div>
+                <div class="success-msg" id="successMsg">¡Documentos generados y cifrados exitosamente!</div>
+            </form>
+        </div>
+
+        <div class="preview-section">
+            <div class="card" style="padding-bottom: 20px;">
+                <h2>Documentos Nativos</h2>
+                <p class="subtitle">
+                    Archivos encriptados. Las funciones de guardado o clic secundario están deshabilitadas por protocolo de seguridad.
+                </p>
+
+                <div class="preview-box" id="preview-contrato">
+                    <span>Esperando renderizado del Contrato...</span>
+                </div>
+
+                <div class="preview-box" style="margin-top: 20px;" id="preview-afp">
+                    <span>Esperando renderizado de AFP...</span>
+                </div>
+            </div>
+
+            <div class="card" style="padding-top: 30px; padding-bottom: 30px;">
+                <div class="liquidaciones-wrapper" id="liquidaciones-wrapper">
+                    <h4>Clúster de Liquidaciones</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
+                        Deslice para visualizar. Los folios anteriores requieren llave de desencriptación para ser legibles.
+                    </p>
+                    <div class="liquidaciones-grid" id="liq-grid">
+                        
+                        <div class="liq-item">
+                            <div class="liq-title">Mes Reciente</div>
+                            <div class="preview-box-small" id="prev-liq-1">
+                                <span>A la espera de datos...</span>
+                            </div>
+                        </div>
+
+                        <div class="liq-item">
+                            <div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -2</div>
+                            <div class="liq-overlay">🔒<br>Cifrado</div>
+                            <div class="preview-box-small liq-blurred" id="prev-liq-2"></div>
+                        </div>
+                        
+                        <div class="liq-item">
+                            <div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -3</div>
+                            <div class="liq-overlay">🔒<br>Cifrado</div>
+                            <div class="preview-box-small liq-blurred" id="prev-liq-3"></div>
+                        </div>
+
+                        <div class="liq-item">
+                            <div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -4</div>
+                            <div class="liq-overlay">🔒<br>Cifrado</div>
+                            <div class="preview-box-small liq-blurred" id="prev-liq-4"></div>
+                        </div>
+
+                        <div class="liq-item">
+                            <div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -5</div>
+                            <div class="liq-overlay">🔒<br>Cifrado</div>
+                            <div class="preview-box-small liq-blurred" id="prev-liq-5"></div>
+                        </div>
+
+                        <div class="liq-item">
+                            <div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -6</div>
+                            <div class="liq-overlay">🔒<br>Cifrado</div>
+                            <div class="preview-box-small liq-blurred" id="prev-liq-6"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('slGroupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Estado de carga UI
+            document.getElementById('btnSubmit').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
+
+            // --- ENRUTADOR INTELIGENTE (ROUTER) ---
+            const tipoContrato = document.getElementById('contrato').value;
+            let webhookActivo = "";
+
+            if (tipoContrato === "Contrato General Agencia") {
+                webhookActivo = "https://hook.us2.make.com/mk1ru9kg4c1s4lqqmigujfd7xgh3lqbh"; 
+            } 
+            else if (tipoContrato === "Contrato General Agencia 2") {
+                webhookActivo = "https://hook.us2.make.com/xxxxxxxxxxxxxxxxxxxxxxxxx";
+            }
+            else if (tipoContrato === "Contrato General Agencia 3") {
+                webhookActivo = "https://hook.us2.make.com/xxxxxxxxxxxxxxxxxxxxxxxxx";
+            }
+            else {
+                webhookActivo = "https://hook.us2.make.com/mk1ru9kg4c1s4lqqmigujfd7xgh3lqbh";
+            }
+
+            // Payload exacto imitando a Tally
+            const payload = {
+                "fields": {
+                    "Nombre Completo": document.getElementById('nombre').value,
+                    "RUT (Con puntos y guión)": document.getElementById('rut').value,
+                    "Fecha de Nacimiento": document.getElementById('fechaNacimiento').value,
+                    "Nacionalidad": document.getElementById('nacionalidad').value,
+                    "Estado Civil": [document.getElementById('estadoCivil').value],
+                    "Género": [document.getElementById('genero').value],
+                    "Dirección Completa (Dirección, Comuna)\n": document.getElementById('direccion').value,
+                    "Región": [document.getElementById('region').value],
+                    "Email": document.getElementById('email').value,
+                    "Cargo deseado": document.getElementById('cargo').value,
+                    "Sueldo Líquido (SIN PUNTOS)": parseInt(document.getElementById('sueldo').value),
+                    "Antiguedad Laboral": document.getElementById('antiguedad').value,
+                    "AFP": [document.getElementById('afp').value],
+                    "Contrato": [document.getElementById('contrato').value]
+                },
+                "fieldsById": {
+                    "question_kypWXo": document.getElementById('nombre').value,
+                    "question_vApLVl": document.getElementById('rut').value,
+                    "question_YQgYgv": document.getElementById('fechaNacimiento').value,
+                    "question_K6gDAX": document.getElementById('nacionalidad').value,
+                    "question_DNYDYE": [document.getElementById('estadoCivil').value],
+                    "question_ly5W5X": [document.getElementById('genero').value],
+                    "question_48qveO": document.getElementById('direccion').value,
+                    "question_R0gYgQ": [document.getElementById('region').value],
+                    "question_oypdpN": document.getElementById('email').value,
+                    "question_OzKxWA": document.getElementById('cargo').value,
+                    "question_jyrqB1": parseInt(document.getElementById('sueldo').value),
+                    "question_a6XqeZ": document.getElementById('antiguedad').value,
+                    "question_OzgYgM": [document.getElementById('afp').value],
+                    "question_V0dYd6": [document.getElementById('contrato').value],
+                    "question_OALXNY": document.getElementById('direccion').value
+                }
+            };
+
+            // Enviar datos al Webhook
+            fetch(webhookActivo, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('successMsg').style.display = 'block';
+                
+                // --- INYECCIÓN DE VISTA PREVIA (CON OVERLAYS ANTI-DESCARGA) ---
+                
+                document.getElementById('preview-contrato').innerHTML = `
+                    <div class="anti-download-overlay"></div>
+                    <iframe class="pdf-frame" src="https://tuservidor.com/demo-contrato.pdf#toolbar=0&navpanes=0" frameborder="0"></iframe>
+                `;
+
+                document.getElementById('preview-afp').innerHTML = `
+                    <div class="anti-download-overlay"></div>
+                    <iframe class="pdf-frame" src="https://tuservidor.com/demo-afp.pdf#toolbar=0&navpanes=0" frameborder="0"></iframe>
+                `;
+
+                document.getElementById('prev-liq-1').innerHTML = `
+                    <div class="anti-download-overlay"></div>
+                    <iframe class="pdf-frame" src="https://tuservidor.com/demo-liq.pdf#toolbar=0&navpanes=0" frameborder="0"></iframe>
+                `;
+                
+                for(let i = 2; i <= 6; i++) {
+                    document.getElementById('prev-liq-' + i).innerHTML = `
+                        <iframe class="pdf-frame" src="https://tuservidor.com/demo-liq.pdf#toolbar=0&navpanes=0" frameborder="0"></iframe>
+                    `;
+                }
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Hubo un error de conexión.");
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('btnSubmit').style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
