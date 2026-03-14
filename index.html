@@ -52,45 +52,69 @@ h1, h2, h3, h4, button {
     font-family: 'Space Grotesk', sans-serif;
 }
 
-/* HEADER */
+/* =========================================
+   ✨ ANIMACIONES PREMIUM
+   ========================================= */
+@keyframes headerEntrance {
+    0% { opacity: 0; transform: translateY(-40px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   🚀 HEADER DE COSTADO A COSTADO
+   ========================================= */
 .header-container {
     width: 100%;
-    padding: clamp(10px, 3vw, 20px);
+    padding: 0; /* Sin espacios a los lados */
     display: flex;
     justify-content: center;
     position: sticky;
     top: 0;
     z-index: 100;
+    opacity: 0;
+    animation: headerEntrance 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .header {
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    padding: clamp(10px, 2vw, 15px) clamp(20px, 5vw, 40px);
-    border-radius: 100px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border-bottom: 1px solid var(--glass-border);
+    width: 100%; /* Ocupa el 100% de la pantalla */
+    max-width: 100%; /* Sin límites */
     display: flex;
     align-items: center;
-    justify-content: center; /* Centrado para el nuevo banner */
-    max-width: 1400px;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    overflow: hidden; /* Para que la imagen no se salga */
+}
+
+/* Las imágenes ahora ocupan el 100% del ancho (Costado a Costado) */
+.header-web {
+    display: block; 
     width: 100%;
-}
-
-.header img {
     height: auto;
-    max-height: clamp(45px, 6vw, 65px); /* Un poco más grande para el nuevo formato */
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0px 2px 6px rgba(0,0,0,0.6));
+    object-fit: cover; /* Para que encaje perfecto sin deformarse */
+    transition: transform 0.5s ease;
 }
 
-/* LAYOUT */
+.header-mobile {
+    display: none; 
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* LAYOUT GENERAL */
 .container {
     max-width: 1440px;
     width: 100%;
-    margin: 20px auto;
+    margin: 30px auto 20px auto;
     display: flex;
     flex-direction: row;
     gap: clamp(20px, 3vw, 40px);
@@ -101,19 +125,23 @@ h1, h2, h3, h4, button {
 .form-panel {
     flex: 1.2;
     min-width: 0;
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out 0.3s forwards;
 }
 
 .preview-panel {
     flex: 1;
     min-width: 0;
     position: sticky;
-    top: 110px;
+    top: 110px; /* Para que se quede pegado al hacer scroll */
     display: flex;
     flex-direction: column;
     gap: 25px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out 0.5s forwards;
 }
 
-/* CARDS */
+/* CARDS (TARJETAS) */
 .card {
     background: var(--glass-bg);
     backdrop-filter: blur(25px);
@@ -123,6 +151,11 @@ h1, h2, h3, h4, button {
     box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
     border: 1px solid var(--glass-border);
     width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2);
 }
 
 h2 {
@@ -143,7 +176,7 @@ h2 {
     font-weight: 300;
 }
 
-/* FORM */
+/* FORMULARIO */
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -161,6 +194,7 @@ label {
     font-size: 0.9rem;
     color: var(--text-muted);
     text-transform: capitalize;
+    transition: color 0.3s ease;
 }
 
 input, select {
@@ -176,21 +210,20 @@ input, select {
     backdrop-filter: blur(10px);
 }
 
-input::placeholder { color: rgba(255,255,255,0.3); }
+input::placeholder { color: rgba(255,255,255,0.3); transition: opacity 0.3s; }
 select option { background-color: #111827; color: #fff; }
 
 input:focus, select:focus {
     outline: none;
     border-color: var(--primary-glow);
     background-color: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 15px rgba(0, 136, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 136, 255, 0.3);
+    transform: translateY(-2px);
 }
+input:focus::placeholder { opacity: 0.5; }
 
-::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-    opacity: 0.7;
-    cursor: pointer;
-}
+::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.7; cursor: pointer; transition: opacity 0.3s ease; }
+::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 
 button {
     background: linear-gradient(135deg, var(--primary-glow), #0055ff);
@@ -202,7 +235,7 @@ button {
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     margin-top: 10px;
     letter-spacing: 1px;
     grid-column: span 2;
@@ -211,9 +244,14 @@ button {
 }
 
 button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(0, 136, 255, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 136, 255, 0.5);
     background: linear-gradient(135deg, #0099ff, #0044ff);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 15px rgba(0, 136, 255, 0.4);
 }
 
 button:disabled {
@@ -224,7 +262,7 @@ button:disabled {
     box-shadow: none;
 }
 
-/* ANIMACIÓN DE CARGA EN VENTANILLAS */
+/* ANIMACIÓN DE CARGA */
 .spinner {
     width: 40px;
     height: 40px;
@@ -235,15 +273,15 @@ button:disabled {
     margin-bottom: 15px;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 .loading-text {
     font-size: 0.9rem;
     color: var(--text-main);
     font-weight: 500;
+    animation: pulse 1.5s infinite;
 }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
 
 /* DOCUMENT PREVIEW */
 .preview-box {
@@ -260,18 +298,21 @@ button:disabled {
     border: 1px dashed rgba(255,255,255,0.2);
     width: 100%;
     flex-direction: column;
-    transition: border-color 0.3s;
+    transition: all 0.4s ease;
 }
 
 .preview-box.ready {
     border-color: rgba(0,230,118,0.5);
     border-style: solid;
+    animation: fadeUp 0.5s ease forwards;
 }
 
 .pdf-frame {
     width: 100%;
     height: 100%;
     border: none;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
 }
 
 /* LIQUIDACIONES */
@@ -301,7 +342,9 @@ button:disabled {
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
+    transition: transform 0.3s ease;
 }
+.liq-item:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.3); }
 
 .liq-title {
     background: rgba(255,255,255,0.1);
@@ -342,38 +385,102 @@ button:disabled {
     font-size: 1.1rem;
     text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
     letter-spacing: 1px;
+    backdrop-filter: blur(2px);
 }
 
 /* =========================================
-   🚀 MOBILE (DE COSTADO A COSTADO)
+   🟢 BOTÓN WHATSAPP FLOTANTE (NUEVO LOGO)
+   ========================================= */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    padding: 8px 20px 8px 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text-main);
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    font-family: 'Space Grotesk', sans-serif;
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out 1s forwards;
+}
+
+.whatsapp-float:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: #25D366;
+    box-shadow: 0 15px 40px rgba(37, 211, 102, 0.3);
+    background: rgba(15, 20, 30, 0.7);
+}
+
+.whatsapp-float:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.wa-logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.wa-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wa-text span {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.wa-text small {
+    font-size: 0.75rem;
+    color: #25D366;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+}
+
+/* =========================================
+   🚀 RESPONSIVE MOBILE
    ========================================= */
 @media (max-width: 992px) {
-    /* Quitamos el padding lateral para que llegue a los bordes */
+    /* Cambio de Banners Edge-to-Edge */
+    .header-web { display: none; }
+    .header-mobile { display: block; }
+    
     .container { 
         flex-direction: column; 
         gap: 0;
         padding: 0; 
-        margin-top: 10px;
+        margin-top: 0;
     }
     .preview-panel { 
         position: relative; 
         top: 0; 
     }
     
-    /* El Header se vuelve una barra de lado a lado */
-    .header-container {
-        padding: 0; 
-    }
+    /* El Header pierde bordes para pegar de costado a costado */
+    .header-container { padding: 0; }
     .header {
         border-radius: 0;
         border-left: none;
         border-right: none;
         border-top: none;
-        padding: 15px;
-        justify-content: center;
+        padding: 0; /* Cero padding para que la imagen toque los bordes */
     }
 
-    /* Las tarjetas pierden bordes redondeados y márgenes para encajar perfectas */
     .card {
         border-radius: 0; 
         border-left: none;
@@ -382,18 +489,19 @@ button:disabled {
         margin-bottom: 15px;
     }
     
-    .form-grid { 
-        grid-template-columns: 1fr; 
-        gap: 15px;
+    .form-grid { grid-template-columns: 1fr; gap: 15px; }
+    .full { grid-column: span 1; }
+    button { grid-column: span 1; }
+    
+    /* WhatsApp móvil ajustado */
+    .whatsapp-float {
+        bottom: 20px;
+        right: 15px;
+        padding: 6px 15px 6px 6px;
     }
-    .full { 
-        grid-column: span 1; 
-    }
-    button { 
-        grid-column: span 1; 
-    }
+    .wa-logo { width: 40px; height: 40px; }
+    .wa-text span { font-size: 0.9rem; }
 }
-
 </style>
 
 </head>
@@ -402,22 +510,20 @@ button:disabled {
 
 <div class="header-container">
 <header class="header">
-<img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/HEADER%20NYC%201-2.png" alt="NYC Preparadores Banner">
+    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/HEADER%20NYC%201-1.png" alt="NYC Preparadores Banner Web" class="header-web">
+    
+    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/HEADER%20NYC%201-2.png" alt="NYC Preparadores Banner Mobile" class="header-mobile">
 </header>
 </div>
 
 <div class="container">
 
 <div class="form-panel">
-
 <div class="card">
-
 <h2>Datos del Contribuyente</h2>
-
 <p class="subtitle">Ingrese los datos para generar documentos.</p>
 
 <form id="form" class="form-grid">
-
 <div class="full">
 <label>Nombre Completo</label>
 <input id="nombre" required placeholder="Ej: Juan Pérez González">
@@ -474,29 +580,22 @@ button:disabled {
 <button type="submit" id="btnSubmit">Procesar emisión</button>
 
 </form>
-
 </div>
-
 </div>
 
 <div class="preview-panel">
 
 <div class="card" style="padding-bottom: 25px;">
-
 <h2>Documentos Nativos</h2>
-
 <div class="preview-box" id="contrato">
 <span style="color:var(--muted); font-size:0.9rem;">Esperando contrato...</span>
 </div>
-
 <div class="preview-box" style="margin-top:20px" id="afp_box">
 <span style="color:var(--muted); font-size:0.9rem;">Esperando AFP...</span>
 </div>
-
 </div>
 
 <div class="card" style="padding-top: 30px; padding-bottom: 30px;">
-
 <h2 style="margin-bottom: 5px;">Clúster de Liquidaciones</h2>
 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Deslice para visualizar.</p>
 
@@ -520,16 +619,22 @@ button:disabled {
 </div>
 
 </div>
-
 </div>
 
 </div>
-
 </div>
+
+<a href="https://wa.me/56933686427" target="_blank" class="whatsapp-float">
+    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/LOGO%20WHATSAPP.png" alt="WhatsApp" class="wa-logo">
+    
+    <div class="wa-text">
+        <span>¿Asistencia?</span>
+        <small>● Ejecutivo en línea</small>
+    </div>
+</a>
 
 <script>
-
-// ─── WEBHOOK DE MAKE (¡Asegúrate que sea el de Respuesta Nativa!) ────────────
+// ─── WEBHOOK DE MAKE ─────────────────────────────────────────────────────────
 const WEBHOOK = "https://hook.us2.make.com/mk1ru9kg4c1s4lqqmigujfd7xgh3lqbh";
 
 // ─── SUBMIT ──────────────────────────────────────────────────────────────────
@@ -539,7 +644,6 @@ document.getElementById("form").addEventListener("submit", async function(e) {
     const btn = document.getElementById("btnSubmit");
     btn.disabled = true;
 
-    // Animación de carga en las ventanillas
     const loaderHTML = `
         <div class="spinner"></div>
         <span class="loading-text">Generando...</span>
@@ -548,7 +652,6 @@ document.getElementById("form").addEventListener("submit", async function(e) {
     document.getElementById("afp_box").innerHTML   = loaderHTML;
     document.getElementById("liq1").innerHTML      = loaderHTML;
 
-    // Payload plano
     const payload = {
         "nombre":      document.getElementById('nombre').value,
         "rut":         document.getElementById('rut').value,
@@ -561,14 +664,12 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         "afp":         document.getElementById('afp').value
     };
 
-    // Contador de segundos en el botón
     let segundos = 0;
     const timer = setInterval(() => {
         segundos++;
         btn.innerHTML = `Generando documentos... (${segundos}s)`;
     }, 1000);
 
-    // AbortController con timeout de 3 minutos
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 180000);
 
@@ -585,24 +686,20 @@ document.getElementById("form").addEventListener("submit", async function(e) {
 
         const data = await res.json();
 
-        // Validamos que Make haya respondido con los enlaces
-        if (data.contrato) {
+        if (data.status === "ready" && data.contrato) {
             btn.innerHTML = "✅ ¡Documentos listos!";
             btn.style.background = "linear-gradient(135deg, #00c853, #00e676)";
 
-            document.getElementById("contrato").innerHTML =
-                `<iframe class="pdf-frame" src="${data.contrato}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
+            document.getElementById("contrato").innerHTML = `<iframe class="pdf-frame" src="${data.contrato}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
             document.getElementById("contrato").classList.add("ready");
 
-            document.getElementById("afp_box").innerHTML =
-                `<iframe class="pdf-frame" src="${data.afp}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
+            document.getElementById("afp_box").innerHTML = `<iframe class="pdf-frame" src="${data.afp}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
             document.getElementById("afp_box").classList.add("ready");
 
-            document.getElementById("liq1").innerHTML =
-                `<iframe class="pdf-frame" src="${data.liq}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
+            document.getElementById("liq1").innerHTML = `<iframe class="pdf-frame" src="${data.liq}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
 
         } else {
-            throw new Error("Respuesta inesperada del servidor.");
+            throw new Error("Respuesta inesperada: " + JSON.stringify(data));
         }
 
     } catch (err) {
@@ -611,8 +708,8 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         console.error(err);
 
         const msg = err.name === 'AbortError'
-            ? "Tiempo de espera agotado. Los documentos pueden estar siendo generados — revisa tu correo."
-            : "Error al conectar con el servidor.";
+            ? "Tiempo de espera agotado (3 min). Los documentos pueden estar siendo generados — revisa tu correo."
+            : "Error al conectar con el servidor. Revisa la consola.";
         alert(msg);
 
         btn.disabled = false;
@@ -623,9 +720,7 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         document.getElementById("liq1").innerHTML     = errorHTML;
     }
 });
-
 </script>
 
 </body>
-
 </html>
