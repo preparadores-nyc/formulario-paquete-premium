@@ -83,7 +83,7 @@ h1, h2, h3, h4, button {
 .hero-section {
     position: relative;
     width: 100%;
-    height: 100vh; /* Ocupa el 100% de la pantalla */
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -97,13 +97,12 @@ h1, h2, h3, h4, button {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Encaja perfecto de costado a costado */
+    object-fit: cover;
     object-position: center top;
     z-index: 1;
     animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-/* Control de Banners por dispositivo */
 .banner-web { display: block; }
 .banner-mobile { display: none; }
 
@@ -467,11 +466,9 @@ button:disabled {
    🚀 CELULARES: Edge-to-Edge y Ajuste Perfecto
    ========================================= */
 @media (max-width: 992px) {
-    /* Cambio de Banner para Móvil */
     .banner-web { display: none; }
     .banner-mobile { display: block; }
     
-    /* El contenedor pierde padding para tocar los bordes */
     .container { 
         flex-direction: column; 
         gap: 0;
@@ -481,16 +478,9 @@ button:disabled {
         max-width: 100%;
     }
     
-    .form-panel, .preview-panel {
-        width: 100%;
-    }
+    .form-panel, .preview-panel { width: 100%; }
+    .preview-panel { position: relative; top: 0; }
     
-    .preview-panel { 
-        position: relative; 
-        top: 0; 
-    }
-    
-    /* Las tarjetas pierden curvas laterales y márgenes */
     .card {
         border-radius: 0 !important; 
         border-left: none !important;
@@ -500,12 +490,10 @@ button:disabled {
         width: 100%;
     }
     
-    /* Todo de Costado a Costado */
     .form-grid { grid-template-columns: 1fr; gap: 15px; }
     .full { grid-column: span 1; }
     button { grid-column: span 1; }
     
-    /* WhatsApp en celular */
     .whatsapp-float {
         bottom: 20px;
         right: 15px;
@@ -514,7 +502,6 @@ button:disabled {
     .wa-logo { width: 40px; height: 40px; }
     .wa-text span { font-size: 0.9rem; }
 }
-
 </style>
 </head>
 
@@ -522,7 +509,6 @@ button:disabled {
 
 <div class="hero-section">
     <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/HEADER%20NYC%201-1.png" alt="NYC Preparadores Web" class="hero-image banner-web">
-    
     <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/HEADER%20NYC%201-2.png" alt="NYC Preparadores Mobile" class="hero-image banner-mobile">
 
     <div class="scroll-arrow" onclick="document.getElementById('seccion-formulario').scrollIntoView({behavior: 'smooth'})">
@@ -593,12 +579,19 @@ button:disabled {
 
 <div class="card" style="padding-bottom: 25px;">
 <h2>Documentos Nativos</h2>
+
 <div class="preview-box" id="contrato">
 <span style="color:var(--muted); font-size:0.9rem;">Esperando contrato...</span>
 </div>
+
 <div class="preview-box" style="margin-top:20px" id="afp_box">
 <span style="color:var(--muted); font-size:0.9rem;">Esperando AFP...</span>
 </div>
+
+<div class="preview-box" style="margin-top:20px" id="dicom_box">
+<span style="color:var(--muted); font-size:0.9rem;">Esperando DICOM...</span>
+</div>
+
 </div>
 
 <div class="card" style="padding-top: 30px; padding-bottom: 30px;">
@@ -606,24 +599,20 @@ button:disabled {
 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Deslice para visualizar.</p>
 
 <div class="liquidaciones-grid">
-
 <div class="liq-item">
 <div class="liq-title">Mes actual</div>
 <div class="preview-small" id="liq1">Esperando...</div>
 </div>
-
 <div class="liq-item">
 <div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -2</div>
 <div class="liq-overlay">🔒<br>Cifrado</div>
 <div class="preview-small liq-blurred" id="liq2"></div>
 </div>
-
 <div class="liq-item">
 <div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -3</div>
 <div class="liq-overlay">🔒<br>Cifrado</div>
 <div class="preview-small liq-blurred" id="liq3"></div>
 </div>
-
 </div>
 </div>
 
@@ -655,9 +644,9 @@ document.getElementById("form").addEventListener("submit", async function(e) {
     `;
     document.getElementById("contrato").innerHTML = loaderHTML;
     document.getElementById("afp_box").innerHTML   = loaderHTML;
+    document.getElementById("dicom_box").innerHTML = loaderHTML; // Animación para DICOM
     document.getElementById("liq1").innerHTML      = loaderHTML;
 
-    // SCROLL AUTOMÁTICO HACIA LOS DOCUMENTOS AL HACER CLIC EN ENVIAR
     if(window.innerWidth <= 992) {
         document.getElementById("contrato").scrollIntoView({behavior: "smooth", block: "center"});
     }
@@ -706,7 +695,11 @@ document.getElementById("form").addEventListener("submit", async function(e) {
             document.getElementById("afp_box").innerHTML = `<iframe class="pdf-frame" src="${data.afp}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
             document.getElementById("afp_box").classList.add("ready");
 
-            document.getElementById("liq1").innerHTML = `<iframe class="pdf-frame" src="${data.liq}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
+            // INCORPORACIÓN DEL DICOM
+            document.getElementById("dicom_box").innerHTML = `<iframe class="pdf-frame" src="${data.dicom}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
+            document.getElementById("dicom_box").classList.add("ready");
+
+            document.getElementById("liq1").innerHTML = `<iframe class="pdf-frame" src="${data.liq1}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
 
         } else {
             throw new Error("Respuesta inesperada del servidor.");
@@ -727,6 +720,7 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         const errorHTML = '<span style="color:#ff5252; font-size:0.85rem;">Error — intenta nuevamente</span>';
         document.getElementById("contrato").innerHTML = errorHTML;
         document.getElementById("afp_box").innerHTML  = errorHTML;
+        document.getElementById("dicom_box").innerHTML = errorHTML;
         document.getElementById("liq1").innerHTML     = errorHTML;
     }
 });
