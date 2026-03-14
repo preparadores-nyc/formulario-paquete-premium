@@ -28,6 +28,7 @@
 body, html {
     width: 100vw; max-width: 100%; overflow-x: hidden; background-color: #050505;
     font-family: 'Outfit', sans-serif; color: var(--text-main); line-height: 1.6;
+    scroll-behavior: smooth; /* Movimiento suave al bajar */
 }
 
 body {
@@ -37,63 +38,110 @@ body {
 
 h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 
-/* HEADER */
-.header-container { width: 100%; padding: clamp(10px, 3vw, 20px); display: flex; justify-content: center; position: sticky; top: 0; z-index: 100; }
-.header { 
-    background: var(--glass-bg); 
-    backdrop-filter: blur(20px); 
-    -webkit-backdrop-filter: blur(20px); 
-    border: 1px solid var(--glass-border); 
-    padding: clamp(15px, 2vw, 20px) clamp(20px, 5vw, 40px); 
-    border-radius: 100px; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
-    display: flex; 
-    flex-direction: column; /* Cambiado a columna para apilar logo y texto */
-    align-items: center; 
-    justify-content: center; 
-    gap: 5px; 
-    max-width: 1400px; 
-    width: 100%; 
+/* ─── EFECTOS ELEGANTES DE APARICIÓN (SCROLL REVEAL) ─── */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.9s cubic-bezier(0.25, 1, 0.5, 1);
 }
-.header img { 
-    max-height: clamp(60px, 10vw, 120px); /* Aumentado para que el banner luzca */
-    width: auto; 
-    max-width: 100%;
-    object-fit: contain; 
-    filter: drop-shadow(0px 4px 15px rgba(0,0,0,0.4)); /* Sombra un poco más pronunciada para 3D */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
 }
-.header h3 { 
-    font-weight: 500; 
-    font-size: clamp(0.85rem, 1.5vw, 1rem); 
-    letter-spacing: 2px; 
-    background: linear-gradient(90deg, var(--text-muted), var(--secondary-glow)); 
-    -webkit-background-clip: text; 
-    -webkit-text-fill-color: transparent; 
-    text-transform: uppercase; 
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.3s; }
+.delay-3 { transition-delay: 0.5s; }
+
+/* ─── HERO SECTION (PANTALLA DE BIENVENIDA) ─── */
+.hero-section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+    z-index: 10;
+}
+
+.hero-image {
+    width: 95vw; /* Casi de lado a lado */
+    max-width: 1800px; /* Súper amplio */
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0px 20px 40px rgba(0, 136, 255, 0.25)); /* Resplandor 3D */
+    animation: float 6s ease-in-out infinite, fadeIn 2s ease-out forwards;
+}
+
+.hero-subtitle {
+    margin-top: -2vh;
+    font-weight: 500;
+    font-size: clamp(1rem, 2.5vw, 1.8rem);
+    letter-spacing: 6px;
+    background: linear-gradient(90deg, #ffffff, var(--secondary-glow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    text-align: center;
+    animation: fadeInBottom 2s ease-out 0.5s forwards;
+    opacity: 0;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 5vh;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: bounce 2s infinite, fadeIn 2s ease-out 1.5s forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeInBottom { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
 }
 
 /* LAYOUT */
 .container { max-width: 1440px; width: 100%; margin: 20px auto; display: flex; flex-direction: row; gap: clamp(20px, 3vw, 40px); padding: 0 clamp(15px, 4vw, 40px); align-items: flex-start; }
 .form-panel { flex: 1.2; min-width: 0; }
-.preview-panel { flex: 1; min-width: 0; position: sticky; top: 180px; /* Ajustado por el header más grande */ display: flex; flex-direction: column; gap: 25px; }
+.preview-panel { flex: 1; min-width: 0; position: sticky; top: 40px; display: flex; flex-direction: column; gap: 25px; }
 
 /* CARDS */
-.card { background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-radius: 24px; padding: clamp(25px, 5vw, 40px); box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1); border: 1px solid var(--glass-border); width: 100%; }
+.card { background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-radius: 24px; padding: clamp(25px, 5vw, 40px); box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1); border: 1px solid var(--glass-border); width: 100%; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.card:hover { box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2); }
 h2 { margin-bottom: 20px; font-size: clamp(1.4rem, 4vw, 1.8rem); font-weight: 700; background: linear-gradient(135deg, #fff, var(--secondary-glow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: capitalize; }
 .subtitle { color: var(--text-muted); font-size: clamp(0.85rem, 2vw, 0.95rem); margin-top: -15px; margin-bottom: 30px; font-weight: 300; }
 
 /* FORM */
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(15px, 3vw, 25px); }
 .full { grid-column: span 2; }
-label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: var(--text-muted); text-transform: capitalize; }
+label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: var(--text-muted); text-transform: capitalize; transition: color 0.3s; }
 input, select { width: 100%; max-width: 100%; padding: clamp(12px, 2vw, 15px) 15px; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; font-size: 1rem; background-color: var(--input-bg); color: var(--text-main); transition: all 0.3s ease; backdrop-filter: blur(10px); }
 input::placeholder { color: rgba(255,255,255,0.3); }
 select option { background-color: #111827; color: #fff; }
-input:focus, select:focus { outline: none; border-color: var(--primary-glow); background-color: rgba(255, 255, 255, 0.15); box-shadow: 0 0 15px rgba(0, 136, 255, 0.2); }
+input:focus, select:focus { outline: none; border-color: var(--primary-glow); background-color: rgba(255, 255, 255, 0.15); box-shadow: 0 0 15px rgba(0, 136, 255, 0.2); transform: translateY(-2px); }
+input:focus + label, select:focus + label { color: var(--primary-glow); }
 ::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.7; cursor: pointer; }
 
-button { background: linear-gradient(135deg, var(--primary-glow), #0055ff); color: white; border: none; padding: 16px 24px; width: 100%; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; margin-top: 10px; letter-spacing: 1px; grid-column: span 2; box-shadow: 0 8px 20px rgba(0, 136, 255, 0.3); text-transform: capitalize; }
-button:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(0, 136, 255, 0.5); background: linear-gradient(135deg, #0099ff, #0044ff); }
+button { background: linear-gradient(135deg, var(--primary-glow), #0055ff); color: white; border: none; padding: 16px 24px; width: 100%; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); margin-top: 10px; letter-spacing: 1px; grid-column: span 2; box-shadow: 0 8px 20px rgba(0, 136, 255, 0.3); text-transform: capitalize; position: relative; overflow: hidden; }
+button:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0, 136, 255, 0.5); background: linear-gradient(135deg, #0099ff, #0044ff); }
+button:active { transform: translateY(0); }
 button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform: none; box-shadow: none; }
 
 /* ANIMACIÓN DE CARGA */
@@ -101,39 +149,14 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 @keyframes spin { to { transform: rotate(360deg); } }
 .loading-text { font-size: 0.9rem; color: var(--text-main); font-weight: 500; }
 
-/* VISTAS PREVIAS Y SEGURIDAD ANTI-DESCARGA */
+/* VISTAS PREVIAS */
 .preview-box { background: rgba(0,0,0,0.25); border-radius: 16px; height: clamp(250px, 40vw, 300px); display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-align: center; position: relative; overflow: hidden; border: 1px dashed rgba(255,255,255,0.2); width: 100%; flex-direction: column; transition: border-color 0.3s; }
 .preview-box.ready { border-color: rgba(0,230,118,0.5); border-style: solid; }
 
-/* CAPAS DE PROTECCIÓN Y BLUR SUAVIZADO */
-.pdf-wrapper { position: relative; width: 100%; height: 100%; overflow: hidden; }
-.pdf-frame { width: 100%; height: 100%; border: none; pointer-events: none; /* Bloquea clics y scroll en el PDF */ }
-
+.pdf-wrapper { position: relative; width: 100%; height: 100%; overflow: hidden; animation: fadeIn 1s ease-out; }
+.pdf-frame { width: 100%; height: 100%; border: none; pointer-events: none; }
 .anti-download-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; background: transparent; cursor: default; }
-
-/* Blur más bajo (35%) y con gradiente suave (mask-image) */
-.blur-bottom { 
-    position: absolute; 
-    bottom: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 35%; 
-    backdrop-filter: blur(5px); 
-    -webkit-backdrop-filter: blur(5px); 
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 35%);
-    mask-image: linear-gradient(to bottom, transparent 0%, black 35%);
-    background: linear-gradient(to top, rgba(10,15,25,0.95) 0%, rgba(10,15,25,0.3) 70%, transparent 100%); 
-    z-index: 11; 
-    display: flex; 
-    align-items: flex-end; 
-    justify-content: center; 
-    padding-bottom: 15px; 
-    color: rgba(255,255,255,0.8); 
-    font-weight: 600; 
-    font-size: 0.85rem; 
-    letter-spacing: 1px; 
-    pointer-events: none;
-}
+.blur-bottom { position: absolute; bottom: 0; left: 0; width: 100%; height: 35%; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 35%); mask-image: linear-gradient(to bottom, transparent 0%, black 35%); background: linear-gradient(to top, rgba(10,15,25,0.95) 0%, rgba(10,15,25,0.3) 70%, transparent 100%); z-index: 11; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 15px; color: rgba(255,255,255,0.8); font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; pointer-events: none; }
 
 /* LIQUIDACIONES */
 .liquidaciones-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; width: 100%; scrollbar-width: thin; scrollbar-color: var(--primary-glow) rgba(255,255,255,0.1); -webkit-overflow-scrolling: touch; }
@@ -141,11 +164,11 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 .liquidaciones-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
 .liquidaciones-grid::-webkit-scrollbar-thumb { background-color: var(--primary-glow); border-radius: 4px; }
 
-.liq-item { min-width: 180px; height: 240px; background: rgba(0,0,0,0.3); position: relative; border-radius: 12px; border: 1px solid var(--glass-border); overflow: hidden; flex-shrink: 0; display: flex; flex-direction: column; }
+.liq-item { min-width: 180px; height: 240px; background: rgba(0,0,0,0.3); position: relative; border-radius: 12px; border: 1px solid var(--glass-border); overflow: hidden; flex-shrink: 0; display: flex; flex-direction: column; transition: transform 0.3s; }
+.liq-item:hover { transform: translateY(-5px); border-color: var(--primary-glow); }
 .liq-title { background: rgba(255,255,255,0.1); color: var(--text-main); font-size: 0.8rem; font-weight: 500; padding: 8px; text-align: center; z-index: 5; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .preview-small { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; position: relative; overflow: hidden; }
 
-/* Blur total para liquidaciones 2 al 6 */
 .liq-blurred { filter: blur(6px); user-select: none; pointer-events: none; }
 .liq-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 600; color: var(--text-main); z-index: 20; font-size: 1.1rem; text-shadow: 0px 2px 10px rgba(0,0,0,0.8); letter-spacing: 1px; pointer-events: none;}
 
@@ -156,26 +179,29 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
     .form-grid { grid-template-columns: 1fr; gap: 15px; }
     .full { grid-column: span 1; }
     button { grid-column: span 1; }
-    .header { flex-direction: column; justify-content: center; border-radius: 20px; padding: 15px; }
-    .header h3 { text-align: center; }
+    .hero-image { width: 100vw; padding: 10px; }
 }
-
 </style>
 </head>
 
 <body>
 
-<div class="header-container">
-<header class="header">
-<img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/preparadores%20nyc%20header.png" alt="NYC Preparadores">
-<h3>Emisión y Resguardo</h3>
-</header>
-</div>
+<section class="hero-section" id="inicio">
+    <img class="hero-image" src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/Documentaci%C3%B3n%20Express.png">
+    <h3 class="hero-subtitle">Emisión y Resguardo</h3>
+    
+    <div class="scroll-indicator" onclick="document.getElementById('formulario-seccion').scrollIntoView({behavior: 'smooth'})">
+        Desliza o haz clic
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M19 12l-7 7-7-7"/>
+        </svg>
+    </div>
+</section>
 
-<div class="container">
+<div class="container" id="formulario-seccion">
 
 <div class="form-panel">
-<div class="card">
+<div class="card reveal delay-1">
 <h2>Datos del Contribuyente</h2>
 <p class="subtitle">Ingrese los datos para generar documentos.</p>
 
@@ -230,7 +256,7 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 </div>
 
 <div class="preview-panel">
-<div class="card" style="padding-bottom: 25px;">
+<div class="card reveal delay-2" style="padding-bottom: 25px;">
 <h2>Documentos Nativos</h2>
 
 <div class="preview-box" id="contrato">
@@ -246,7 +272,7 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 </div>
 </div>
 
-<div class="card" style="padding-top: 30px; padding-bottom: 30px;">
+<div class="card reveal delay-3" style="padding-top: 30px; padding-bottom: 30px;">
 <h2 style="margin-bottom: 5px;">Clúster de Liquidaciones</h2>
 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Deslice para visualizar los folios.</p>
 
@@ -287,10 +313,22 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 </div>
 
 <script>
+// ─── LÓGICA DE ANIMACIÓN AL SCROLLEAR (INTERSECTION OBSERVER) ───
+document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1 }); // Se activa cuando el 10% del elemento es visible
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+});
+
 // ─── WEBHOOK DE MAKE ─────────────────────────────────────────────────────────
 const WEBHOOK = "https://hook.us2.make.com/mk1ru9kg4c1s4lqqmigujfd7xgh3lqbh";
 
-// Generador de Vista Previa Principal (Para Contrato, AFP, DICOM y Liq 1)
 const buildSecurePreview = (url) => `
     <div class="pdf-wrapper">
         <div class="anti-download-layer"></div>
@@ -299,7 +337,6 @@ const buildSecurePreview = (url) => `
     </div>
 `;
 
-// Generador de Vista Previa Bloqueada (Para Liq 2 al 6)
 const buildLockedPreview = (url) => `
     <div class="pdf-wrapper">
         <div class="anti-download-layer"></div>
@@ -307,14 +344,12 @@ const buildLockedPreview = (url) => `
     </div>
 `;
 
-// ─── SUBMIT ──────────────────────────────────────────────────────────────────
 document.getElementById("form").addEventListener("submit", async function(e) {
     e.preventDefault();
 
     const btn = document.getElementById("btnSubmit");
     btn.disabled = true;
 
-    // Iniciar Animación de Carga
     const loaderHTML = `
         <div class="spinner"></div>
         <span class="loading-text">Generando y cifrando...</span>
@@ -356,7 +391,6 @@ document.getElementById("form").addEventListener("submit", async function(e) {
             btn.innerHTML = "✅ ¡Documentos listos!";
             btn.style.background = "linear-gradient(135deg, #00c853, #00e676)";
 
-            // Incrustar iframes principales (Visibles con Blur Suave abajo)
             document.getElementById("contrato").innerHTML = buildSecurePreview(data.contrato);
             document.getElementById("contrato").classList.add("ready");
 
@@ -368,7 +402,6 @@ document.getElementById("form").addEventListener("submit", async function(e) {
 
             document.getElementById("liq1").innerHTML = buildSecurePreview(data.liq1);
 
-            // Inyectar iframes de Liquidaciones 2 al 6 (Completamente borrosas detrás del candado)
             const lockedIframes = [data.liq2, data.liq3, data.liq4, data.liq5, data.liq6];
             for(let i=0; i<5; i++) {
                 if(lockedIframes[i]) {
@@ -393,7 +426,6 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         document.getElementById("liq1").innerHTML      = errorHTML;
     }
 });
-
 </script>
 
 </body>
