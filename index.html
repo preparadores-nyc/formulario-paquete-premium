@@ -31,11 +31,10 @@
         body, html {
             width: 100%;
             overflow-x: hidden;
-            background-color: #050505; /* Fallback */
+            background-color: #050505;
         }
 
         body {
-            /* Imagen de fondo solicitada */
             background-image: url('https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2014%20mar%202026%2c%2005_53_40%20a.m..png');
             background-size: cover;
             background-position: center;
@@ -51,7 +50,7 @@
             font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* Cabecera Flotante (Pill Header) */
+        /* Cabecera Flotante */
         .header-container {
             width: 100%;
             padding: 20px;
@@ -94,7 +93,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Contenedor Principal Amplio */
+        /* Contenedor Principal */
         .container {
             max-width: 1440px;
             width: 100%;
@@ -104,14 +103,6 @@
             gap: 30px;
             padding: 0 40px;
             align-items: start;
-        }
-
-        @media (max-width: 1024px) {
-            .container { 
-                grid-template-columns: 1fr; 
-                padding: 0 20px;
-            }
-            .header { border-radius: 20px; padding: 15px; flex-direction: column; gap: 10px; text-align: center;}
         }
 
         /* Tarjetas de Cristal */
@@ -153,7 +144,7 @@
             font-weight: 300;
         }
 
-        /* Formularios Exclusivos */
+        /* Formularios */
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -162,11 +153,6 @@
 
         .form-group.full-width {
             grid-column: span 2;
-        }
-
-        @media (max-width: 768px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .form-group.full-width { grid-column: span 1; }
         }
 
         label {
@@ -195,7 +181,6 @@
             color: rgba(255,255,255,0.3);
         }
 
-        /* Estilo opciones select oscuras para legibilidad */
         select option {
             background-color: #111827;
             color: #fff;
@@ -208,7 +193,13 @@
             box-shadow: 0 0 20px rgba(0, 136, 255, 0.2);
         }
 
-        /* Botón de Acción Radical */
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        /* Botón */
         button {
             background: linear-gradient(135deg, var(--primary-glow), #0055ff);
             color: white;
@@ -233,7 +224,7 @@
             background: linear-gradient(135deg, #0099ff, #0044ff);
         }
 
-        /* Loading Spinner */
+        /* Spinner */
         .loader {
             display: none;
             border: 3px solid rgba(255,255,255,0.1);
@@ -248,7 +239,7 @@
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* Cajas de Vista Previa Translúcidas */
+        /* Vistas Previas */
         .preview-box {
             background: rgba(0,0,0,0.2);
             border-radius: 16px;
@@ -276,7 +267,7 @@
             z-index: 10;
         }
 
-        /* Carrusel de Liquidaciones */
+        /* Carrusel */
         .liquidaciones-wrapper {
             margin-top: 5px;
             width: 100%;
@@ -287,7 +278,6 @@
             margin-bottom: 5px;
             font-size: 1.2rem;
             font-weight: 700;
-            font-family: 'Space Grotesk', sans-serif;
         }
 
         .liquidaciones-grid {
@@ -298,6 +288,7 @@
             width: 100%;
             scrollbar-width: thin;
             scrollbar-color: var(--primary-glow) rgba(255,255,255,0.1);
+            -webkit-overflow-scrolling: touch; /* Suavidad en celulares */
         }
 
         .liquidaciones-grid::-webkit-scrollbar { height: 8px; }
@@ -340,11 +331,7 @@
             position: relative;
         }
 
-        .liq-blurred {
-            filter: blur(8px);
-            user-select: none;
-            pointer-events: none;
-        }
+        .liq-blurred { filter: blur(8px); user-select: none; pointer-events: none; }
 
         .liq-overlay {
             position: absolute;
@@ -360,29 +347,88 @@
             font-size: 1.1rem;
             text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
             letter-spacing: 1px;
-            font-family: 'Space Grotesk', sans-serif;
         }
 
         .success-msg { 
-            color: var(--success); 
-            font-weight: 500; 
-            text-align: center; 
-            margin-top: 15px; 
-            padding: 12px;
+            color: var(--success); font-weight: 500; text-align: center; 
+            margin-top: 15px; padding: 12px;
             background: rgba(0, 230, 118, 0.1);
             border: 1px solid rgba(0, 230, 118, 0.3);
-            border-radius: 8px;
-            display: none;
-            grid-column: span 2;
+            border-radius: 8px; display: none; grid-column: span 2;
         }
 
-        /* Color de los iconos del calendario (Datepicker) */
-        ::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-            opacity: 0.7;
-            cursor: pointer;
+        /* =========================================
+           🚀 RESPONSIVE DESIGN (MÓVILES Y TABLETS)
+           ========================================= */
+        @media (max-width: 1024px) {
+            .container { 
+                grid-template-columns: 1fr; /* Pasa a 1 sola columna */
+                padding: 0 20px;
+                gap: 20px;
+            }
+            .preview-section {
+                position: relative; /* Desactiva el sticky para que no estorbe */
+                top: 0;
+            }
+            .header-container {
+                padding: 10px;
+            }
+            .header { 
+                padding: 12px 20px;
+            }
         }
 
+        @media (max-width: 768px) {
+            .form-grid { 
+                grid-template-columns: 1fr; /* Inputs uno debajo del otro */
+                gap: 15px;
+            }
+            .form-group.full-width { 
+                grid-column: span 1; 
+            }
+            button {
+                grid-column: span 1;
+                font-size: 1rem;
+                padding: 15px;
+            }
+            .loader, .success-msg {
+                grid-column: span 1;
+            }
+            .card {
+                padding: 25px 20px; /* Bordes más pegados a los lados */
+                border-radius: 16px;
+            }
+            .header {
+                flex-direction: column; /* Logo arriba, titulo abajo */
+                gap: 5px;
+                border-radius: 16px;
+                text-align: center;
+            }
+            .header img {
+                max-height: 40px;
+            }
+            .header h3 {
+                font-size: 1rem;
+            }
+            h2 {
+                font-size: 1.4rem;
+                margin-bottom: 15px;
+            }
+            .subtitle {
+                font-size: 0.85rem;
+                margin-bottom: 20px;
+            }
+            input, select {
+                padding: 12px 15px; /* Más cómodo para los dedos */
+            }
+            .preview-box {
+                height: 250px; /* Cajas más pequeñas en celular */
+            }
+            .liq-item {
+                min-width: 160px;
+                height: 220px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -591,15 +637,15 @@
         document.getElementById('slGroupForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Estado de carga UI
             document.getElementById('btnSubmit').style.display = 'none';
             document.getElementById('loader').style.display = 'block';
 
-            // --- ENRUTADOR INTELIGENTE (ROUTER) ---
+            // --- ENRUTADOR INTELIGENTE ---
             const tipoContrato = document.getElementById('contrato').value;
             let webhookActivo = "";
 
             if (tipoContrato === "Contrato General Agencia") {
+                // TU WEBHOOK OFICIAL AQUI:
                 webhookActivo = "https://hook.us2.make.com/mk1ru9kg4c1s4lqqmigujfd7xgh3lqbh"; 
             } 
             else if (tipoContrato === "Contrato General Agencia 2") {
@@ -612,7 +658,6 @@
                 webhookActivo = "https://hook.us2.make.com/mk1ru9kg4c1s4lqqmigujfd7xgh3lqbh";
             }
 
-            // Payload exacto imitando a Tally
             const payload = {
                 "fields": {
                     "Nombre Completo": document.getElementById('nombre').value,
@@ -649,7 +694,6 @@
                 }
             };
 
-            // Enviar datos al Webhook
             fetch(webhookActivo, {
                 method: 'POST',
                 headers: {
@@ -660,8 +704,6 @@
             .then(response => {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('successMsg').style.display = 'block';
-                
-                // --- INYECCIÓN DE VISTA PREVIA (CON OVERLAYS ANTI-DESCARGA) ---
                 
                 document.getElementById('preview-contrato').innerHTML = `
                     <div class="anti-download-overlay"></div>
