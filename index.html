@@ -29,10 +29,7 @@
     padding: 0;
 }
 
-/* Transición suave para toda la página */
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body, html {
     width: 100%;
@@ -53,33 +50,16 @@ body {
     padding-bottom: 50px;
 }
 
-h1, h2, h3, h4, button {
-    font-family: 'Space Grotesk', sans-serif;
-}
+h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 
-/* =========================================
-   ✨ ANIMACIONES PREMIUM
-   ========================================= */
-@keyframes fadeUp {
-    0% { opacity: 0; transform: translateY(40px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
+/* ANIMACIONES */
+@keyframes fadeUp { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); } 40% { transform: translateY(-15px) translateX(-50%); } 60% { transform: translateY(-7px) translateX(-50%); } }
+@keyframes pulseGlow { 0% { box-shadow: 0 0 10px rgba(0, 136, 255, 0.3); } 50% { box-shadow: 0 0 25px rgba(0, 136, 255, 0.6); } 100% { box-shadow: 0 0 10px rgba(0, 136, 255, 0.3); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
 
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-    40% { transform: translateY(-15px) translateX(-50%); }
-    60% { transform: translateY(-7px) translateX(-50%); }
-}
-
-@keyframes pulseGlow {
-    0% { box-shadow: 0 0 10px rgba(0, 136, 255, 0.3); }
-    50% { box-shadow: 0 0 25px rgba(0, 136, 255, 0.6); }
-    100% { box-shadow: 0 0 10px rgba(0, 136, 255, 0.3); }
-}
-
-/* =========================================
-   🚀 PANTALLA DE BIENVENIDA (HERO SECTION)
-   ========================================= */
+/* HERO SECTION (BIENVENIDA) */
 .hero-section {
     position: relative;
     width: 100%;
@@ -106,7 +86,6 @@ h1, h2, h3, h4, button {
 .banner-web { display: block; }
 .banner-mobile { display: none; }
 
-/* Flecha para Bajar */
 .scroll-arrow {
     position: absolute;
     bottom: 40px;
@@ -134,20 +113,10 @@ h1, h2, h3, h4, button {
     transform: translateX(-50%) scale(1.1);
 }
 
-.scroll-arrow svg {
-    width: 30px;
-    height: 30px;
-    stroke: #fff;
-    transition: transform 0.3s;
-}
+.scroll-arrow svg { width: 30px; height: 30px; stroke: #fff; transition: transform 0.3s; }
+.scroll-arrow:hover svg { transform: translateY(3px); }
 
-.scroll-arrow:hover svg {
-    transform: translateY(3px);
-}
-
-/* =========================================
-   LAYOUT Y FORMULARIO
-   ========================================= */
+/* LAYOUT Y FORMULARIO */
 .container {
     max-width: 1440px;
     width: 100%;
@@ -159,11 +128,7 @@ h1, h2, h3, h4, button {
     align-items: flex-start;
 }
 
-.form-panel {
-    flex: 1.2;
-    min-width: 0;
-}
-
+.form-panel { flex: 1.2; min-width: 0; }
 .preview-panel {
     flex: 1;
     min-width: 0;
@@ -174,7 +139,6 @@ h1, h2, h3, h4, button {
     gap: 25px;
 }
 
-/* CARDS */
 .card {
     background: var(--glass-bg);
     backdrop-filter: blur(25px);
@@ -186,10 +150,7 @@ h1, h2, h3, h4, button {
     width: 100%;
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
 }
-
-.card:hover {
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2);
-}
+.card:hover { box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2); }
 
 h2 {
     margin-bottom: 20px;
@@ -201,37 +162,13 @@ h2 {
     text-transform: capitalize;
 }
 
-.subtitle {
-    color: var(--text-muted);
-    font-size: clamp(0.85rem, 2vw, 0.95rem);
-    margin-top: -15px;
-    margin-bottom: 30px;
-    font-weight: 300;
-}
+.subtitle { color: var(--text-muted); font-size: clamp(0.85rem, 2vw, 0.95rem); margin-top: -15px; margin-bottom: 30px; font-weight: 300; }
 
-/* FORM */
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(15px, 3vw, 25px);
-}
-
-.full {
-    grid-column: span 2;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    text-transform: capitalize;
-}
-
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(15px, 3vw, 25px); }
+.full { grid-column: span 2; }
+label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: var(--text-muted); text-transform: capitalize; }
 input, select {
     width: 100%;
-    max-width: 100%;
     padding: clamp(12px, 2vw, 15px) 15px;
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 12px;
@@ -241,10 +178,8 @@ input, select {
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
 }
-
 input::placeholder { color: rgba(255,255,255,0.3); transition: opacity 0.3s; }
 select option { background-color: #111827; color: #fff; }
-
 input:focus, select:focus {
     outline: none;
     border-color: var(--primary-glow);
@@ -256,63 +191,18 @@ input:focus::placeholder { opacity: 0.5; }
 
 button {
     background: linear-gradient(135deg, var(--primary-glow), #0055ff);
-    color: white;
-    border: none;
-    padding: 16px 24px;
-    width: 100%;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    margin-top: 10px;
-    letter-spacing: 1px;
-    grid-column: span 2;
-    box-shadow: 0 8px 20px rgba(0, 136, 255, 0.3);
-    text-transform: capitalize;
+    color: white; border: none; padding: 16px 24px; width: 100%; border-radius: 12px;
+    font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-top: 10px; letter-spacing: 1px; grid-column: span 2; box-shadow: 0 8px 20px rgba(0, 136, 255, 0.3);
 }
+button:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0, 136, 255, 0.5); background: linear-gradient(135deg, #0099ff, #0044ff); }
+button:active { transform: translateY(1px); box-shadow: 0 5px 15px rgba(0, 136, 255, 0.4); }
+button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform: none; box-shadow: none; }
 
-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(0, 136, 255, 0.5);
-    background: linear-gradient(135deg, #0099ff, #0044ff);
-}
+.spinner { width: 40px; height: 40px; border: 4px solid rgba(255, 255, 255, 0.1); border-left-color: var(--secondary-glow); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
+.loading-text { font-size: 0.9rem; color: var(--text-main); font-weight: 500; animation: pulse 1.5s infinite; }
 
-button:active {
-    transform: translateY(1px);
-    box-shadow: 0 5px 15px rgba(0, 136, 255, 0.4);
-}
-
-button:disabled {
-    background: #333;
-    color: #aaa;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-/* ANIMACIÓN DE CARGA */
-.spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid rgba(255, 255, 255, 0.1);
-    border-left-color: var(--secondary-glow);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 15px;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.loading-text {
-    font-size: 0.9rem;
-    color: var(--text-main);
-    font-weight: 500;
-    animation: pulse 1.5s infinite;
-}
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-
-/* DOCUMENT PREVIEW */
+/* DOCUMENT PREVIEW & BLUR EFFECT */
 .preview-box {
     background: rgba(0,0,0,0.25);
     border-radius: 16px;
@@ -344,18 +234,26 @@ button:disabled {
     animation: fadeUp 0.8s ease forwards 0.2s;
 }
 
-/* LIQUIDACIONES */
-.liquidaciones-grid {
-    display: flex;
-    gap: 15px;
-    overflow-x: auto;
-    padding-bottom: 15px;
+/* 🔥 ESTE ES EL BLUR SUAVE DESDE ABAJO (30%) 🔥 */
+.blur-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-glow) rgba(255,255,255,0.1);
-    -webkit-overflow-scrolling: touch;
+    height: 35%; /* Ligeramente más para que el 30% sea intenso */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    /* Degradado para que termine con suavidad hacia arriba */
+    mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+    pointer-events: none; /* Permite hacer clic o scroll a través del blur */
+    z-index: 10;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
 }
 
+/* LIQUIDACIONES */
+.liquidaciones-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; width: 100%; scrollbar-width: thin; scrollbar-color: var(--primary-glow) rgba(255,255,255,0.1); -webkit-overflow-scrolling: touch; }
 .liquidaciones-grid::-webkit-scrollbar { height: 6px; }
 .liquidaciones-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
 .liquidaciones-grid::-webkit-scrollbar-thumb { background-color: var(--primary-glow); border-radius: 4px; }
@@ -374,131 +272,34 @@ button:disabled {
     transition: transform 0.3s ease;
 }
 
-.liq-title {
-    background: rgba(255,255,255,0.1);
-    color: var(--text-main);
-    font-size: 0.8rem;
-    font-weight: 500;
-    padding: 8px;
-    text-align: center;
-    z-index: 5;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.preview-small {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    position: relative;
-    width: 100%;
-}
-
+.liq-title { background: rgba(255,255,255,0.1); color: var(--text-main); font-size: 0.8rem; font-weight: 500; padding: 8px; text-align: center; z-index: 5; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.preview-small { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; position: relative; width: 100%; }
 .liq-blurred { filter: blur(8px); user-select: none; pointer-events: none; }
+.liq-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 600; color: var(--text-main); z-index: 20; font-size: 1.1rem; text-shadow: 0px 2px 10px rgba(0,0,0,0.8); backdrop-filter: blur(2px); }
 
-.liq-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    color: var(--text-main);
-    z-index: 20;
-    font-size: 1.1rem;
-    text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
-    backdrop-filter: blur(2px);
-}
-
-/* =========================================
-   🟢 BOTÓN WHATSAPP FLOTANTE
-   ========================================= */
-.whatsapp-float {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 50px;
-    padding: 8px 20px 8px 8px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: var(--text-main);
-    z-index: 1000;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.whatsapp-float:hover {
-    transform: translateY(-5px) scale(1.02);
-    border-color: #25D366;
-    box-shadow: 0 15px 40px rgba(37, 211, 102, 0.3);
-    background: rgba(15, 20, 30, 0.7);
-}
-
-.wa-logo {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.wa-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
+/* WHATSAPP FLOTANTE */
+.whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; padding: 8px 20px 8px 8px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+.whatsapp-float:hover { transform: translateY(-5px) scale(1.02); border-color: #25D366; box-shadow: 0 15px 40px rgba(37, 211, 102, 0.3); background: rgba(15, 20, 30, 0.7); }
+.wa-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+.wa-text { display: flex; flex-direction: column; justify-content: center; }
 .wa-text span { font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; }
 .wa-text small { font-size: 0.75rem; color: #25D366; font-weight: 500; }
 
-/* =========================================
-   🚀 CELULARES: Edge-to-Edge y Ajuste Perfecto
-   ========================================= */
+/* MOBILE */
 @media (max-width: 992px) {
     .banner-web { display: none; }
     .banner-mobile { display: block; }
     
-    .container { 
-        flex-direction: column; 
-        gap: 0;
-        padding: 0 !important; 
-        margin: 0 !important;
-        width: 100%;
-        max-width: 100%;
-    }
-    
+    .container { flex-direction: column; gap: 0; padding: 0 !important; margin: 0 !important; width: 100%; max-width: 100%; }
     .form-panel, .preview-panel { width: 100%; }
     .preview-panel { position: relative; top: 0; }
     
-    .card {
-        border-radius: 0 !important; 
-        border-left: none !important;
-        border-right: none !important;
-        padding: 30px 15px !important;
-        margin: 0 0 15px 0 !important;
-        width: 100%;
-    }
-    
+    .card { border-radius: 0 !important; border-left: none !important; border-right: none !important; padding: 30px 15px !important; margin: 0 0 15px 0 !important; width: 100%; }
     .form-grid { grid-template-columns: 1fr; gap: 15px; }
     .full { grid-column: span 1; }
     button { grid-column: span 1; }
     
-    .whatsapp-float {
-        bottom: 20px;
-        right: 15px;
-        padding: 6px 15px 6px 6px;
-    }
+    .whatsapp-float { bottom: 20px; right: 15px; padding: 6px 15px 6px 6px; }
     .wa-logo { width: 40px; height: 40px; }
     .wa-text span { font-size: 0.9rem; }
 }
@@ -526,40 +327,15 @@ button:disabled {
 <p class="subtitle">Ingrese los datos para generar documentos.</p>
 
 <form id="form" class="form-grid">
-<div class="full">
-<label>Nombre Completo</label>
-<input id="nombre" required placeholder="Ej: Juan Pérez González">
-</div>
-<div>
-<label>RUT</label>
-<input id="rut" required placeholder="Ej: 12.345.678-9">
-</div>
-<div>
-<label>Fecha nacimiento</label>
-<input type="date" id="fecha" required>
-</div>
-<div>
-<label>Nacionalidad</label>
-<input id="nacionalidad" required placeholder="Ej: Chilena">
-</div>
-<div>
-<label>Email</label>
-<input type="email" id="email" required placeholder="tu@correo.com">
-</div>
-<div>
-<label>Cargo deseado</label>
-<input type="text" id="cargo" required placeholder="Ej: Contador Auditor">
-</div>
-<div>
-<label>Sueldo Líquido</label>
-<input type="number" id="sueldo" required placeholder="Ej: 800000">
-</div>
-<div>
-<label>Dirección (Calle, Comuna)</label>
-<input type="text" id="direccion" required placeholder="Ej: Av. Providencia 1234, Providencia">
-</div>
-<div class="full">
-<label>AFP</label>
+<div class="full"><label>Nombre Completo</label><input id="nombre" required placeholder="Ej: Juan Pérez González"></div>
+<div><label>RUT</label><input id="rut" required placeholder="Ej: 12.345.678-9"></div>
+<div><label>Fecha nacimiento</label><input type="date" id="fecha" required></div>
+<div><label>Nacionalidad</label><input id="nacionalidad" required placeholder="Ej: Chilena"></div>
+<div><label>Email</label><input type="email" id="email" required placeholder="tu@correo.com"></div>
+<div><label>Cargo deseado</label><input type="text" id="cargo" required placeholder="Ej: Contador Auditor"></div>
+<div><label>Sueldo Líquido</label><input type="number" id="sueldo" required placeholder="Ej: 800000"></div>
+<div><label>Dirección (Calle, Comuna)</label><input type="text" id="direccion" required placeholder="Ej: Av. Providencia 1234, Providencia"></div>
+<div class="full"><label>AFP</label>
 <select id="afp" required>
     <option value="Habitat">Habitat</option>
     <option value="Uno">Uno</option>
@@ -576,7 +352,6 @@ button:disabled {
 </div>
 
 <div class="preview-panel">
-
 <div class="card" style="padding-bottom: 25px;">
 <h2>Documentos Nativos</h2>
 
@@ -597,7 +372,6 @@ button:disabled {
 <div class="card" style="padding-top: 30px; padding-bottom: 30px;">
 <h2 style="margin-bottom: 5px;">Clúster de Liquidaciones</h2>
 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Deslice para visualizar.</p>
-
 <div class="liquidaciones-grid">
 <div class="liq-item">
 <div class="liq-title">Mes actual</div>
@@ -631,20 +405,16 @@ button:disabled {
 // ─── WEBHOOK DE MAKE ─────────────────────────────────────────────────────────
 const WEBHOOK = "https://hook.us2.make.com/mk1ru9kg4c1s4lqqmigujfd7xgh3lqbh";
 
-// ─── SUBMIT LÓGICA ───────────────────────────────────────────────────────────
 document.getElementById("form").addEventListener("submit", async function(e) {
     e.preventDefault();
 
     const btn = document.getElementById("btnSubmit");
     btn.disabled = true;
 
-    const loaderHTML = `
-        <div class="spinner"></div>
-        <span class="loading-text">Generando...</span>
-    `;
+    const loaderHTML = `<div class="spinner"></div><span class="loading-text">Generando...</span>`;
     document.getElementById("contrato").innerHTML = loaderHTML;
     document.getElementById("afp_box").innerHTML   = loaderHTML;
-    document.getElementById("dicom_box").innerHTML = loaderHTML; // Animación para DICOM
+    document.getElementById("dicom_box").innerHTML = loaderHTML; 
     document.getElementById("liq1").innerHTML      = loaderHTML;
 
     if(window.innerWidth <= 992) {
@@ -652,15 +422,15 @@ document.getElementById("form").addEventListener("submit", async function(e) {
     }
 
     const payload = {
-        "nombre":      document.getElementById('nombre').value,
-        "rut":         document.getElementById('rut').value,
-        "fecha":       document.getElementById('fecha').value,
-        "nacionalidad":document.getElementById('nacionalidad').value,
-        "email":       document.getElementById('email').value,
-        "cargo":       document.getElementById('cargo').value,
-        "sueldo":      parseInt(document.getElementById('sueldo').value),
-        "direccion":   document.getElementById('direccion').value,
-        "afp":         document.getElementById('afp').value
+        "nombre": document.getElementById('nombre').value,
+        "rut": document.getElementById('rut').value,
+        "fecha": document.getElementById('fecha').value,
+        "nacionalidad": document.getElementById('nacionalidad').value,
+        "email": document.getElementById('email').value,
+        "cargo": document.getElementById('cargo').value,
+        "sueldo": parseInt(document.getElementById('sueldo').value),
+        "direccion": document.getElementById('direccion').value,
+        "afp": document.getElementById('afp').value
     };
 
     let segundos = 0;
@@ -685,21 +455,25 @@ document.getElementById("form").addEventListener("submit", async function(e) {
 
         const data = await res.json();
 
+        // Función para inyectar el Iframe + El Blur Effect overlay
+        const applyPreview = (url) => `<iframe class="pdf-frame" src="${url}#toolbar=0&navpanes=0" frameborder="0"></iframe><div class="blur-overlay"></div>`;
+
         if (data.status === "ready" && data.contrato) {
             btn.innerHTML = "✅ ¡Documentos listos!";
             btn.style.background = "linear-gradient(135deg, #00c853, #00e676)";
 
-            document.getElementById("contrato").innerHTML = `<iframe class="pdf-frame" src="${data.contrato}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
+            document.getElementById("contrato").innerHTML = applyPreview(data.contrato);
             document.getElementById("contrato").classList.add("ready");
 
-            document.getElementById("afp_box").innerHTML = `<iframe class="pdf-frame" src="${data.afp}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
+            document.getElementById("afp_box").innerHTML = applyPreview(data.afp);
             document.getElementById("afp_box").classList.add("ready");
 
-            // INCORPORACIÓN DEL DICOM
-            document.getElementById("dicom_box").innerHTML = `<iframe class="pdf-frame" src="${data.dicom}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
+            document.getElementById("dicom_box").innerHTML = applyPreview(data.dicom);
             document.getElementById("dicom_box").classList.add("ready");
 
-            document.getElementById("liq1").innerHTML = `<iframe class="pdf-frame" src="${data.liq1}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
+            document.getElementById("liq1").innerHTML = applyPreview(data.liq1);
+            // Si quieres aplicarle blur también al cuadrito pequeño de liquidaciones, quítale las barras:
+            // document.getElementById("liq1").classList.add("ready");
 
         } else {
             throw new Error("Respuesta inesperada del servidor.");
@@ -709,12 +483,8 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         clearTimeout(timeoutId);
         clearInterval(timer);
         console.error(err);
-
-        const msg = err.name === 'AbortError'
-            ? "Tiempo de espera agotado. Los documentos pueden estar siendo generados — revisa tu correo."
-            : "Error al conectar con el servidor.";
+        const msg = err.name === 'AbortError' ? "Tiempo de espera agotado. Los documentos pueden estar siendo generados — revisa tu correo." : "Error al conectar con el servidor.";
         alert(msg);
-
         btn.disabled = false;
         btn.innerHTML = "Procesar emisión";
         const errorHTML = '<span style="color:#ff5252; font-size:0.85rem;">Error — intenta nuevamente</span>';
