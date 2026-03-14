@@ -193,29 +193,28 @@ color:#fff;
 font-size:1rem;
 }
 
+/* --- ANIMACIÓN DEL BOTÓN --- */
 button{
-
 grid-column:span 2;
-
 margin-top:10px;
-
 padding:16px;
-
 border-radius:12px;
-
 border:none;
-
 background:linear-gradient(135deg,#0088ff,#0044ff);
-
 font-size:1rem;
-
 font-weight:600;
-
 cursor:pointer;
+transition: all 0.3s ease;
 }
 
 button:hover{
 transform:translateY(-2px);
+}
+button:disabled {
+background: #333;
+color: #aaa;
+cursor: not-allowed;
+transform: none;
 }
 
 /* DOCUMENT PREVIEW */
@@ -241,12 +240,34 @@ justify-content:center;
 border:1px dashed rgba(255,255,255,.2);
 
 position:relative;
+flex-direction: column;
 }
 
 .pdf-frame{
 width:100%;
 height:100%;
 border:none;
+}
+
+/* --- ANIMACIÓN DE CARGA EN VENTANILLAS --- */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-left-color: var(--secondary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    font-weight: 500;
 }
 
 /* LIQUIDACIONES */
@@ -313,6 +334,7 @@ display:flex;
 align-items:center;
 
 justify-content:center;
+flex-direction: column;
 }
 
 /* MOBILE */
@@ -375,30 +397,50 @@ grid-column:span 1;
 
 <div class="full">
 <label>Nombre Completo</label>
-<input id="nombre">
+<input id="nombre" required>
 </div>
 
 <div>
 <label>RUT</label>
-<input id="rut">
+<input id="rut" required>
 </div>
 
 <div>
 <label>Fecha nacimiento</label>
-<input type="date" id="fecha">
+<input type="date" id="fecha" required>
 </div>
 
 <div>
 <label>Nacionalidad</label>
-<input id="nacionalidad">
+<input id="nacionalidad" required>
 </div>
 
 <div>
 <label>Email</label>
-<input id="email">
+<input type="email" id="email" required>
+</div>
+<div>
+<label>Cargo deseado</label>
+<input type="text" id="cargo" required>
+</div>
+<div>
+<label>Sueldo Líquido</label>
+<input type="number" id="sueldo" required>
+</div>
+<div class="full">
+<label>AFP</label>
+<select id="afp" required>
+    <option value="Habitat">Habitat</option>
+    <option value="Uno">Uno</option>
+    <option value="Cuprum">Cuprum</option>
+    <option value="PlanVital">Plan Vital</option>
+    <option value="Provida">Provida</option>
+    <option value="Capital">Capital</option>
+    <option value="Modelo">Modelo</option>
+</select>
 </div>
 
-<button type="submit">Procesar emisión</button>
+<button type="submit" id="btnSubmit">Procesar emisión</button>
 
 </form>
 
@@ -419,7 +461,7 @@ Esperando contrato...
 
 </div>
 
-<div class="preview-box" style="margin-top:20px" id="afp">
+<div class="preview-box" style="margin-top:20px" id="afp_box">
 
 Esperando AFP...
 
@@ -450,7 +492,7 @@ Esperando...
 
 <div class="liq-title">Mes -2</div>
 
-<div class="preview-small" id="liq2"></div>
+<div class="preview-small" id="liq2">🔒 Cifrado</div>
 
 </div>
 
@@ -458,7 +500,7 @@ Esperando...
 
 <div class="liq-title">Mes -3</div>
 
-<div class="preview-small" id="liq3"></div>
+<div class="preview-small" id="liq3">🔒 Cifrado</div>
 
 </div>
 
@@ -473,20 +515,78 @@ Esperando...
 
 <script>
 
-document.getElementById("form").addEventListener("submit",function(e){
+document.getElementById("form").addEventListener("submit", function(e){
 
-e.preventDefault()
+    e.preventDefault();
 
-document.getElementById("contrato").innerHTML=
-'<iframe class="pdf-frame" src="https://tuservidor.com/demo-contrato.pdf#toolbar=0"></iframe>'
+    const btn = document.getElementById("btnSubmit");
+    btn.disabled = true;
 
-document.getElementById("afp").innerHTML=
-'<iframe class="pdf-frame" src="https://tuservidor.com/demo-afp.pdf#toolbar=0"></iframe>'
+    // 1. Mostrar gráfico de carga en las ventanillas
+    const loaderHTML = `
+        <div class="spinner"></div>
+        <span class="loading-text">Procesando...</span>
+    `;
+    
+    document.getElementById("contrato").innerHTML = loaderHTML;
+    document.getElementById("afp_box").innerHTML = loaderHTML;
+    document.getElementById("liq1").innerHTML = loaderHTML;
 
-document.getElementById("liq1").innerHTML=
-'<iframe class="pdf-frame" src="https://tuservidor.com/demo-liq.pdf#toolbar=0"></iframe>'
+    // 2. Extraer datos del formulario
+    const payload = {
+        "nombre": document.getElementById('nombre').value,
+        "rut": document.getElementById('rut').value,
+        "fecha": document.getElementById('fecha').value,
+        "nacionalidad": document.getElementById('nacionalidad').value,
+        "email": document.getElementById('email').value,
+        "cargo": document.getElementById('cargo').value,
+        "sueldo": document.getElementById('sueldo').value,
+        "afp": document.getElementById('afp').value
+    };
 
-})
+    // 3. Enviar a Make.com
+    // AQUÍ DEBES PONER TU WEBHOOK DE MAKE (Ej: https://hook.us2.make.com/xxxxxx)
+    fetch('URL_DE_TU_WEBHOOK', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(() => {
+        
+        // 4. Iniciar cuenta regresiva en el botón (Simulando el tiempo de Make)
+        let segundos = 15;
+        btn.innerHTML = `Generando archivos... (${segundos}s)`;
+        
+        const timer = setInterval(() => {
+            segundos--;
+            btn.innerHTML = `Generando archivos... (${segundos}s)`;
+            
+            if(segundos <= 0) {
+                clearInterval(timer);
+                btn.innerHTML = "¡Documentos Listos!";
+                btn.style.background = "var(--success)";
+                
+                // 5. Mostrar los iframes en las ventanillas
+                // REEMPLAZA ESTOS LINKS POR LOS LINKS REALES A LOS PDFs
+                document.getElementById("contrato").innerHTML = '<iframe class="pdf-frame" src="https://tuservidor.com/demo-contrato.pdf#toolbar=0"></iframe>';
+                document.getElementById("afp_box").innerHTML = '<iframe class="pdf-frame" src="https://tuservidor.com/demo-afp.pdf#toolbar=0"></iframe>';
+                document.getElementById("liq1").innerHTML = '<iframe class="pdf-frame" src="https://tuservidor.com/demo-liq.pdf#toolbar=0"></iframe>';
+            }
+        }, 1000);
+
+    })
+    .catch(err => {
+        alert("Error al conectar con el servidor.");
+        btn.disabled = false;
+        btn.innerHTML = "Procesar emisión";
+        
+        const resetHTML = '<span>Error. Intente nuevamente.</span>';
+        document.getElementById("contrato").innerHTML = resetHTML;
+        document.getElementById("afp_box").innerHTML = resetHTML;
+        document.getElementById("liq1").innerHTML = resetHTML;
+    });
+
+});
 
 </script>
 
