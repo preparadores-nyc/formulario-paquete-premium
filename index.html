@@ -39,14 +39,43 @@ h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 
 /* HEADER */
 .header-container { width: 100%; padding: clamp(10px, 3vw, 20px); display: flex; justify-content: center; position: sticky; top: 0; z-index: 100; }
-.header { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); padding: clamp(10px, 2vw, 15px) clamp(20px, 5vw, 40px); border-radius: 100px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: space-between; gap: 20px; max-width: 1400px; width: 100%; }
-.header img { max-height: clamp(35px, 5vw, 50px); width: auto; object-fit: contain; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5)); }
-.header h3 { font-weight: 600; font-size: clamp(1rem, 2vw, 1.2rem); letter-spacing: 0.5px; background: linear-gradient(90deg, #ffffff, var(--secondary-glow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: capitalize; }
+.header { 
+    background: var(--glass-bg); 
+    backdrop-filter: blur(20px); 
+    -webkit-backdrop-filter: blur(20px); 
+    border: 1px solid var(--glass-border); 
+    padding: clamp(15px, 2vw, 20px) clamp(20px, 5vw, 40px); 
+    border-radius: 100px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+    display: flex; 
+    flex-direction: column; /* Cambiado a columna para apilar logo y texto */
+    align-items: center; 
+    justify-content: center; 
+    gap: 5px; 
+    max-width: 1400px; 
+    width: 100%; 
+}
+.header img { 
+    max-height: clamp(60px, 10vw, 120px); /* Aumentado para que el banner luzca */
+    width: auto; 
+    max-width: 100%;
+    object-fit: contain; 
+    filter: drop-shadow(0px 4px 15px rgba(0,0,0,0.4)); /* Sombra un poco más pronunciada para 3D */
+}
+.header h3 { 
+    font-weight: 500; 
+    font-size: clamp(0.85rem, 1.5vw, 1rem); 
+    letter-spacing: 2px; 
+    background: linear-gradient(90deg, var(--text-muted), var(--secondary-glow)); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    text-transform: uppercase; 
+}
 
 /* LAYOUT */
 .container { max-width: 1440px; width: 100%; margin: 20px auto; display: flex; flex-direction: row; gap: clamp(20px, 3vw, 40px); padding: 0 clamp(15px, 4vw, 40px); align-items: flex-start; }
 .form-panel { flex: 1.2; min-width: 0; }
-.preview-panel { flex: 1; min-width: 0; position: sticky; top: 110px; display: flex; flex-direction: column; gap: 25px; }
+.preview-panel { flex: 1; min-width: 0; position: sticky; top: 180px; /* Ajustado por el header más grande */ display: flex; flex-direction: column; gap: 25px; }
 
 /* CARDS */
 .card { background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-radius: 24px; padding: clamp(25px, 5vw, 40px); box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1); border: 1px solid var(--glass-border); width: 100%; }
@@ -76,12 +105,35 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 .preview-box { background: rgba(0,0,0,0.25); border-radius: 16px; height: clamp(250px, 40vw, 300px); display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-align: center; position: relative; overflow: hidden; border: 1px dashed rgba(255,255,255,0.2); width: 100%; flex-direction: column; transition: border-color 0.3s; }
 .preview-box.ready { border-color: rgba(0,230,118,0.5); border-style: solid; }
 
-/* Capas de protección y difuminado */
+/* CAPAS DE PROTECCIÓN Y BLUR SUAVIZADO */
 .pdf-wrapper { position: relative; width: 100%; height: 100%; overflow: hidden; }
-.pdf-frame { width: 100%; height: 100%; border: none; pointer-events: none; /* Evita interacciones con el PDF */ }
+.pdf-frame { width: 100%; height: 100%; border: none; pointer-events: none; /* Bloquea clics y scroll en el PDF */ }
 
 .anti-download-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; background: transparent; cursor: default; }
-.blur-bottom { position: absolute; bottom: 0; left: 0; width: 100%; height: 55%; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.4) 70%, transparent); z-index: 11; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 20px; color: rgba(255,255,255,0.7); font-weight: 600; font-size: 0.85rem; letter-spacing: 1px; }
+
+/* Blur más bajo (35%) y con gradiente suave (mask-image) */
+.blur-bottom { 
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 35%; 
+    backdrop-filter: blur(5px); 
+    -webkit-backdrop-filter: blur(5px); 
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 35%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 35%);
+    background: linear-gradient(to top, rgba(10,15,25,0.95) 0%, rgba(10,15,25,0.3) 70%, transparent 100%); 
+    z-index: 11; 
+    display: flex; 
+    align-items: flex-end; 
+    justify-content: center; 
+    padding-bottom: 15px; 
+    color: rgba(255,255,255,0.8); 
+    font-weight: 600; 
+    font-size: 0.85rem; 
+    letter-spacing: 1px; 
+    pointer-events: none;
+}
 
 /* LIQUIDACIONES */
 .liquidaciones-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; width: 100%; scrollbar-width: thin; scrollbar-color: var(--primary-glow) rgba(255,255,255,0.1); -webkit-overflow-scrolling: touch; }
@@ -91,10 +143,11 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 
 .liq-item { min-width: 180px; height: 240px; background: rgba(0,0,0,0.3); position: relative; border-radius: 12px; border: 1px solid var(--glass-border); overflow: hidden; flex-shrink: 0; display: flex; flex-direction: column; }
 .liq-title { background: rgba(255,255,255,0.1); color: var(--text-main); font-size: 0.8rem; font-weight: 500; padding: 8px; text-align: center; z-index: 5; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-.preview-small { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; position: relative; }
+.preview-small { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; position: relative; overflow: hidden; }
 
-.liq-blurred { filter: blur(8px); user-select: none; pointer-events: none; }
-.liq-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 600; color: var(--text-main); z-index: 20; font-size: 1.1rem; text-shadow: 0px 2px 10px rgba(0,0,0,0.8); letter-spacing: 1px; }
+/* Blur total para liquidaciones 2 al 6 */
+.liq-blurred { filter: blur(6px); user-select: none; pointer-events: none; }
+.liq-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 600; color: var(--text-main); z-index: 20; font-size: 1.1rem; text-shadow: 0px 2px 10px rgba(0,0,0,0.8); letter-spacing: 1px; pointer-events: none;}
 
 /* MOBILE */
 @media (max-width: 992px) {
@@ -114,7 +167,7 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 
 <div class="header-container">
 <header class="header">
-<img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20nyc%20(no%20background).png">
+<img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/preparadores%20nyc%20header.png" alt="NYC Preparadores">
 <h3>Emisión y Resguardo</h3>
 </header>
 </div>
@@ -181,15 +234,15 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 <h2>Documentos Nativos</h2>
 
 <div class="preview-box" id="contrato">
-<span style="color:var(--muted); font-size:0.9rem;">Esperando contrato...</span>
+<span style="color:var(--text-muted); font-size:0.9rem;">Esperando contrato...</span>
 </div>
 
 <div class="preview-box" style="margin-top:20px" id="afp_box">
-<span style="color:var(--muted); font-size:0.9rem;">Esperando AFP...</span>
+<span style="color:var(--text-muted); font-size:0.9rem;">Esperando AFP...</span>
 </div>
 
 <div class="preview-box" style="margin-top:20px" id="dicom_box">
-<span style="color:var(--muted); font-size:0.9rem;">Esperando DICOM...</span>
+<span style="color:var(--text-muted); font-size:0.9rem;">Esperando DICOM...</span>
 </div>
 </div>
 
@@ -237,12 +290,20 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 // ─── WEBHOOK DE MAKE ─────────────────────────────────────────────────────────
 const WEBHOOK = "https://hook.us2.make.com/mk1ru9kg4c1s4lqqmigujfd7xgh3lqbh";
 
-// Constructor de iFrames con seguridad y blur
+// Generador de Vista Previa Principal (Para Contrato, AFP, DICOM y Liq 1)
 const buildSecurePreview = (url) => `
     <div class="pdf-wrapper">
         <div class="anti-download-layer"></div>
         <iframe class="pdf-frame" src="${url}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" scrolling="no"></iframe>
         <div class="blur-bottom">VISTA PREVIA RESTRINGIDA</div>
+    </div>
+`;
+
+// Generador de Vista Previa Bloqueada (Para Liq 2 al 6)
+const buildLockedPreview = (url) => `
+    <div class="pdf-wrapper">
+        <div class="anti-download-layer"></div>
+        <iframe class="pdf-frame" src="${url}#toolbar=0&navpanes=0&scrollbar=0&view=FitH" scrolling="no"></iframe>
     </div>
 `;
 
@@ -253,12 +314,12 @@ document.getElementById("form").addEventListener("submit", async function(e) {
     const btn = document.getElementById("btnSubmit");
     btn.disabled = true;
 
-    // Animación de carga en las ventanillas
+    // Iniciar Animación de Carga
     const loaderHTML = `
         <div class="spinner"></div>
         <span class="loading-text">Generando y cifrando...</span>
     `;
-    document.getElementById("contrato").innerHTML = loaderHTML;
+    document.getElementById("contrato").innerHTML  = loaderHTML;
     document.getElementById("afp_box").innerHTML   = loaderHTML;
     document.getElementById("dicom_box").innerHTML = loaderHTML;
     document.getElementById("liq1").innerHTML      = loaderHTML;
@@ -295,7 +356,7 @@ document.getElementById("form").addEventListener("submit", async function(e) {
             btn.innerHTML = "✅ ¡Documentos listos!";
             btn.style.background = "linear-gradient(135deg, #00c853, #00e676)";
 
-            // Incrustar iframes bloqueados y con blur
+            // Incrustar iframes principales (Visibles con Blur Suave abajo)
             document.getElementById("contrato").innerHTML = buildSecurePreview(data.contrato);
             document.getElementById("contrato").classList.add("ready");
 
@@ -306,6 +367,14 @@ document.getElementById("form").addEventListener("submit", async function(e) {
             document.getElementById("dicom_box").classList.add("ready");
 
             document.getElementById("liq1").innerHTML = buildSecurePreview(data.liq1);
+
+            // Inyectar iframes de Liquidaciones 2 al 6 (Completamente borrosas detrás del candado)
+            const lockedIframes = [data.liq2, data.liq3, data.liq4, data.liq5, data.liq6];
+            for(let i=0; i<5; i++) {
+                if(lockedIframes[i]) {
+                    document.getElementById(`liq${i+2}`).innerHTML = buildLockedPreview(lockedIframes[i]);
+                }
+            }
 
         } else {
             throw new Error("Error en datos recibidos");
@@ -318,10 +387,10 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         btn.innerHTML = "Procesar emisión";
         
         const errorHTML = '<span style="color:#ff5252; font-size:0.85rem;">Error — intenta nuevamente</span>';
-        document.getElementById("contrato").innerHTML = errorHTML;
-        document.getElementById("afp_box").innerHTML  = errorHTML;
+        document.getElementById("contrato").innerHTML  = errorHTML;
+        document.getElementById("afp_box").innerHTML   = errorHTML;
         document.getElementById("dicom_box").innerHTML = errorHTML;
-        document.getElementById("liq1").innerHTML     = errorHTML;
+        document.getElementById("liq1").innerHTML      = errorHTML;
     }
 });
 
