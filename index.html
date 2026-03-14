@@ -2,259 +2,244 @@
 <html lang="es">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>NYC Preparadores</title>
-
+<title>NYC Preparadores - Plataforma de Documentos</title>
 <link rel="icon" type="image/png" href="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20miniatura%20preparadores%20nyc.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
-
-:root{
---primary:#0088ff;
---secondary:#00d2ff;
---glass:rgba(20,25,35,.45);
---border:rgba(255,255,255,.12);
---text:#ffffff;
---muted:rgba(255,255,255,.75);
+:root {
+    --primary-glow: #0088ff;
+    --secondary-glow: #00d2ff;
+    --glass-bg: rgba(15, 20, 30, 0.45);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --text-main: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.75);
+    --input-bg: rgba(255, 255, 255, 0.08);
+    --success: #00e676;
 }
 
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body,html{
-width:100vw;
-max-width:100%;
-overflow-x:hidden;
-background:#050505;
-font-family:'Outfit',sans-serif;
-color:var(--text);
+body, html {
+    width: 100vw;
+    max-width: 100%;
+    overflow-x: hidden;
+    background-color: #050505;
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-main);
+    line-height: 1.6;
 }
 
-body{
-background-image:url("https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2014%20mar%202026%2c%2005_53_40%20a.m..png");
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
-min-height:100vh;
+body {
+    background-image: url('https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2014%20mar%202026%2c%2005_53_40%20a.m..png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding-bottom: 50px;
 }
 
-h1,h2,h3,h4,button{
-font-family:'Space Grotesk',sans-serif;
+h1, h2, h3, h4, button {
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 /* HEADER */
-
-.header-container{
-width:100%;
-padding:20px;
-display:flex;
-justify-content:center;
-position:sticky;
-top:0;
-z-index:100;
+.header-container {
+    width: 100%;
+    padding: clamp(10px, 3vw, 20px);
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.header{
-
-background:var(--glass);
-backdrop-filter:blur(20px);
-
-border:1px solid var(--border);
-
-padding:15px 40px;
-border-radius:100px;
-
-display:flex;
-align-items:center;
-gap:20px;
+.header {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    padding: clamp(10px, 2vw, 15px) clamp(20px, 5vw, 40px);
+    border-radius: 100px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1400px;
+    width: 100%;
 }
 
-.header img{
-height:42px;
+.header img {
+    max-height: clamp(35px, 5vw, 50px);
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
 }
 
-.header h3{
-font-size:1.1rem;
-font-weight:600;
-background:linear-gradient(90deg,#fff,var(--secondary));
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+.header h3 {
+    font-weight: 600;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    letter-spacing: 0.5px;
+    background: linear-gradient(90deg, #ffffff, var(--secondary-glow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: capitalize;
 }
 
 /* LAYOUT */
-
-.container{
-
-max-width:1400px;
-
-margin:auto;
-
-display:flex;
-
-gap:40px;
-
-padding:20px;
+.container {
+    max-width: 1440px;
+    width: 100%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: row;
+    gap: clamp(20px, 3vw, 40px);
+    padding: 0 clamp(15px, 4vw, 40px);
+    align-items: flex-start;
 }
 
-.form-panel{
-flex:1.2;
+.form-panel {
+    flex: 1.2;
+    min-width: 0;
 }
 
-.preview-panel{
-flex:1;
-
-display:flex;
-flex-direction:column;
-
-gap:25px;
-
-position:sticky;
-top:100px;
+.preview-panel {
+    flex: 1;
+    min-width: 0;
+    position: sticky;
+    top: 110px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 /* CARDS */
-
-.card{
-
-background:var(--glass);
-
-backdrop-filter:blur(25px);
-
-border-radius:24px;
-
-padding:40px;
-
-border:1px solid var(--border);
-
-box-shadow:0 20px 40px rgba(0,0,0,.4);
+.card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-radius: 24px;
+    padding: clamp(25px, 5vw, 40px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+    border: 1px solid var(--glass-border);
+    width: 100%;
 }
 
-h2{
-font-size:1.6rem;
-margin-bottom:15px;
-background:linear-gradient(135deg,#fff,var(--secondary));
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+h2 {
+    margin-bottom: 20px;
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff, var(--secondary-glow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: capitalize;
 }
 
-.subtitle{
-font-size:.9rem;
-color:var(--muted);
-margin-bottom:25px;
+.subtitle {
+    color: var(--text-muted);
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    margin-top: -15px;
+    margin-bottom: 30px;
+    font-weight: 300;
 }
 
 /* FORM */
-
-.form-grid{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:20px;
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(15px, 3vw, 25px);
 }
 
-.full{
-grid-column:span 2;
+.full {
+    grid-column: span 2;
 }
 
-label{
-font-size:.85rem;
-margin-bottom:6px;
-display:block;
-color:var(--muted);
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-transform: capitalize;
 }
 
-input,select{
-
-width:100%;
-
-padding:14px;
-
-border-radius:12px;
-
-border:1px solid rgba(255,255,255,.15);
-
-background:rgba(255,255,255,.08);
-
-color:#fff;
-
-font-size:1rem;
+input, select {
+    width: 100%;
+    max-width: 100%;
+    padding: clamp(12px, 2vw, 15px) 15px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    font-size: 1rem;
+    background-color: var(--input-bg);
+    color: var(--text-main);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
 }
 
-/* --- ANIMACIÓN DEL BOTÓN --- */
-button{
-grid-column:span 2;
-margin-top:10px;
-padding:16px;
-border-radius:12px;
-border:none;
-background:linear-gradient(135deg,#0088ff,#0044ff);
-font-size:1rem;
-font-weight:600;
-cursor:pointer;
-transition: all 0.3s ease;
+input::placeholder { color: rgba(255,255,255,0.3); }
+select option { background-color: #111827; color: #fff; }
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-glow);
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(0, 136, 255, 0.2);
 }
 
-button:hover{
-transform:translateY(-2px);
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.7;
+    cursor: pointer;
 }
+
+button {
+    background: linear-gradient(135deg, var(--primary-glow), #0055ff);
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    width: 100%;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    letter-spacing: 1px;
+    grid-column: span 2;
+    box-shadow: 0 8px 20px rgba(0, 136, 255, 0.3);
+    text-transform: capitalize;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(0, 136, 255, 0.5);
+    background: linear-gradient(135deg, #0099ff, #0044ff);
+}
+
 button:disabled {
-background: #333;
-color: #aaa;
-cursor: not-allowed;
-transform: none;
+    background: #333;
+    color: #aaa;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
-/* DOCUMENT PREVIEW */
-
-.preview-box{
-
-width:100%;
-
-aspect-ratio:3/4;
-
-border-radius:16px;
-
-overflow:hidden;
-
-background:rgba(0,0,0,.3);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-border:1px dashed rgba(255,255,255,.2);
-
-position:relative;
-flex-direction: column;
-}
-
-.pdf-frame{
-width:100%;
-height:100%;
-border:none;
-}
-
-/* --- ANIMACIÓN DE CARGA EN VENTANILLAS --- */
+/* ANIMACIÓN DE CARGA EN VENTANILLAS */
 .spinner {
     width: 40px;
     height: 40px;
     border: 4px solid rgba(255, 255, 255, 0.1);
-    border-left-color: var(--secondary);
+    border-left-color: var(--secondary-glow);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin-bottom: 15px;
@@ -266,102 +251,138 @@ border:none;
 
 .loading-text {
     font-size: 0.9rem;
-    color: var(--secondary);
+    color: var(--text-main);
     font-weight: 500;
 }
 
+/* DOCUMENT PREVIEW */
+.preview-box {
+    background: rgba(0,0,0,0.25);
+    border-radius: 16px;
+    height: clamp(250px, 40vw, 300px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px dashed rgba(255,255,255,0.2);
+    width: 100%;
+    flex-direction: column;
+    transition: border-color 0.3s;
+}
+
+.preview-box.ready {
+    border-color: rgba(0,230,118,0.5);
+    border-style: solid;
+}
+
+.pdf-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
 /* LIQUIDACIONES */
-
-.liquidaciones-grid{
-
-display:flex;
-
-gap:15px;
-
-overflow-x:auto;
-
-padding-bottom:10px;
-
-scroll-snap-type:x mandatory;
+.liquidaciones-grid {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+    width: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-glow) rgba(255,255,255,0.1);
+    -webkit-overflow-scrolling: touch;
 }
 
-.liquidaciones-grid::-webkit-scrollbar{
-height:6px;
+.liquidaciones-grid::-webkit-scrollbar { height: 6px; }
+.liquidaciones-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
+.liquidaciones-grid::-webkit-scrollbar-thumb { background-color: var(--primary-glow); border-radius: 4px; }
+
+.liq-item {
+    min-width: 180px;
+    height: 240px;
+    background: rgba(0,0,0,0.3);
+    position: relative;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
 }
 
-.liquidaciones-grid::-webkit-scrollbar-thumb{
-background:var(--primary);
-border-radius:4px;
+.liq-title {
+    background: rgba(255,255,255,0.1);
+    color: var(--text-main);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 8px;
+    text-align: center;
+    z-index: 5;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-.liq-item{
-
-min-width:180px;
-
-aspect-ratio:3/4;
-
-border-radius:12px;
-
-background:rgba(0,0,0,.3);
-
-overflow:hidden;
-
-border:1px solid var(--border);
-
-scroll-snap-align:start;
-
-display:flex;
-
-flex-direction:column;
+.preview-small {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    position: relative;
 }
 
-.liq-title{
+.liq-blurred { filter: blur(8px); user-select: none; pointer-events: none; }
 
-background:rgba(255,255,255,.08);
-
-text-align:center;
-
-font-size:.8rem;
-
-padding:8px;
-}
-
-.preview-small{
-flex:1;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-flex-direction: column;
+.liq-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--text-main);
+    z-index: 20;
+    font-size: 1.1rem;
+    text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
+    letter-spacing: 1px;
 }
 
 /* MOBILE */
-
-@media(max-width:992px){
-
-.container{
-flex-direction:column;
-}
-
-.preview-panel{
-position:relative;
-top:0;
-}
-
-.form-grid{
-grid-template-columns:1fr;
-}
-
-.full{
-grid-column:span 1;
-}
-
-button{
-grid-column:span 1;
-}
-
+@media (max-width: 992px) {
+    .container { 
+        flex-direction: column; 
+        gap: 20px;
+    }
+    .preview-panel { 
+        position: relative; 
+        top: 0; 
+    }
+    .form-grid { 
+        grid-template-columns: 1fr; 
+        gap: 15px;
+    }
+    .full { 
+        grid-column: span 1; 
+    }
+    button { 
+        grid-column: span 1; 
+    }
+    .header {
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 20px;
+        padding: 15px;
+    }
+    .header h3 {
+        text-align: center;
+    }
 }
 
 </style>
@@ -371,17 +392,11 @@ grid-column:span 1;
 <body>
 
 <div class="header-container">
-
 <header class="header">
-
 <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20nyc%20(no%20background).png">
-
 <h3>Emisión y Resguardo</h3>
-
 </header>
-
 </div>
-
 
 <div class="container">
 
@@ -397,12 +412,12 @@ grid-column:span 1;
 
 <div class="full">
 <label>Nombre Completo</label>
-<input id="nombre" required>
+<input id="nombre" required placeholder="Ej: Juan Pérez González">
 </div>
 
 <div>
 <label>RUT</label>
-<input id="rut" required>
+<input id="rut" required placeholder="Ej: 12.345.678-9">
 </div>
 
 <div>
@@ -412,21 +427,29 @@ grid-column:span 1;
 
 <div>
 <label>Nacionalidad</label>
-<input id="nacionalidad" required>
+<input id="nacionalidad" required placeholder="Ej: Chilena">
 </div>
 
 <div>
 <label>Email</label>
-<input type="email" id="email" required>
+<input type="email" id="email" required placeholder="tu@correo.com">
 </div>
+
 <div>
 <label>Cargo deseado</label>
-<input type="text" id="cargo" required>
+<input type="text" id="cargo" required placeholder="Ej: Contador Auditor">
 </div>
+
 <div>
 <label>Sueldo Líquido</label>
-<input type="number" id="sueldo" required>
+<input type="number" id="sueldo" required placeholder="Ej: 800000">
 </div>
+
+<div>
+<label>Dirección (Calle, Comuna)</label>
+<input type="text" id="direccion" required placeholder="Ej: Av. Providencia 1234, Providencia">
+</div>
+
 <div class="full">
 <label>AFP</label>
 <select id="afp" required>
@@ -448,60 +471,44 @@ grid-column:span 1;
 
 </div>
 
-
 <div class="preview-panel">
 
-<div class="card">
+<div class="card" style="padding-bottom: 25px;">
 
-<h2>Documentos</h2>
+<h2>Documentos Nativos</h2>
 
 <div class="preview-box" id="contrato">
-
-Esperando contrato...
-
+<span style="color:var(--muted); font-size:0.9rem;">Esperando contrato...</span>
 </div>
 
 <div class="preview-box" style="margin-top:20px" id="afp_box">
-
-Esperando AFP...
-
+<span style="color:var(--muted); font-size:0.9rem;">Esperando AFP...</span>
 </div>
 
 </div>
 
+<div class="card" style="padding-top: 30px; padding-bottom: 30px;">
 
-<div class="card">
-
-<h2>Liquidaciones</h2>
+<h2 style="margin-bottom: 5px;">Clúster de Liquidaciones</h2>
+<p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Deslice para visualizar.</p>
 
 <div class="liquidaciones-grid">
 
 <div class="liq-item">
-
 <div class="liq-title">Mes actual</div>
-
-<div class="preview-small" id="liq1">
-
-Esperando...
-
-</div>
-
+<div class="preview-small" id="liq1">Esperando...</div>
 </div>
 
 <div class="liq-item">
-
-<div class="liq-title">Mes -2</div>
-
-<div class="preview-small" id="liq2">🔒 Cifrado</div>
-
+<div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -2</div>
+<div class="liq-overlay">🔒<br>Cifrado</div>
+<div class="preview-small liq-blurred" id="liq2"></div>
 </div>
 
 <div class="liq-item">
-
-<div class="liq-title">Mes -3</div>
-
-<div class="preview-small" id="liq3">🔒 Cifrado</div>
-
+<div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -3</div>
+<div class="liq-overlay">🔒<br>Cifrado</div>
+<div class="preview-small liq-blurred" id="liq3"></div>
 </div>
 
 </div>
@@ -511,81 +518,101 @@ Esperando...
 </div>
 
 </div>
-
 
 <script>
 
-document.getElementById("form").addEventListener("submit", function(e){
+// ─── WEBHOOK DE MAKE ─────────────────────────────────────────────────────────
+const WEBHOOK = "https://hook.us2.make.com/mk1ru9kg4c1s4lqqmigujfd7xgh3lqbh";
 
+// ─── SUBMIT ──────────────────────────────────────────────────────────────────
+document.getElementById("form").addEventListener("submit", async function(e) {
     e.preventDefault();
 
     const btn = document.getElementById("btnSubmit");
     btn.disabled = true;
 
-    // 1. Mostrar gráfico de carga en las ventanillas
+    // Animación de carga en las ventanillas
     const loaderHTML = `
         <div class="spinner"></div>
-        <span class="loading-text">Procesando...</span>
+        <span class="loading-text">Generando...</span>
     `;
-    
     document.getElementById("contrato").innerHTML = loaderHTML;
-    document.getElementById("afp_box").innerHTML = loaderHTML;
-    document.getElementById("liq1").innerHTML = loaderHTML;
+    document.getElementById("afp_box").innerHTML   = loaderHTML;
+    document.getElementById("liq1").innerHTML      = loaderHTML;
 
-    // 2. Extraer datos del formulario
+    // Payload plano
     const payload = {
-        "nombre": document.getElementById('nombre').value,
-        "rut": document.getElementById('rut').value,
-        "fecha": document.getElementById('fecha').value,
-        "nacionalidad": document.getElementById('nacionalidad').value,
-        "email": document.getElementById('email').value,
-        "cargo": document.getElementById('cargo').value,
-        "sueldo": document.getElementById('sueldo').value,
-        "afp": document.getElementById('afp').value
+        "nombre":      document.getElementById('nombre').value,
+        "rut":         document.getElementById('rut').value,
+        "fecha":       document.getElementById('fecha').value,
+        "nacionalidad":document.getElementById('nacionalidad').value,
+        "email":       document.getElementById('email').value,
+        "cargo":       document.getElementById('cargo').value,
+        "sueldo":      parseInt(document.getElementById('sueldo').value),
+        "direccion":   document.getElementById('direccion').value,
+        "afp":         document.getElementById('afp').value
     };
 
-    // 3. Enviar a Make.com
-    // AQUÍ DEBES PONER TU WEBHOOK DE MAKE (Ej: https://hook.us2.make.com/xxxxxx)
-    fetch('URL_DE_TU_WEBHOOK', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    })
-    .then(() => {
-        
-        // 4. Iniciar cuenta regresiva en el botón (Simulando el tiempo de Make)
-        let segundos = 15;
-        btn.innerHTML = `Generando archivos... (${segundos}s)`;
-        
-        const timer = setInterval(() => {
-            segundos--;
-            btn.innerHTML = `Generando archivos... (${segundos}s)`;
-            
-            if(segundos <= 0) {
-                clearInterval(timer);
-                btn.innerHTML = "¡Documentos Listos!";
-                btn.style.background = "var(--success)";
-                
-                // 5. Mostrar los iframes en las ventanillas
-                // REEMPLAZA ESTOS LINKS POR LOS LINKS REALES A LOS PDFs
-                document.getElementById("contrato").innerHTML = '<iframe class="pdf-frame" src="https://tuservidor.com/demo-contrato.pdf#toolbar=0"></iframe>';
-                document.getElementById("afp_box").innerHTML = '<iframe class="pdf-frame" src="https://tuservidor.com/demo-afp.pdf#toolbar=0"></iframe>';
-                document.getElementById("liq1").innerHTML = '<iframe class="pdf-frame" src="https://tuservidor.com/demo-liq.pdf#toolbar=0"></iframe>';
-            }
-        }, 1000);
+    // Contador de segundos en el botón
+    let segundos = 0;
+    const timer = setInterval(() => {
+        segundos++;
+        btn.innerHTML = `Generando documentos... (${segundos}s)`;
+    }, 1000);
 
-    })
-    .catch(err => {
-        alert("Error al conectar con el servidor.");
+    // AbortController con timeout de 3 minutos
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 180000);
+
+    try {
+        const res = await fetch(WEBHOOK, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+        clearInterval(timer);
+
+        const data = await res.json();
+
+        if (data.status === "ready" && data.contrato) {
+            btn.innerHTML = "¡Documentos listos!";
+            btn.style.background = "linear-gradient(135deg, #00c853, #00e676)";
+
+            document.getElementById("contrato").innerHTML =
+                `<iframe class="pdf-frame" src="${data.contrato}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
+            document.getElementById("contrato").classList.add("ready");
+
+            document.getElementById("afp_box").innerHTML =
+                `<iframe class="pdf-frame" src="${data.afp}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
+            document.getElementById("afp_box").classList.add("ready");
+
+            document.getElementById("liq1").innerHTML =
+                `<iframe class="pdf-frame" src="${data.liq}#toolbar=0&navpanes=0" frameborder="0"></iframe>`;
+
+        } else {
+            throw new Error("Respuesta inesperada: " + JSON.stringify(data));
+        }
+
+    } catch (err) {
+        clearTimeout(timeoutId);
+        clearInterval(timer);
+        console.error(err);
+
+        const msg = err.name === 'AbortError'
+            ? "Tiempo de espera agotado (3 min). Los documentos pueden estar siendo generados — revisa tu correo."
+            : "Error al conectar con el servidor. Revisa la consola.";
+        alert(msg);
+
         btn.disabled = false;
         btn.innerHTML = "Procesar emisión";
-        
-        const resetHTML = '<span>Error. Intente nuevamente.</span>';
-        document.getElementById("contrato").innerHTML = resetHTML;
-        document.getElementById("afp_box").innerHTML = resetHTML;
-        document.getElementById("liq1").innerHTML = resetHTML;
-    });
-
+        const errorHTML = '<span style="color:#ff5252; font-size:0.85rem;">Error — intenta nuevamente</span>';
+        document.getElementById("contrato").innerHTML = errorHTML;
+        document.getElementById("afp_box").innerHTML  = errorHTML;
+        document.getElementById("liq1").innerHTML     = errorHTML;
+    }
 });
 
 </script>
