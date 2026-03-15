@@ -48,9 +48,9 @@ h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
 
-/* HERO SECTION - Ajuste a 0.7cm */
-.hero-section { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; background-color: #000; padding-left: 0.7cm; }
-.hero-image { position: absolute; top: 0; left: 0.7cm; width: calc(100% - 0.7cm); height: 100%; object-fit: cover; object-position: center top; z-index: 1; animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+/* HERO SECTION - ESCRITORIO (Se mantiene en 0.5cm) */
+.hero-section { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; background-color: #000; padding-left: 0.5cm; }
+.hero-image { position: absolute; top: 0; left: 0.5cm; width: calc(100% - 0.5cm); height: 100%; object-fit: cover; object-position: center top; z-index: 1; animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 .banner-web { display: block; }
 .banner-mobile { display: none; }
 
@@ -147,9 +147,12 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 .wa-text span { font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; }
 .wa-text small { font-size: 0.75rem; color: #25D366; font-weight: 500; }
 
-/* MOBILE EDGE TO EDGE */
+/* MOBILE EDGE TO EDGE - AQUÍ ESTÁ EL CAMBIO ESPECÍFICO PARA MÓVIL (0.7cm) */
 @media (max-width: 992px) {
-    .banner-web { display: none; } .banner-mobile { display: block; }
+    .banner-web { display: none; } 
+    .banner-mobile { display: block; left: 0.7cm; width: calc(100% - 0.7cm); }
+    .hero-section { padding-left: 0.7cm; }
+    
     .container { flex-direction: column; gap: 0; padding: 0 !important; margin: 0 !important; width: 100%; max-width: 100%; }
     .form-panel, .preview-panel { width: 100%; } .preview-panel { position: relative; top: 0; }
     .card { border-radius: 0 !important; border-left: none !important; border-right: none !important; padding: 30px 15px !important; margin: 0 0 15px 0 !important; width: 100%; }
