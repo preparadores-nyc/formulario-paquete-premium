@@ -48,7 +48,7 @@ h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
 
-/* HERO SECTION - ESCRITORIO (Se mantiene en 0.5cm) */
+/* HERO SECTION - ESCRITORIO (Se mantiene con el margen original) */
 .hero-section { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; background-color: #000; padding-left: 0.5cm; }
 .hero-image { position: absolute; top: 0; left: 0.5cm; width: calc(100% - 0.5cm); height: 100%; object-fit: cover; object-position: center top; z-index: 1; animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 .banner-web { display: block; }
@@ -150,6 +150,7 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 /* MOBILE EDGE TO EDGE - AQUÍ ESTÁ EL CAMBIO ESPECÍFICO PARA MÓVIL (0.7cm) */
 @media (max-width: 992px) {
     .banner-web { display: none; } 
+    /* Se aplica el desplazamiento de 0.7cm solo a la imagen móvil */
     .banner-mobile { display: block; left: 0.7cm; width: calc(100% - 0.7cm); }
     .hero-section { padding-left: 0.7cm; }
     
