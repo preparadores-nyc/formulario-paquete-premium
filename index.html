@@ -49,8 +49,8 @@ h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
 
 /* HERO SECTION */
-.hero-section { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; background-color: #000; padding-left: 0.5cm; }
-.hero-image { position: absolute; top: 0; left: 0.5cm; width: calc(100% - 0.5cm); height: 100%; object-fit: cover; object-position: center top; z-index: 1; animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.hero-section { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; background-color: #000; }
+.hero-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; z-index: 1; animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 .banner-web { display: block; }
 .banner-mobile { display: none; }
 
@@ -103,25 +103,46 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 .spinner { width: 40px; height: 40px; border: 4px solid rgba(255, 255, 255, 0.1); border-left-color: var(--secondary-glow); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
 .loading-text { font-size: 0.9rem; color: var(--text-main); font-weight: 500; animation: pulse 1.5s infinite; }
 
-/* DOCUMENT PREVIEW & BLUR EFECTO MÁGICO */
+/* DOCUMENT PREVIEW */
 .preview-box {
     background: rgba(0,0,0,0.25); border-radius: 16px; height: clamp(250px, 40vw, 300px); display: flex; align-items: center; justify-content: center;
     color: var(--text-muted); text-align: center; position: relative; overflow: hidden; border: 1px dashed rgba(255,255,255,0.2); width: 100%; flex-direction: column; transition: all 0.4s ease;
 }
 .preview-box.ready { border-color: rgba(0,230,118,0.5); border-style: solid; background: rgba(0,0,0,0.6); }
 
-.pdf-frame { width: 100%; height: 100%; border: none; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; z-index: 1; position: relative; }
+/* 🔥 SEGURIDAD MÁXIMA EN IFRAMES 🔥 */
+.pdf-frame { 
+    width: 100%; 
+    height: 100%; 
+    border: none; 
+    opacity: 0; 
+    animation: fadeUp 0.8s ease forwards 0.2s; 
+    z-index: 1; 
+    position: relative; 
+    pointer-events: none; /* Bloquea clics, scroll y descargas */
+    overflow: hidden;
+}
 
-/* 🔥 Efecto difuminado (Blur) inferior 🔥 */
+/* BLUR SUTIL (30% inferior) */
 .blur-overlay {
     position: absolute;
-    bottom: 0; left: 0; width: 100%; height: 35%; /* El 35% inferior */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    /* Se desvanece de negro solido abajo, a transparente arriba */
+    bottom: 0; left: 0; width: 100%; height: 35%;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%);
     -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%);
-    pointer-events: none; /* Para que deje scrollear el PDF por debajo */
+    pointer-events: none; 
+    z-index: 10;
+}
+
+/* 🔥 BLUR COMPLETO (100% oculto) 🔥 */
+.blur-overlay-full {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(0,0,0,0.2);
+    pointer-events: none; 
     z-index: 10;
 }
 
@@ -133,9 +154,9 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 
 .liq-item { min-width: 180px; height: 240px; background: rgba(0,0,0,0.3); position: relative; border-radius: 12px; border: 1px solid var(--glass-border); overflow: hidden; flex-shrink: 0; display: flex; flex-direction: column; transition: transform 0.3s ease; }
 .liq-title { background: rgba(255,255,255,0.1); color: var(--text-main); font-size: 0.8rem; font-weight: 500; padding: 8px; text-align: center; z-index: 5; border-bottom: 1px solid rgba(255,255,255,0.05); }
-.preview-small { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; position: relative; width: 100%; }
-.liq-blurred { filter: blur(8px); user-select: none; pointer-events: none; }
-.liq-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 600; color: var(--text-main); z-index: 20; font-size: 1.1rem; text-shadow: 0px 2px 10px rgba(0,0,0,0.8); backdrop-filter: blur(2px); }
+.preview-small { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; position: relative; width: 100%; overflow: hidden; }
+
+.liq-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 600; color: var(--text-main); z-index: 20; font-size: 1.1rem; text-shadow: 0px 2px 10px rgba(0,0,0,0.8); }
 
 /* WHATSAPP */
 .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; padding: 8px 20px 8px 8px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
@@ -202,15 +223,15 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 <h2>Documentos Nativos</h2>
 
 <div class="preview-box" id="contrato">
-<span style="color:var(--text-muted); font-size:0.9rem;">Esperando contrato...</span>
+<span style="color:var(--muted); font-size:0.9rem;">Esperando contrato...</span>
 </div>
 
 <div class="preview-box" style="margin-top:20px" id="afp_box">
-<span style="color:var(--text-muted); font-size:0.9rem;">Esperando AFP...</span>
+<span style="color:var(--muted); font-size:0.9rem;">Esperando AFP...</span>
 </div>
 
 <div class="preview-box" style="margin-top:20px" id="dicom_box">
-<span style="color:var(--text-muted); font-size:0.9rem;">Esperando DICOM...</span>
+<span style="color:var(--muted); font-size:0.9rem;">Esperando DICOM...</span>
 </div>
 
 </div>
@@ -220,20 +241,30 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Deslice para visualizar.</p>
 
 <div class="liquidaciones-grid">
-<div class="liq-item">
-<div class="liq-title">Mes actual</div>
-<div class="preview-small" id="liq1">Esperando...</div>
-</div>
-<div class="liq-item">
-<div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -2</div>
-<div class="liq-overlay">🔒<br>Cifrado</div>
-<div class="preview-small liq-blurred" id="liq2"></div>
-</div>
-<div class="liq-item">
-<div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -3</div>
-<div class="liq-overlay">🔒<br>Cifrado</div>
-<div class="preview-small liq-blurred" id="liq3"></div>
-</div>
+    <div class="liq-item">
+        <div class="liq-title">Mes actual</div>
+        <div class="preview-small" id="liq1">Esperando...</div>
+    </div>
+    <div class="liq-item">
+        <div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -2</div>
+        <div class="preview-small" id="liq2">Esperando...</div>
+    </div>
+    <div class="liq-item">
+        <div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -3</div>
+        <div class="preview-small" id="liq3">Esperando...</div>
+    </div>
+    <div class="liq-item">
+        <div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -4</div>
+        <div class="preview-small" id="liq4">Esperando...</div>
+    </div>
+    <div class="liq-item">
+        <div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -5</div>
+        <div class="preview-small" id="liq5">Esperando...</div>
+    </div>
+    <div class="liq-item">
+        <div class="liq-title" style="background: rgba(255,255,255,0.05);">Mes -6</div>
+        <div class="preview-small" id="liq6">Esperando...</div>
+    </div>
 </div>
 </div>
 
@@ -259,7 +290,12 @@ document.getElementById("form").addEventListener("submit", async function(e) {
     document.getElementById("contrato").innerHTML = loaderHTML;
     document.getElementById("afp_box").innerHTML   = loaderHTML;
     document.getElementById("dicom_box").innerHTML = loaderHTML; 
-    document.getElementById("liq1").innerHTML      = loaderHTML;
+    document.getElementById("liq1").innerHTML = loaderHTML;
+    document.getElementById("liq2").innerHTML = loaderHTML;
+    document.getElementById("liq3").innerHTML = loaderHTML;
+    document.getElementById("liq4").innerHTML = loaderHTML;
+    document.getElementById("liq5").innerHTML = loaderHTML;
+    document.getElementById("liq6").innerHTML = loaderHTML;
 
     if(window.innerWidth <= 992) {
         document.getElementById("contrato").scrollIntoView({behavior: "smooth", block: "center"});
@@ -299,10 +335,17 @@ document.getElementById("form").addEventListener("submit", async function(e) {
 
         const data = await res.json();
 
-        // 🔥 FUNCIÓN QUE INYECTA EL IFRAME Y EL BLUR SUAVE AL MISMO TIEMPO 🔥
+        // Función para documentos grandes (Blur parcial abajo y seguridad)
         const applyPreview = (url) => `
-            <iframe class="pdf-frame" src="${url}" frameborder="0"></iframe>
+            <iframe class="pdf-frame" src="${url}#toolbar=0&navpanes=0&scrollbar=0" frameborder="0" scrolling="no"></iframe>
             <div class="blur-overlay"></div>
+        `;
+
+        // Función para Liquidaciones 2-6 (Blur 100% y candado, con seguridad de Iframe)
+        const applyFullBlurPreview = (url) => `
+            <iframe class="pdf-frame" src="${url}#toolbar=0&navpanes=0&scrollbar=0" frameborder="0" scrolling="no"></iframe>
+            <div class="blur-overlay-full"></div>
+            <div class="liq-overlay">🔒<br>Cifrado</div>
         `;
 
         if (data.status === "ready" && data.contrato) {
@@ -318,8 +361,15 @@ document.getElementById("form").addEventListener("submit", async function(e) {
             document.getElementById("dicom_box").innerHTML = applyPreview(data.dicom);
             document.getElementById("dicom_box").classList.add("ready");
 
-            // La liquidación es chiquita, no le ponemos blur para que el usuario pueda ver el encabezado
-            document.getElementById("liq1").innerHTML = `<iframe class="pdf-frame" src="${data.liq1}" frameborder="0"></iframe>`;
+            // Liq 1 (Visible con blur sutil abajo)
+            document.getElementById("liq1").innerHTML = applyPreview(data.liq1);
+            
+            // Liq 2 a 6 (Blur Completo 100% y Candado)
+            document.getElementById("liq2").innerHTML = applyFullBlurPreview(data.liq2);
+            document.getElementById("liq3").innerHTML = applyFullBlurPreview(data.liq3);
+            document.getElementById("liq4").innerHTML = applyFullBlurPreview(data.liq4);
+            document.getElementById("liq5").innerHTML = applyFullBlurPreview(data.liq5);
+            document.getElementById("liq6").innerHTML = applyFullBlurPreview(data.liq6);
 
         } else {
             throw new Error("Respuesta inesperada del servidor.");
@@ -337,7 +387,7 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         document.getElementById("contrato").innerHTML = errorHTML;
         document.getElementById("afp_box").innerHTML  = errorHTML;
         document.getElementById("dicom_box").innerHTML = errorHTML;
-        document.getElementById("liq1").innerHTML      = errorHTML;
+        document.getElementById("liq1").innerHTML     = errorHTML;
     }
 });
 </script>
