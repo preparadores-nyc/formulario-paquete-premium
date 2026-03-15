@@ -48,8 +48,8 @@ h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
 
-/* HERO SECTION - Sin padding en los bordes */
-.hero-section { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; background-color: #000; padding: 0; }
+/* HERO SECTION - ESCRITORIO (Se mantiene con el margen original) */
+.hero-section { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; background-color: #000; padding-left: 0.5cm; }
 .hero-image { position: absolute; top: 0; left: 0.5cm; width: calc(100% - 0.5cm); height: 100%; object-fit: cover; object-position: center top; z-index: 1; animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 .banner-web { display: block; }
 .banner-mobile { display: none; }
@@ -64,7 +64,7 @@ h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 .scroll-arrow svg { width: 30px; height: 30px; stroke: #fff; transition: transform 0.3s; }
 .scroll-arrow:hover svg { transform: translateY(3px); }
 
-/* LAYOUT - Cero padding lateral para expandir el contenido a los bordes */
+/* LAYOUT */
 .container { max-width: 1440px; width: 100%; margin: 40px auto 20px auto; display: flex; flex-direction: row; gap: clamp(20px, 3vw, 40px); padding: 0; align-items: flex-start; }
 .form-panel { flex: 1.2; min-width: 0; }
 .preview-panel { flex: 1; min-width: 0; position: sticky; top: 30px; display: flex; flex-direction: column; gap: 25px; }
@@ -147,15 +147,29 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 .wa-text span { font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; }
 .wa-text small { font-size: 0.75rem; color: #25D366; font-weight: 500; }
 
-/* MOBILE EDGE TO EDGE */
+/* MOBILE EDGE TO EDGE - AQUÍ ESTÁN LOS CAMBIOS ESPECÍFICOS PARA MÓVIL (0.7cm) Y ELIMINACIÓN DE PADDINGS laterales */
 @media (max-width: 992px) {
     .banner-web { display: none; } 
-    /* ¡AQUÍ ESTÁ EL AJUSTE! Desplazada 2cm más a la derecha (2.7cm en total) SOLO en móvil */
-    .banner-mobile { display: block; left: 2.7cm; width: calc(100% - 2.7cm); }
+    /* ¡AQUÍ ESTÁ EL AJUSTE! Imagen centrada y de borde a borde */
+    .banner-mobile {
+        display: block;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center; /* Centrado total para vista móvil */
+    }
     
+    /* Eliminado el padding lateral de la sección hero que causaba la barra negra */
+    .hero-section { padding: 0; } 
+    
+    /* Cero padding lateral para expandir el contenido a los bordes */
     .container { flex-direction: column; gap: 0; padding: 0 !important; margin: 0 !important; width: 100%; max-width: 100%; }
     .form-panel, .preview-panel { width: 100%; } .preview-panel { position: relative; top: 0; }
+    
+    /* Mantenemos el padding interno de la tarjeta para legibilidad, pero eliminamos bordes y márgenes externos */
     .card { border-radius: 0 !important; border-left: none !important; border-right: none !important; padding: 30px 15px !important; margin: 0 0 15px 0 !important; width: 100%; }
+    
     .form-grid { grid-template-columns: 1fr; gap: 15px; } .full { grid-column: span 1; } button { grid-column: span 1; }
     .whatsapp-float { bottom: 20px; right: 15px; padding: 6px 15px 6px 6px; } .wa-logo { width: 40px; height: 40px; } .wa-text span { font-size: 0.9rem; }
 }
