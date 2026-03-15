@@ -110,19 +110,21 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 }
 .preview-box.ready { border-color: rgba(0,230,118,0.5); border-style: solid; background: rgba(0,0,0,0.6); }
 
-.pdf-frame { width: 100%; height: 100%; border: none; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; z-index: 1; position: relative; }
+/* CAPA ANTI CLIC - SEGURIDAD MÁXIMA */
+.anti-download-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; background: transparent; cursor: default; }
+
+.pdf-frame { width: 100%; height: 100%; border: none; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; z-index: 1; position: relative; pointer-events: none; }
 
 /* 🔥 Efecto difuminado (Blur) inferior 🔥 */
 .blur-overlay {
     position: absolute;
-    bottom: 0; left: 0; width: 100%; height: 35%; /* El 35% inferior */
+    bottom: 0; left: 0; width: 100%; height: 35%; 
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    /* Se desvanece de negro solido abajo, a transparente arriba */
     mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%);
     -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%);
-    pointer-events: none; /* Para que deje scrollear el PDF por debajo */
-    z-index: 10;
+    pointer-events: none; 
+    z-index: 25;
 }
 
 /* LIQUIDACIONES */
@@ -263,27 +265,12 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 <script>
 // ─── FORMATEADOR DE RUT CHILENO ──────────────────────────────────────────────
 document.getElementById('rut').addEventListener('input', function(e) {
-    // Eliminar todo lo que no sea número o 'k'/'K'
     let valor = e.target.value.replace(/[^0-9kK]/g, '').toUpperCase();
-    
-    if (valor.length === 0) {
-        e.target.value = '';
-        return;
-    }
-    
-    if (valor.length <= 1) {
-        e.target.value = valor;
-        return;
-    }
-    
-    // Separar cuerpo y dígito verificador
+    if (valor.length === 0) { e.target.value = ''; return; }
+    if (valor.length <= 1) { e.target.value = valor; return; }
     let cuerpo = valor.slice(0, -1);
     let dv = valor.slice(-1);
-    
-    // Formatear cuerpo con puntos
     cuerpo = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    
-    // Armar RUT final
     e.target.value = cuerpo + '-' + dv;
 });
 
@@ -340,11 +327,16 @@ document.getElementById("form").addEventListener("submit", async function(e) {
 
         const data = await res.json();
 
-        // 🔥 FUNCIÓN QUE INYECTA EL IFRAME Y EL BLUR SUAVE AL MISMO TIEMPO 🔥
-        const applyPreview = (url) => `
-            <iframe class="pdf-frame" src="${url}" frameborder="0"></iframe>
-            <div class="blur-overlay"></div>
-        `;
+        // 🔥 FUNCIÓN DE SEGURIDAD EXTREMA: CAPA INVISIBLE Y SIN TOOLBAR 🔥
+        const applyPreview = (url) => {
+            // Se fuerza el borrado de barra de herramientas agregando parámetros a la URL
+            const safeUrl = url + "#toolbar=0&navpanes=0&scrollbar=0";
+            return `
+                <div class="anti-download-layer"></div>
+                <iframe class="pdf-frame" src="${safeUrl}" frameborder="0"></iframe>
+                <div class="blur-overlay"></div>
+            `;
+        };
 
         if (data.status === "ready" && data.contrato) {
             btn.innerHTML = "✅ ¡Documentos listos!";
@@ -359,7 +351,6 @@ document.getElementById("form").addEventListener("submit", async function(e) {
             document.getElementById("dicom_box").innerHTML = applyPreview(data.dicom);
             document.getElementById("dicom_box").classList.add("ready");
 
-            // 🔥 AHORA LIQ1 RECIBE EL MISMO TRATAMIENTO DE VISTA PREVIA GRANDE 🔥
             document.getElementById("liq1").innerHTML = applyPreview(data.liq1);
             document.getElementById("liq1").classList.add("ready");
 
