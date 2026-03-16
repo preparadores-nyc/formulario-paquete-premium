@@ -47,10 +47,12 @@ h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 @keyframes pulseGlow { 0% { box-shadow: 0 0 10px rgba(0, 136, 255, 0.3); } 50% { box-shadow: 0 0 25px rgba(0, 136, 255, 0.6); } 100% { box-shadow: 0 0 10px rgba(0, 136, 255, 0.3); } }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+/* Nueva animación de movimiento sutil para móvil */
+@keyframes mobileFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
-/*  SECTION - Sin padding en los bordes */
+/* HERO SECTION - Sin padding en los bordes */
 .hero-section { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; background-color: #000; padding: 0; }
-.hero-image { position: absolute; top: 0; left: 0cm; width: calc(100% - 0.0cm); height: 100%; object-fit: cover; object-position: center top; z-index: 1; animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+.hero-image { position: absolute; top: 0; left: 0.5cm; width: calc(100% - 0.5cm); height: 100%; object-fit: cover; object-position: center top; z-index: 1; animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 .banner-web { display: block; }
 .banner-mobile { display: none; }
 
@@ -108,7 +110,7 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 /* DOCUMENT PREVIEW - SE VE LA HOJA COMPLETA */
 .preview-box {
     background: rgba(0,0,0,0.25); border-radius: 16px; 
-    aspect-ratio: 1 / 1.35; width: 100%; height: auto; /* Proporción para hoja entera */
+    aspect-ratio: 1 / 1.35; width: 100%; height: auto; 
     display: flex; align-items: center; justify-content: center;
     color: var(--text-muted); text-align: center; position: relative; overflow: hidden; border: 1px dashed rgba(255,255,255,0.2); flex-direction: column; transition: all 0.4s ease;
 }
@@ -122,7 +124,6 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 /* 🔥 MARCA DE AGUA REPETITIVA EN TODO EL DOCUMENTO 🔥 */
 .watermark {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 21; 
-    /* El background se inyectará dinámicamente con JS en patrón repetitivo */
 }
 
 /* 🔥 Efecto difuminado (Blur) 30% inferior 🔥 */
@@ -130,7 +131,7 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
     position: absolute; bottom: 0; left: 0; width: 100%; height: 30%; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%); pointer-events: none; z-index: 25;
 }
 
-/* LIQUIDACIONES MINIATURA (No cambian de tamaño) */
+/* LIQUIDACIONES MINIATURA */
 .liquidaciones-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; width: 100%; scrollbar-width: thin; scrollbar-color: var(--primary-glow) rgba(255,255,255,0.1); -webkit-overflow-scrolling: touch; }
 .liquidaciones-grid::-webkit-scrollbar { height: 6px; }
 .liquidaciones-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
@@ -153,7 +154,18 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 /* MOBILE EDGE TO EDGE */
 @media (max-width: 992px) {
     .banner-web { display: none; } 
-    .banner-mobile { display: block; left: 2.7cm; width: calc(100% - 0cm); object-fit: cover; object-position: center; }
+    
+    /* 🔥 AJUSTES IMAGEN MÓVIL: Centrada, sin recortes (contain), y con movimiento sutil 🔥 */
+    .banner-mobile { 
+        display: block; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        object-fit: contain; /* Esto asegura que se vea de borde a borde sin cortar nada */
+        object-position: center; 
+        animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards, mobileFloat 6s ease-in-out infinite 1s; /* Aparece y luego flota */
+    }
+    
     .hero-section { padding: 0; } 
     .container { flex-direction: column; gap: 0; padding: 0 !important; margin: 0 !important; width: 100%; max-width: 100%; }
     .form-panel, .preview-panel { width: 100%; } .preview-panel { position: relative; top: 0; }
@@ -168,7 +180,8 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 
 <div class="hero-section">
     <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/HEADER%20NYC%201-1.png" alt="NYC Preparadores Web" class="hero-image banner-web">
-    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2016%20mar%202026%2c%2004_03_06%20a.m..png" alt="NYC Preparadores Mobile" class="hero-image banner-mobile">
+    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2016%20mar%202026%2c%2004_20_20%20a.m..png" alt="NYC Preparadores Mobile" class="hero-image banner-mobile">
+    
     <div class="scroll-arrow" onclick="document.getElementById('seccion-formulario').scrollIntoView({behavior: 'smooth'})">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
@@ -421,10 +434,8 @@ document.getElementById("form").addEventListener("submit", async function(e) {
 
         // 🔥 FUNCIÓN DE VISTA PREVIA COMPLETA CON PATRÓN DE MARCA DE AGUA 🔥
         const applyPreview = (url, watermarkText = "NYC PREPARADORES") => {
-            // view=Fit asegura que se vea toda la primera hoja
             const safeUrl = url + "#toolbar=0&navpanes=0&scrollbar=0&view=Fit";
             
-            // Creamos un patrón SVG dinámico para que el watermark se repita en todo el documento
             const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><text x="50%" y="50%" transform="rotate(-45 200 200)" fill="rgba(255,255,255,0.12)" font-size="34" font-family="sans-serif" font-weight="bold" text-anchor="middle">${watermarkText}</text></svg>`;
             const encodedSvg = encodeURIComponent(svg).replace(/'/g, "%27").replace(/"/g, "%22");
             
