@@ -36,10 +36,25 @@ body, html {
 body {
     background-image: url('https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2014%20mar%202026%2c%2005_53_40%20a.m..png');
     background-size: cover; background-position: center; background-attachment: fixed;
-    min-height: 100vh; padding-bottom: 50px;
+    min-height: 100vh; padding-bottom: 0px; /* Ajustado por el footer */
 }
 
 h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
+
+/* ─── NAVEGACIÓN (HEADER PROFESIONAL) ─── */
+.navbar {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 5%; background: rgba(5, 5, 5, 0.6);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+}
+.nav-logo { height: 45px; object-fit: contain; filter: drop-shadow(0 2px 10px rgba(0,136,255,0.4)); }
+.nav-links { display: flex; gap: 25px; align-items: center; }
+.nav-links a { color: var(--text-main); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.3s; }
+.nav-links a:hover { color: var(--secondary-glow); }
+.nav-btn { background: linear-gradient(135deg, var(--primary-glow), #0055ff); padding: 8px 20px; border-radius: 50px; font-weight: 600; box-shadow: 0 4px 15px rgba(0, 136, 255, 0.3); transition: all 0.3s ease; }
+.nav-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 136, 255, 0.5); color: #fff !important; }
 
 /* ANIMACIONES */
 @keyframes fadeUp { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
@@ -47,12 +62,20 @@ h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 @keyframes pulseGlow { 0% { box-shadow: 0 0 10px rgba(0, 136, 255, 0.3); } 50% { box-shadow: 0 0 25px rgba(0, 136, 255, 0.6); } 100% { box-shadow: 0 0 10px rgba(0, 136, 255, 0.3); } }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-/* Nueva animación de movimiento sutil para móvil */
 @keyframes mobileFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes orbit { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(30px, -40px) scale(1.1); } 100% { transform: translate(0, 0) scale(1); } }
 
-/* HERO SECTION - Sin padding en los bordes */
+/* ─── HERO SECTION CON FONDO ANIMADO ─── */
 .hero-section { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; background-color: #000; padding: 0; }
-.hero-image { position: absolute; top: 0; left: 0.5cm; width: calc(100% - 0.5cm); height: 100%; object-fit: cover; object-position: center top; z-index: 1; animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+/* Orbes animados de fondo */
+.hero-bg-fx { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; pointer-events: none; }
+.orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.45; animation: orbit 10s ease-in-out infinite; }
+.orb-1 { width: 350px; height: 350px; background: var(--primary-glow); top: 10%; left: 10%; animation-delay: 0s; }
+.orb-2 { width: 450px; height: 450px; background: var(--secondary-glow); bottom: 15%; right: 5%; animation-delay: -5s; animation-duration: 15s; }
+.orb-3 { width: 250px; height: 250px; background: #6c00ff; top: 40%; left: 40%; animation-delay: -2s; animation-duration: 12s; }
+
+.hero-image { position: absolute; top: 0; left: 0.5cm; width: calc(100% - 0.5cm); height: 100%; object-fit: cover; object-position: center top; z-index: 2; animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 .banner-web { display: block; }
 .banner-mobile { display: none; }
 
@@ -66,10 +89,10 @@ h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 .scroll-arrow svg { width: 30px; height: 30px; stroke: #fff; transition: transform 0.3s; }
 .scroll-arrow:hover svg { transform: translateY(3px); }
 
-/* LAYOUT - Cero padding lateral */
-.container { max-width: 1440px; width: 100%; margin: 40px auto 20px auto; display: flex; flex-direction: row; gap: clamp(20px, 3vw, 40px); padding: 0; align-items: flex-start; }
+/* LAYOUT */
+.container { max-width: 1440px; width: 100%; margin: 60px auto 40px auto; display: flex; flex-direction: row; gap: clamp(20px, 3vw, 40px); padding: 0 20px; align-items: flex-start; z-index: 5; position: relative; }
 .form-panel { flex: 1.2; min-width: 0; }
-.preview-panel { flex: 1; min-width: 0; position: sticky; top: 30px; display: flex; flex-direction: column; gap: 25px; }
+.preview-panel { flex: 1; min-width: 0; position: sticky; top: 100px; display: flex; flex-direction: column; gap: 25px; }
 
 .card {
     background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-radius: 24px;
@@ -101,69 +124,78 @@ button {
     margin-top: 10px; letter-spacing: 1px; grid-column: span 2; box-shadow: 0 8px 20px rgba(0, 136, 255, 0.3); text-transform: capitalize;
 }
 button:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0, 136, 255, 0.5); background: linear-gradient(135deg, #0099ff, #0044ff); }
-button:active { transform: translateY(1px); box-shadow: 0 5px 15px rgba(0, 136, 255, 0.4); }
 button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform: none; box-shadow: none; }
 
 .spinner { width: 40px; height: 40px; border: 4px solid rgba(255, 255, 255, 0.1); border-left-color: var(--secondary-glow); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
-.loading-text { font-size: 0.9rem; color: var(--text-main); font-weight: 500; animation: pulse 1.5s infinite; }
 
-/* DOCUMENT PREVIEW - SE VE LA HOJA COMPLETA */
+/* DOCUMENT PREVIEW */
 .preview-box {
-    background: rgba(0,0,0,0.25); border-radius: 16px; 
-    aspect-ratio: 1 / 1.35; width: 100%; height: auto; 
+    background: rgba(0,0,0,0.25); border-radius: 16px; aspect-ratio: 1 / 1.35; width: 100%; height: auto; 
     display: flex; align-items: center; justify-content: center;
     color: var(--text-muted); text-align: center; position: relative; overflow: hidden; border: 1px dashed rgba(255,255,255,0.2); flex-direction: column; transition: all 0.4s ease;
 }
 .preview-box:not(.ready) { min-height: 400px; }
 .preview-box.ready { border-color: rgba(0,230,118,0.5); border-style: solid; background: rgba(0,0,0,0.6); }
 
-/* CAPA ANTI CLIC - SEGURIDAD MÁXIMA */
 .anti-download-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; background: transparent; cursor: default; }
 .pdf-frame { width: 100%; height: 100%; border: none; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; z-index: 1; position: relative; pointer-events: none; }
-
-/* 🔥 MARCA DE AGUA REPETITIVA EN TODO EL DOCUMENTO 🔥 */
-.watermark {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 21; 
-}
-
-/* 🔥 Efecto difuminado (Blur) 30% inferior 🔥 */
-.blur-overlay {
-    position: absolute; bottom: 0; left: 0; width: 100%; height: 30%; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%); pointer-events: none; z-index: 25;
-}
+.watermark { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 21; }
+.blur-overlay { position: absolute; bottom: 0; left: 0; width: 100%; height: 30%; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%); pointer-events: none; z-index: 25; }
 
 /* LIQUIDACIONES MINIATURA */
-.liquidaciones-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; width: 100%; scrollbar-width: thin; scrollbar-color: var(--primary-glow) rgba(255,255,255,0.1); -webkit-overflow-scrolling: touch; }
+.liquidaciones-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; width: 100%; scrollbar-width: thin; scrollbar-color: var(--primary-glow) rgba(255,255,255,0.1); }
 .liquidaciones-grid::-webkit-scrollbar { height: 6px; }
 .liquidaciones-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
 .liquidaciones-grid::-webkit-scrollbar-thumb { background-color: var(--primary-glow); border-radius: 4px; }
-
 .liq-item { min-width: 180px; height: 240px; background: rgba(0,0,0,0.3); position: relative; border-radius: 12px; border: 1px solid var(--glass-border); overflow: hidden; flex-shrink: 0; display: flex; flex-direction: column; transition: transform 0.3s ease; }
 .liq-title { background: rgba(255,255,255,0.1); color: var(--text-main); font-size: 0.8rem; font-weight: 500; padding: 8px; text-align: center; z-index: 5; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .preview-small { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.85rem; position: relative; width: 100%; }
 .liq-blurred { filter: blur(8px); user-select: none; pointer-events: none; }
 .liq-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 600; color: var(--text-main); z-index: 20; font-size: 1.1rem; text-shadow: 0px 2px 10px rgba(0,0,0,0.8); backdrop-filter: blur(2px); }
 
-/* WHATSAPP */
-.whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; padding: 8px 20px 8px 8px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-.whatsapp-float:hover { transform: translateY(-5px) scale(1.02); border-color: #25D366; box-shadow: 0 15px 40px rgba(37, 211, 102, 0.3); background: rgba(15, 20, 30, 0.7); }
-.wa-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-.wa-text { display: flex; flex-direction: column; justify-content: center; }
-.wa-text span { font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; }
+/* ─── SECCIÓN TESTIMONIOS ─── */
+.testimonials-sec { max-width: 1440px; margin: 20px auto 60px auto; padding: 0 20px; z-index: 5; position: relative; }
+.testimonials-sec h2 { text-align: center; font-size: 2rem; margin-bottom: 40px; }
+.test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.test-card { background: var(--glass-bg); backdrop-filter: blur(25px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px; text-align: center; }
+.test-card p { font-style: italic; color: #d1d1d1; margin-bottom: 15px; font-size: 0.95rem; }
+.test-card h4 { color: var(--primary-glow); font-size: 1.1rem; }
+.stars { color: #ffb400; margin-bottom: 10px; font-size: 1.2rem; }
+
+/* ─── FOOTER (PAGOS Y OTROS PRODUCTOS) ─── */
+.footer-sec { background: rgba(0, 0, 0, 0.8); border-top: 1px solid var(--glass-border); padding: 60px 20px; text-align: center; position: relative; z-index: 10; }
+.footer-logo { height: 60px; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(0,136,255,0.3)); }
+.footer-sec h2 { margin-bottom: 10px; font-size: 2.2rem; }
+.footer-sec p { color: var(--text-muted); margin-bottom: 30px; }
+.footer-btns { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.btn-pay { display: inline-block; background: linear-gradient(135deg, #00e676, #00c853); color: #000; padding: 16px 40px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; text-decoration: none; box-shadow: 0 10px 25px rgba(0, 230, 118, 0.3); transition: all 0.3s; }
+.btn-pay:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 230, 118, 0.5); }
+.btn-other { display: inline-block; background: transparent; border: 2px solid var(--primary-glow); color: var(--text-main); padding: 14px 40px; border-radius: 50px; font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s; }
+.btn-other:hover { background: var(--primary-glow); color: #fff; box-shadow: 0 10px 25px rgba(0, 136, 255, 0.3); }
+
+/* WHATSAPP FLOAT */
+.whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: var(--glass-bg); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; padding: 8px 20px 8px 8px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.4); transition: all 0.3s; }
+.whatsapp-float:hover { transform: translateY(-5px) scale(1.02); border-color: #25D366; background: rgba(15, 20, 30, 0.9); }
+.wa-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+.wa-text span { font-size: 1rem; font-weight: 700; }
 .wa-text small { font-size: 0.75rem; color: #25D366; font-weight: 500; }
 
-/* MOBILE EDGE TO EDGE */
+/* MOBILE EDGE TO EDGE & NAVBAR FIX */
 @media (max-width: 992px) {
-    .banner-web { display: none; } 
+    .nav-links a:not(.nav-btn) { display: none; } /* En móvil ocultamos links, dejamos botón principal */
+    .navbar { padding: 15px 20px; }
     
-    /* 🔥 AJUSTES IMAGEN MÓVIL: Centrada, sin recortes (contain), y con movimiento sutil 🔥 */
+    .banner-web { display: none; } 
+    /* Imagen Mobile intacta: Centrada, contain, animada, sin cortes ni márgenes */
     .banner-mobile { 
         display: block; 
         left: 0; 
         width: 100%; 
         height: 100%; 
-        object-fit: contain; /* Esto asegura que se vea de borde a borde sin cortar nada */
+        object-fit: contain; 
         object-position: center; 
-        animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards, mobileFloat 6s ease-in-out infinite 1s; /* Aparece y luego flota */
+        z-index: 2;
+        animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards, mobileFloat 6s ease-in-out infinite 1s; 
     }
     
     .hero-section { padding: 0; } 
@@ -172,13 +204,30 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
     .card { border-radius: 0 !important; border-left: none !important; border-right: none !important; padding: 30px 15px !important; margin: 0 0 15px 0 !important; width: 100%; }
     .form-grid { grid-template-columns: 1fr; gap: 15px; } .full { grid-column: span 1; } button { grid-column: span 1; }
     .whatsapp-float { bottom: 20px; right: 15px; padding: 6px 15px 6px 6px; } .wa-logo { width: 40px; height: 40px; } .wa-text span { font-size: 0.9rem; }
+    .footer-btns { flex-direction: column; gap: 15px; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="hero-section">
+<header class="navbar">
+    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20nyc%20(no%20background).png" alt="NYC Preparadores Logo" class="nav-logo">
+    <nav class="nav-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#seccion-formulario">Emitir Documentos</a>
+        <a href="#testimonios">Testimonios</a>
+        <a href="https://wa.me/56933686427" target="_blank" class="nav-btn">Asistencia</a>
+    </nav>
+</header>
+
+<div class="hero-section" id="inicio">
+    <div class="hero-bg-fx">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
     <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/HEADER%20NYC%201-1.png" alt="NYC Preparadores Web" class="hero-image banner-web">
     <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2016%20mar%202026%2c%2004_20_20%20a.m..png" alt="NYC Preparadores Mobile" class="hero-image banner-mobile">
     
@@ -307,6 +356,37 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 </div>
 </div>
 </div>
+
+<section id="testimonios" class="testimonials-sec">
+    <h2>Lo que dicen nuestros clientes</h2>
+    <div class="test-grid">
+        <div class="test-card">
+            <div class="stars">★★★★★</div>
+            <p>"Excelente servicio. Logré arrendar mi departamento en providencia en tiempo récord. Documentos impecables."</p>
+            <h4>— Camila V.</h4>
+        </div>
+        <div class="test-card">
+            <div class="stars">★★★★★</div>
+            <p>"La velocidad es increíble. En minutos pude previsualizar todo y tras el pago me llegó al correo. Totalmente recomendados."</p>
+            <h4>— Diego S.</h4>
+        </div>
+        <div class="test-card">
+            <div class="stars">★★★★★</div>
+            <p>"Tenía miedo de que la corredora me rechazara, pero pasó sin problemas. DICOM y liquidaciones perfectas."</p>
+            <h4>— Andrea R.</h4>
+        </div>
+    </div>
+</section>
+
+<footer class="footer-sec">
+    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20miniatura%20preparadores%20nyc.png" class="footer-logo" alt="NYC Logo Mini">
+    <h2>¿Listo para tramitar tu arriendo?</h2>
+    <p>Si ya visualizaste tus documentos y la simulación está correcta, procede con el pago para liberar las descargas.</p>
+    <div class="footer-btns">
+        <a href="https://wa.me/56933686427" target="_blank" class="btn-pay">Pagar Servicio Premium ($35.000)</a>
+        <a href="#" class="btn-other">Ver Otros Productos</a>
+    </div>
+</footer>
 
 <a href="https://wa.me/56933686427" target="_blank" class="whatsapp-float">
     <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/LOGO%20WHATSAPP.png" alt="WhatsApp" class="wa-logo">
