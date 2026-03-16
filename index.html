@@ -91,12 +91,7 @@ input::placeholder { color: rgba(255,255,255,0.3); transition: opacity 0.3s; }
 select option { background-color: #111827; color: #fff; }
 input:focus, select:focus { outline: none; border-color: var(--primary-glow); background-color: rgba(255, 255, 255, 0.15); box-shadow: 0 0 15px rgba(0, 136, 255, 0.3); transform: translateY(-2px); }
 
-/* DATALIST STYLING (Aproximación, ya que datalist nativo es difícil de estilizar completamente) */
-input[list]::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-    opacity: 0.7;
-    cursor: pointer;
-}
+input[list]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.7; cursor: pointer; }
 
 button {
     background: linear-gradient(135deg, var(--primary-glow), #0055ff); color: white; border: none; padding: 16px 24px;
@@ -119,38 +114,16 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 
 /* CAPA ANTI CLIC - SEGURIDAD MÁXIMA */
 .anti-download-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; background: transparent; cursor: default; }
-
 .pdf-frame { width: 100%; height: 100%; border: none; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; z-index: 1; position: relative; pointer-events: none; }
 
 /* 🔥 MARCA DE AGUA VISTA PREVIA 🔥 */
 .watermark {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    color: rgba(255, 255, 255, 0.15); /* Muy sutil */
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
-    white-space: nowrap;
-    pointer-events: none;
-    z-index: 21; /* Sobre el iframe, bajo el blur */
-    user-select: none;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    /* Efecto de estampado */
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.1), -1px -1px 0 rgba(255,255,255,0.05);
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); color: rgba(255, 255, 255, 0.15); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; white-space: nowrap; pointer-events: none; z-index: 21; user-select: none; text-transform: uppercase; letter-spacing: 5px; text-shadow: 1px 1px 0 rgba(0,0,0,0.1), -1px -1px 0 rgba(255,255,255,0.05);
 }
 
 /* 🔥 Efecto difuminado (Blur) inferior 🔥 */
 .blur-overlay {
-    position: absolute;
-    bottom: 0; left: 0; width: 100%; height: 35%; 
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%);
-    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%);
-    pointer-events: none; 
-    z-index: 25;
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 35%; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%); pointer-events: none; z-index: 25;
 }
 
 /* LIQUIDACIONES */
@@ -176,24 +149,11 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 /* MOBILE EDGE TO EDGE */
 @media (max-width: 992px) {
     .banner-web { display: none; } 
-    /* Imagen centrada y de borde a borde */
-    .banner-mobile {
-        display: block;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center; /* Centrado total para vista móvil */
-    }
-    
+    .banner-mobile { display: block; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
     .hero-section { padding: 0; } 
-    
-    /* Cero padding lateral para expandir el contenido a los bordes */
     .container { flex-direction: column; gap: 0; padding: 0 !important; margin: 0 !important; width: 100%; max-width: 100%; }
     .form-panel, .preview-panel { width: 100%; } .preview-panel { position: relative; top: 0; }
-    
     .card { border-radius: 0 !important; border-left: none !important; border-right: none !important; padding: 30px 15px !important; margin: 0 0 15px 0 !important; width: 100%; }
-    
     .form-grid { grid-template-columns: 1fr; gap: 15px; } .full { grid-column: span 1; } button { grid-column: span 1; }
     .whatsapp-float { bottom: 20px; right: 15px; padding: 6px 15px 6px 6px; } .wa-logo { width: 40px; height: 40px; } .wa-text span { font-size: 0.9rem; }
 }
@@ -248,7 +208,7 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 </div>
 <div>
 <label>Comuna</label>
-<input list="comunas-list" id="comuna" required placeholder="Escriba para buscar...">
+<input list="comunas-list" id="comuna" required placeholder="Escriba o seleccione...">
 <datalist id="comunas-list">
     </datalist>
 </div>
@@ -335,13 +295,13 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 </a>
 
 <script>
-// ─── DICCIONARIO DE COMUNAS POR REGIÓN ───────────────────────────────────────
+// ─── DICCIONARIO DE COMUNAS POR REGIÓN Y LÓGICA INVERSA ──────────────────────
 const comunasPorRegion = {
     "Arica y Parinacota": ["Arica", "Camarones", "Putre", "General Lagos"],
     "Tarapacá": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"],
     "Antofagasta": ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena"],
     "Atacama": ["Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco"],
-    "Coquimbo": ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paihuano", "Vicuña", "Illapel", "Los Vilos", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado", "Salamanca", "Los Vilos"],
+    "Coquimbo": ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paihuano", "Vicuña", "Illapel", "Los Vilos", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado", "Salamanca"],
     "Valparaíso": ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "La Ligua", "Quillota", "San Antonio", "San Felipe", "Quilpué", "Villa Alemana"],
     "Metropolitana de Santiago": ["Santiago", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"],
     "Libertador Gral. Bernardo O'Higgins": ["Rancagua", "Machalí", "Graneros", "San Fernando", "Rengo", "Pichilemu", "Santa Cruz"],
@@ -355,24 +315,58 @@ const comunasPorRegion = {
     "Magallanes": ["Punta Arenas", "Puerto Natales", "Porvenir"]
 };
 
+// Diccionario inverso para buscar la región dada una comuna
+const regionPorComuna = {};
+let todasLasComunas = [];
+
+for (const [region, comunas] of Object.entries(comunasPorRegion)) {
+    comunas.forEach(comuna => {
+        regionPorComuna[comuna] = region;
+        todasLasComunas.push(comuna);
+    });
+}
+todasLasComunas.sort(); // Orden alfabético
+
+function poblarDatalist(comunasArray) {
+    const datalist = document.getElementById("comunas-list");
+    datalist.innerHTML = "";
+    comunasArray.forEach(comuna => {
+        const option = document.createElement("option");
+        option.value = comuna;
+        datalist.appendChild(option);
+    });
+}
+
+// Al cargar la página, se muestran todas las comunas disponibles en el buscador
+document.addEventListener("DOMContentLoaded", () => {
+    poblarDatalist(todasLasComunas);
+});
+
+// Evento 1: Si el usuario escoge la Región primero, se filtran las comunas
 function actualizarComunas() {
     const regionSelect = document.getElementById("region");
     const comunaInput = document.getElementById("comuna");
-    const datalist = document.getElementById("comunas-list");
     
-    // Limpiar input y datalist
+    // Limpiamos el texto de la comuna al cambiar de región
     comunaInput.value = "";
-    datalist.innerHTML = "";
     
     const regionSeleccionada = regionSelect.value;
     if (regionSeleccionada && comunasPorRegion[regionSeleccionada]) {
-        comunasPorRegion[regionSeleccionada].sort().forEach(comuna => {
-            const option = document.createElement("option");
-            option.value = comuna;
-            datalist.appendChild(option);
-        });
+        poblarDatalist(comunasPorRegion[regionSeleccionada].sort());
+    } else {
+        poblarDatalist(todasLasComunas);
     }
 }
+
+// Evento 2: Si el usuario teclea la Comuna primero, la Región se selecciona sola
+document.getElementById('comuna').addEventListener('input', function(e) {
+    const comunaIngresada = e.target.value;
+    
+    // Si la comuna ingresada existe en nuestro diccionario, asignamos su región
+    if (regionPorComuna[comunaIngresada]) {
+        document.getElementById('region').value = regionPorComuna[comunaIngresada];
+    }
+});
 
 // ─── FORMATEADOR DE RUT CHILENO ──────────────────────────────────────────────
 document.getElementById('rut').addEventListener('input', function(e) {
@@ -412,7 +406,6 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         "email": document.getElementById('email').value,
         "cargo": document.getElementById('cargo').value,
         "sueldo": parseInt(document.getElementById('sueldo').value),
-        // Concatenamos la dirección, la comuna y la región para enviarlo limpio a Make
         "direccion": `${document.getElementById('direccion').value}, ${document.getElementById('comuna').value}, ${document.getElementById('region').value}`,
         "afp": document.getElementById('afp').value
     };
