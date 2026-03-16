@@ -48,8 +48,8 @@ h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
 
-/* HERO SECTION - ESCRITORIO (Se mantiene con el margen original) */
-.hero-section { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; background-color: #000; padding-left: 0.5cm; }
+/* HERO SECTION - Sin padding en los bordes */
+.hero-section { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; background-color: #000; padding: 0; }
 .hero-image { position: absolute; top: 0; left: 0.5cm; width: calc(100% - 0.5cm); height: 100%; object-fit: cover; object-position: center top; z-index: 1; animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 .banner-web { display: block; }
 .banner-mobile { display: none; }
@@ -64,7 +64,7 @@ h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 .scroll-arrow svg { width: 30px; height: 30px; stroke: #fff; transition: transform 0.3s; }
 .scroll-arrow:hover svg { transform: translateY(3px); }
 
-/* LAYOUT */
+/* LAYOUT - Cero padding lateral para expandir el contenido a los bordes */
 .container { max-width: 1440px; width: 100%; margin: 40px auto 20px auto; display: flex; flex-direction: row; gap: clamp(20px, 3vw, 40px); padding: 0; align-items: flex-start; }
 .form-panel { flex: 1.2; min-width: 0; }
 .preview-panel { flex: 1; min-width: 0; position: sticky; top: 30px; display: flex; flex-direction: column; gap: 25px; }
@@ -91,6 +91,13 @@ input::placeholder { color: rgba(255,255,255,0.3); transition: opacity 0.3s; }
 select option { background-color: #111827; color: #fff; }
 input:focus, select:focus { outline: none; border-color: var(--primary-glow); background-color: rgba(255, 255, 255, 0.15); box-shadow: 0 0 15px rgba(0, 136, 255, 0.3); transform: translateY(-2px); }
 
+/* DATALIST STYLING (Aproximación, ya que datalist nativo es difícil de estilizar completamente) */
+input[list]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.7;
+    cursor: pointer;
+}
+
 button {
     background: linear-gradient(135deg, var(--primary-glow), #0055ff); color: white; border: none; padding: 16px 24px;
     width: 100%; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -114,6 +121,25 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 .anti-download-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 20; background: transparent; cursor: default; }
 
 .pdf-frame { width: 100%; height: 100%; border: none; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; z-index: 1; position: relative; pointer-events: none; }
+
+/* 🔥 MARCA DE AGUA VISTA PREVIA 🔥 */
+.watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    color: rgba(255, 255, 255, 0.15); /* Muy sutil */
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 21; /* Sobre el iframe, bajo el blur */
+    user-select: none;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    /* Efecto de estampado */
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.1), -1px -1px 0 rgba(255,255,255,0.05);
+}
 
 /* 🔥 Efecto difuminado (Blur) inferior 🔥 */
 .blur-overlay {
@@ -147,10 +173,10 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 .wa-text span { font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; }
 .wa-text small { font-size: 0.75rem; color: #25D366; font-weight: 500; }
 
-/* MOBILE EDGE TO EDGE - AQUÍ ESTÁN LOS CAMBIOS ESPECÍFICOS PARA MÓVIL (0.7cm) Y ELIMINACIÓN DE PADDINGS laterales */
+/* MOBILE EDGE TO EDGE */
 @media (max-width: 992px) {
     .banner-web { display: none; } 
-    /* ¡AQUÍ ESTÁ EL AJUSTE! Imagen centrada y de borde a borde */
+    /* Imagen centrada y de borde a borde */
     .banner-mobile {
         display: block;
         left: 0;
@@ -160,14 +186,12 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
         object-position: center; /* Centrado total para vista móvil */
     }
     
-    /* Eliminado el padding lateral de la sección hero que causaba la barra negra */
     .hero-section { padding: 0; } 
     
     /* Cero padding lateral para expandir el contenido a los bordes */
     .container { flex-direction: column; gap: 0; padding: 0 !important; margin: 0 !important; width: 100%; max-width: 100%; }
     .form-panel, .preview-panel { width: 100%; } .preview-panel { position: relative; top: 0; }
     
-    /* Mantenemos el padding interno de la tarjeta para legibilidad, pero eliminamos bordes y márgenes externos */
     .card { border-radius: 0 !important; border-left: none !important; border-right: none !important; padding: 30px 15px !important; margin: 0 0 15px 0 !important; width: 100%; }
     
     .form-grid { grid-template-columns: 1fr; gap: 15px; } .full { grid-column: span 1; } button { grid-column: span 1; }
@@ -199,7 +223,38 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 <div><label>Email</label><input type="email" id="email" required placeholder="tu@correo.com"></div>
 <div><label>Cargo deseado</label><input type="text" id="cargo" required placeholder="Ej: Contador Auditor"></div>
 <div><label>Sueldo Líquido</label><input type="number" id="sueldo" required placeholder="Ej: 800000"></div>
-<div><label>Dirección (Calle, Comuna)</label><input type="text" id="direccion" required placeholder="Ej: Av. Providencia 1234, Providencia"></div>
+
+<div>
+<label>Región</label>
+<select id="region" required onchange="actualizarComunas()">
+    <option value="" disabled selected>Seleccione región...</option>
+    <option value="Arica y Parinacota">Arica y Parinacota</option>
+    <option value="Tarapacá">Tarapacá</option>
+    <option value="Antofagasta">Antofagasta</option>
+    <option value="Atacama">Atacama</option>
+    <option value="Coquimbo">Coquimbo</option>
+    <option value="Valparaíso">Valparaíso</option>
+    <option value="Metropolitana de Santiago">Metropolitana de Santiago</option>
+    <option value="Libertador Gral. Bernardo O'Higgins">Libertador Gral. Bernardo O'Higgins</option>
+    <option value="Maule">Maule</option>
+    <option value="Ñuble">Ñuble</option>
+    <option value="Biobío">Biobío</option>
+    <option value="Araucanía">Araucanía</option>
+    <option value="Los Ríos">Los Ríos</option>
+    <option value="Los Lagos">Los Lagos</option>
+    <option value="Aysén">Aysén</option>
+    <option value="Magallanes">Magallanes</option>
+</select>
+</div>
+<div>
+<label>Comuna</label>
+<input list="comunas-list" id="comuna" required placeholder="Escriba para buscar...">
+<datalist id="comunas-list">
+    </datalist>
+</div>
+
+<div class="full"><label>Dirección (Calle y Número)</label><input type="text" id="direccion" required placeholder="Ej: Av. Providencia 1234"></div>
+
 <div class="full"><label>AFP</label>
 <select id="afp" required>
     <option value="Habitat">Habitat</option>
@@ -280,6 +335,45 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 </a>
 
 <script>
+// ─── DICCIONARIO DE COMUNAS POR REGIÓN ───────────────────────────────────────
+const comunasPorRegion = {
+    "Arica y Parinacota": ["Arica", "Camarones", "Putre", "General Lagos"],
+    "Tarapacá": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"],
+    "Antofagasta": ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena"],
+    "Atacama": ["Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco"],
+    "Coquimbo": ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paihuano", "Vicuña", "Illapel", "Los Vilos", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado", "Salamanca", "Los Vilos"],
+    "Valparaíso": ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "La Ligua", "Quillota", "San Antonio", "San Felipe", "Quilpué", "Villa Alemana"],
+    "Metropolitana de Santiago": ["Santiago", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"],
+    "Libertador Gral. Bernardo O'Higgins": ["Rancagua", "Machalí", "Graneros", "San Fernando", "Rengo", "Pichilemu", "Santa Cruz"],
+    "Maule": ["Talca", "Curicó", "Linares", "Cauquenes", "Constitución", "Parral"],
+    "Ñuble": ["Chillán", "Chillán Viejo", "San Carlos", "Bulnes", "Coihueco"],
+    "Biobío": ["Concepción", "Talcahuano", "Hualpén", "San Pedro de la Paz", "Chiguayante", "Coronel", "Lota", "Los Ángeles", "Lebu"],
+    "Araucanía": ["Temuco", "Padre Las Casas", "Villarrica", "Pucón", "Angol", "Victoria"],
+    "Los Ríos": ["Valdivia", "La Unión", "Panguipulli", "Río Bueno"],
+    "Los Lagos": ["Puerto Montt", "Osorno", "Puerto Varas", "Castro", "Ancud"],
+    "Aysén": ["Coyhaique", "Puerto Aysén", "Cisnes"],
+    "Magallanes": ["Punta Arenas", "Puerto Natales", "Porvenir"]
+};
+
+function actualizarComunas() {
+    const regionSelect = document.getElementById("region");
+    const comunaInput = document.getElementById("comuna");
+    const datalist = document.getElementById("comunas-list");
+    
+    // Limpiar input y datalist
+    comunaInput.value = "";
+    datalist.innerHTML = "";
+    
+    const regionSeleccionada = regionSelect.value;
+    if (regionSeleccionada && comunasPorRegion[regionSeleccionada]) {
+        comunasPorRegion[regionSeleccionada].sort().forEach(comuna => {
+            const option = document.createElement("option");
+            option.value = comuna;
+            datalist.appendChild(option);
+        });
+    }
+}
+
 // ─── FORMATEADOR DE RUT CHILENO ──────────────────────────────────────────────
 document.getElementById('rut').addEventListener('input', function(e) {
     let valor = e.target.value.replace(/[^0-9kK]/g, '').toUpperCase();
@@ -318,7 +412,8 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         "email": document.getElementById('email').value,
         "cargo": document.getElementById('cargo').value,
         "sueldo": parseInt(document.getElementById('sueldo').value),
-        "direccion": document.getElementById('direccion').value,
+        // Concatenamos la dirección, la comuna y la región para enviarlo limpio a Make
+        "direccion": `${document.getElementById('direccion').value}, ${document.getElementById('comuna').value}, ${document.getElementById('region').value}`,
         "afp": document.getElementById('afp').value
     };
 
@@ -344,11 +439,12 @@ document.getElementById("form").addEventListener("submit", async function(e) {
 
         const data = await res.json();
 
-        // 🔥 FUNCIÓN DE SEGURIDAD EXTREMA: CAPA INVISIBLE Y SIN TOOLBAR 🔥
-        const applyPreview = (url) => {
+        // 🔥 FUNCIÓN DE VISTA PREVIA CON MARCA DE AGUA INYECTADA 🔥
+        const applyPreview = (url, watermarkText = "NYC PREPARADORES") => {
             const safeUrl = url + "#toolbar=0&navpanes=0&scrollbar=0";
             return `
                 <div class="anti-download-layer"></div>
+                <div class="watermark">${watermarkText}</div>
                 <iframe class="pdf-frame" src="${safeUrl}" frameborder="0"></iframe>
                 <div class="blur-overlay"></div>
             `;
@@ -358,16 +454,16 @@ document.getElementById("form").addEventListener("submit", async function(e) {
             btn.innerHTML = "✅ ¡Documentos listos!";
             btn.style.background = "linear-gradient(135deg, #00c853, #00e676)";
 
-            document.getElementById("contrato").innerHTML = applyPreview(data.contrato);
+            document.getElementById("contrato").innerHTML = applyPreview(data.contrato, "CONTRATO");
             document.getElementById("contrato").classList.add("ready");
 
-            document.getElementById("afp_box").innerHTML = applyPreview(data.afp);
+            document.getElementById("afp_box").innerHTML = applyPreview(data.afp, "CERTIFICADO AFP");
             document.getElementById("afp_box").classList.add("ready");
 
-            document.getElementById("dicom_box").innerHTML = applyPreview(data.dicom);
+            document.getElementById("dicom_box").innerHTML = applyPreview(data.dicom, "INFORME DICOM");
             document.getElementById("dicom_box").classList.add("ready");
 
-            document.getElementById("liq1").innerHTML = applyPreview(data.liq1);
+            document.getElementById("liq1").innerHTML = applyPreview(data.liq1, "LIQUIDACIÓN");
             document.getElementById("liq1").classList.add("ready");
 
         } else {
