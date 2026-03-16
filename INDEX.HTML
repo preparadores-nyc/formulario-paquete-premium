@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparadores NYC - Documentación Express</title>
+
+<link rel="icon" type="image/png" href="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20miniatura%20preparadores%20nyc.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+<style>
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ANIMACIONES GLOBALES */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-15px); }
+    60% { transform: translateY(-7px); }
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 20px rgba(255, 156, 42, 0.2); }
+    50% { box-shadow: 0 0 40px rgba(255, 156, 42, 0.6); }
+    100% { box-shadow: 0 0 20px rgba(255, 156, 42, 0.2); }
+}
+
+body {
+    font-family: Poppins;
+    background: #000000;
+    color: white;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* LUCES AMBIENTALES FLOTANTES (Fondo) */
+.ambient-light {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(150px);
+    z-index: 0;
+    pointer-events: none;
+    animation: float 10s ease-in-out infinite alternate;
+}
+.light-1 { width: 400px; height: 400px; background: rgba(255, 156, 42, 0.05); top: -10%; left: -10%; }
+.light-2 { width: 300px; height: 300px; background: rgba(58, 100, 255, 0.05); bottom: 10%; right: -5%; animation-duration: 15s; }
+
+/* PARTICLES (Estrellas Animadas) */
+#particles {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1; 
+    pointer-events: none;
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(15px);
+    z-index: 100;
+    border-bottom: 1px solid rgba(255, 156, 42, 0.1);
+    transition: 0.4s;
+}
+
+.navbar:hover {
+    border-bottom: 1px solid rgba(255, 156, 42, 0.5);
+    box-shadow: 0 10px 30px rgba(255, 156, 42, 0.15);
+}
+
+/* ESTILOS DEL LOGO */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+}
+
+.navbar-logo {
+    height: 35px;
+    width: auto;
+}
+
+.logo {
+    font-family: Orbitron;
+    font-size: 22px;
+    color: #ff9c2a;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.logo:hover { text-shadow: 0 0 20px #ff9c2a; }
+
+/* MENU */
+.menu { display: flex; gap: 35px; }
+.menu a {
+    color: #ccc;
+    font-weight: 400;
+    text-decoration: none;
+    font-size: 15px;
+    transition: .3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.menu a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 15px #ff9c2a;
+    transform: translateY(-2px);
+}
+.menu-btn { display: none; font-size: 28px; cursor: pointer; color: #ff9c2a; }
+
+/* HERO */
+.hero {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+}
+
+.rocket-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 80px; /* Separación de 2cm */
+}
+
+.rocket-wrapper {
+    animation: float 4s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.rocket { max-width: 90%; height: auto; }
+
+.rocket-glow {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255,156,42,0.8), transparent 70%);
+    filter: blur(80px);
+    opacity: 0.5;
+    z-index: 1;
+    animation: float 4s ease-in-out infinite;
+}
+
+/* INDICADOR DE SCROLL */
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    color: rgba(255,255,255,0.5);
+    font-size: 30px;
+    animation: bounce 2s infinite;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.scroll-indicator:hover { color: #ff9c2a; text-shadow: 0 0 15px #ff9c2a; }
+
+/* SECTIONS GLOBALES */
+.section { padding: 100px 8%; position: relative; z-index: 10; }
+.section-title {
+    font-family: Orbitron;
+    font-size: 36px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 60px;
+    text-transform: uppercase;
+    /* Efecto de texto degradado */
+    background: linear-gradient(90deg, #ffffff, #ff9c2a, #ff5e00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 10px 20px rgba(255, 156, 42, 0.2);
+}
+
+/* CARDS */
+.cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 35px;
+}
+
+.card {
+    background: rgba(10, 15, 30, 0.5);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto Hover Premium */
+.card:hover {
+    transform: translateY(-15px) scale(1.02);
+    background: rgba(15, 22, 45, 0.8);
+    border-color: #ff9c2a;
+    box-shadow: 0 20px 50px rgba(255, 156, 42, 0.3), inset 0 0 20px rgba(255, 156, 42, 0.1);
+    z-index: 20;
+}
+
+.card i {
+    font-size: 45px;
+    color: #ff9c2a;
+    margin-bottom: 20px;
+    transition: 0.4s;
+}
+
+.card:hover i { transform: scale(1.2) rotate(5deg); text-shadow: 0 0 20px #ff9c2a; }
+
+.card h3 {
+    color: #ffffff;
+    font-family: Orbitron;
+    font-size: 20px;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.card:hover h3 { color: #ff9c2a; }
+.card p { color: #a0a5b5; font-size: 15px; line-height: 1.6; }
+
+/* PROCESO - TARJETAS NUMERADAS */
+.step-number {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff9c2a;
+    color: #000;
+    font-family: Orbitron;
+    font-size: 24px;
+    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #ff9c2a;
+    border: 4px solid #000;
+}
+
+.proceso-card { margin-top: 20px; }
+
+/* TESTIMONIOS (IMÁGENES PROTEGIDAS) */
+.protected-content { user-select: none; -webkit-user-select: none; }
+.testimonial-image-card { padding: 0; background: transparent; border: none; }
+.testimonial-image-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(255,156,42,0.4); border: 2px solid #ff9c2a; }
+.testimonial-img {
+    width: 100%; height: auto; object-fit: cover; display: block; border-radius: 18px;
+    pointer-events: none; user-select: none; -webkit-user-drag: none;
+}
+
+/* VIDEO SECTION */
+.video {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+    margin: 50px 0;
+    border-top: 1px solid rgba(255, 156, 42, 0.3);
+    border-bottom: 1px solid rgba(255, 156, 42, 0.3);
+    z-index: 10;
+}
+.video::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); z-index: 1;
+}
+.video video { position: absolute; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); z-index: 0; }
+.video-text {
+    position: absolute; z-index: 2; display: flex; align-items: center; justify-content: center;
+    height: 100%; width: 100%; font-family: Orbitron; font-size: 32px; font-weight: 800;
+    text-align: center; padding: 0 20px; color: white; text-transform: uppercase; letter-spacing: 2px;
+    text-shadow: 0 5px 20px #000000, 0 0 30px rgba(255, 156, 42, 0.8);
+}
+
+/* FOOTER */
+footer {
+    padding: 40px; text-align: center; background: #05070f;
+    border-top: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 10; font-size: 14px; color: #666;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.footer-logo { height: 60px; width: auto; margin-bottom: 20px; opacity: 0.9; transition: 0.3s; }
+.footer-logo:hover { opacity: 1; transform: scale(1.05); }
+footer span { color: #ff9c2a; font-family: Orbitron; }
+
+/* ANIMACIONES DE SCROLL REVEAL (JS) */
+.reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media(min-width: 768px){
+    .cards { grid-template-columns: repeat(3, 1fr); }
+    .section { padding: 120px 10%; }
+    .video { height: 500px; }
+    .video-text { font-size: 48px; }
+}
+
+@media(max-width: 768px){
+    .navbar { padding: 15px 25px; }
+    .menu {
+        display: none; flex-direction: column; background: rgba(5, 7, 15, 0.98);
+        backdrop-filter: blur(15px); position: absolute; top: 70px; right: 20px;
+        padding: 30px; border-radius: 15px; border: 1px solid rgba(255,156,42,0.3);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.8); text-align: center;
+    }
+    .menu.active { display: flex; }
+    .menu-btn { display: block; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="ambient-light light-1"></div>
+<div class="ambient-light light-2"></div>
+
+<div id="particles"></div>
+
+<nav class="navbar">
+    <a href="#" class="logo-container">
+        <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20miniatura%20preparadores%20nyc.png" alt="Logo NYC Express" class="navbar-logo">
+        <div class="logo">NYC EXPRESS</div>
+    </a>
+    <div class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
+    <div class="menu">
+        <a href="#servicios" onclick="toggleMenu()">Servicios</a>
+        <a href="#proceso" onclick="toggleMenu()">Proceso</a>
+        <a href="#testimonios" onclick="toggleMenu()">Testimonios</a>
+        <a href="#contacto" onclick="toggleMenu()">Contacto</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="rocket-container">
+        <div class="rocket-wrapper">
+            <img class="rocket" id="rocket" src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/Header%20cohete.png" alt="Cohete Documentación">
+        </div>
+        <div class="rocket-glow"></div>
+    </div>
+    
+    <a href="#servicios" class="scroll-indicator">
+        <i class="fa-solid fa-angles-down"></i>
+    </a>
+</section>
+
+<section id="servicios" class="section reveal">
+    <h2 class="section-title">Nuestros Servicios</h2>
+    <div class="cards">
+        <div class="card reveal">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+            <h3>Liquidaciones de Sueldo</h3>
+            <p>Reflejan el monto exacto deseado, con todos los descuentos y conceptos aplicables.</p>
+        </div>
+        <div class="card reveal">
+            <i class="fa-solid fa-file-signature"></i>
+            <h3>Contratos de Trabajo</h3>
+            <p>Adaptados a las condiciones acordadas, incluyendo antigüedad y cargo deseado.</p>
+        </div>
+        <div class="card reveal">
+            <i class="fa-solid fa-chart-line"></i>
+            <h3>Certificados de Cotizaciones</h3>
+            <p>Incluye 12 cotizaciones consecutivas según la renta deseada, sin lagunas.</p>
+        </div>
+        <div class="card reveal">
+            <i class="fa-solid fa-id-card"></i>
+            <h3>DICOM Platinum</h3>
+            <p>Incluye detalles financieros con el mejor puntaje del mercado (999).</p>
+        </div>
+        <div class="card reveal">
+            <i class="fa-solid fa-gem"></i>
+            <h3>Paquete Premium Arriendo</h3>
+            <p>El kit completo: contrato, 6 liquidaciones, 12 cotizaciones y DICOM.</p>
+        </div>
+        <div class="card reveal">
+            <i class="fa-solid fa-qrcode"></i>
+            <h3>Seguridad y Verificación</h3>
+            <p>Únicos en Chile brindando páginas de verificación y códigos QR para mayor aceptación.</p>
+        </div>
+    </div>
+</section>
+
+<section class="video reveal">
+    <video autoplay muted loop playsinline>
+        <source src="https://cdn.coverr.co/videos/coverr-space-rocket-launch-1576/1080p.mp4">
+    </video>
+    <div class="video-text">Tecnología que valida tu futuro</div>
+</section>
+
+<section id="proceso" class="section reveal">
+    <h2 class="section-title">¿Cómo funciona?</h2>
+    <div class="cards">
+        <div class="card proceso-card reveal">
+            <div class="step-number">1</div>
+            <i class="fa-solid fa-magnifying-glass-chart"></i>
+            <h3>Revisión del Documento</h3>
+            <p>Diseñamos los documentos y te damos una vista previa segura, sin pedir adelantos iniciales.</p>
+        </div>
+        <div class="card proceso-card reveal">
+            <div class="step-number">2</div>
+            <i class="fa-solid fa-wallet"></i>
+            <h3>Pago del Servicio</h3>
+            <p>Solo después de que apruebes la vista previa, se procede al pago del 100% del servicio.</p>
+        </div>
+        <div class="card proceso-card reveal">
+            <div class="step-number">3</div>
+            <i class="fa-solid fa-paper-plane"></i>
+            <h3>Entrega Inmediata</h3>
+            <p>Una vez validado el pago, los documentos se envían al instante en formato PDF digital.</p>
+        </div>
+    </div>
+</section>
+
+<section id="testimonios" class="section protected-content reveal">
+    <h2 class="section-title">Casos de Éxito</h2>
+    <div class="cards">
+        <div class="card testimonial-image-card reveal">
+            <img src="https://via.placeholder.com/600x400/0a0f1e/ff9c2a?text=Sube+Tu+Imagen+Aqui+1" alt="Testimonio 1" class="testimonial-img" draggable="false">
+        </div>
+        <div class="card testimonial-image-card reveal">
+            <img src="https://via.placeholder.com/600x400/0a0f1e/ff9c2a?text=Sube+Tu+Imagen+Aqui+2" alt="Testimonio 2" class="testimonial-img" draggable="false">
+        </div>
+        <div class="card testimonial-image-card reveal">
+            <img src="https://via.placeholder.com/600x400/0a0f1e/ff9c2a?text=Sube+Tu+Imagen+Aqui+3" alt="Testimonio 3" class="testimonial-img" draggable="false">
+        </div>
+    </div>
+</section>
+
+<footer id="contacto">
+    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20miniatura%20preparadores%20nyc.png" alt="Logo NYC Express" class="footer-logo">
+    <p>© 2026 <span>Preparadores NYC</span>. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    /* MENÚ MÓVIL */
+    function toggleMenu(){
+        const menu = document.querySelector(".menu");
+        menu.classList.toggle("active");
+    }
+
+    /* SEGURIDAD: Bloquear clic derecho en testimonios */
+    document.addEventListener('contextmenu', function(e) {
+        if (e.target.classList.contains('testimonial-img') || e.target.closest('#testimonios')) {
+            e.preventDefault();
+        }
+    });
+
+    /* ANIMACIONES DE APARICIÓN AL HACER SCROLL (SCROLL REVEAL) */
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 100; // Cuándo debe aparecer (px desde abajo)
+            
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add("active");
+            }
+        }
+    }
+    window.addEventListener("scroll", reveal);
+    reveal(); // Disparar al cargar la página
+
+    /* PARTICLES - Estrellas Animadas Mejoradas */
+    tsParticles.load("particles", {
+        particles: {
+            number: { value: 120, density: { enable: true, value_area: 800 } },
+            size: { value: 2, random: true },
+            move: { 
+                enable: true, 
+                speed: 0.4, 
+                direction: "none", 
+                random: true,
+                outModes: "out" 
+            },
+            color: { value: ["#ffffff", "#ff9c2a"] }, // Estrellas blancas y algunas naranjas
+            opacity: { value: 0.8, random: true, animation: { enable: true, speed: 1, minimumValue: 0.1 } }
+        },
+        interactivity: {
+            events: {
+                onHover: { enable: true, mode: "repulse" }, // Las estrellas se apartan ligeramente del cursor
+            },
+            modes: { repulse: { distance: 100, duration: 0.4 } }
+        }
+    });
+</script>
+
+</body>
+</html>
