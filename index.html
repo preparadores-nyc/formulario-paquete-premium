@@ -204,8 +204,17 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 
 /* 🔥 MARCA DE AGUA SOBRE EL DOCUMENTO 🔥 */
 .watermark { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99; }
-/* 🔥 EFECTO DIFUMINADO 40% 🔥 */
-.blur-overlay { position: absolute; bottom: 0; left: 0; width: 100%; height: 40%; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 100%); pointer-events: none; z-index: 25; }
+
+/* 🔥 EFECTO DIFUMINADO MUY AGRESIVO (BLUR 40px SIN DEGRADADO OSCURO) 🔥 */
+.blur-overlay { 
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; /* Llega hasta la mitad */
+    backdrop-filter: blur(40px); /* Desenfoque súper intenso */
+    -webkit-backdrop-filter: blur(40px); 
+    background: transparent; /* No negro, muestra el documento distorsionado */
+    mask-image: linear-gradient(to top, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%); 
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%); 
+    pointer-events: none; z-index: 25; 
+}
 
 
 /* LIQUIDACIONES MINIATURA */
@@ -246,25 +255,13 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 .wa-text span { font-size: 1rem; font-weight: 700; }
 .wa-text small { font-size: 0.75rem; color: #25D366; font-weight: 500; }
 
-/* MOBILE EDGE TO EDGE & NAVBAR FIX */
+/* MOBILE */
 @media (max-width: 992px) {
     .nav-links { display: none; } 
     .navbar { padding: 15px 20px; }
-    
     .brand-name { font-size: 1rem; letter-spacing: 1px; } 
-    
     .banner-web { display: none; } 
-    .banner-mobile { 
-        display: block; 
-        left: 0; 
-        width: 100%; 
-        height: 100%; 
-        object-fit: contain; 
-        object-position: center; 
-        z-index: 2;
-        animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards, mobileFloat 6s ease-in-out infinite 1s; 
-    }
-    
+    .banner-mobile { display: block; left: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; z-index: 2; animation: fadeUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards, mobileFloat 6s ease-in-out infinite 1s; }
     .hero-section { padding: 0; } 
     .container { flex-direction: column; gap: 0; padding: 0 !important; margin: 0 !important; width: 100%; max-width: 100%; }
     .form-panel, .preview-panel { width: 100%; } .preview-panel { position: relative; top: 0; }
@@ -625,11 +622,10 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         const data = await res.json();
 
         // 🔥 FUNCIÓN DE VISTA PREVIA COMPLETA CON PATRÓN DE MARCA DE AGUA 🔥
-        const applyPreview = (url) => {
+        const applyPreview = (url, watermarkText = "PENDIENTE DE PAGO") => {
             const safeUrl = url + "#toolbar=0&navpanes=0&scrollbar=0&view=Fit";
             
-            // Marca de agua más pequeña y opaca
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280"><text x="50%" y="50%" transform="rotate(-45 140 140)" fill="rgba(0,0,0,0.4)" font-size="32" font-family="sans-serif" font-weight="bold" text-anchor="middle">PENDIENTE DE PAGO</text></svg>`;
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280"><text x="50%" y="50%" transform="rotate(-45 140 140)" fill="rgba(0,0,0,0.4)" font-size="32" font-family="sans-serif" font-weight="bold" text-anchor="middle">${watermarkText}</text></svg>`;
             const encodedSvg = encodeURIComponent(svg).replace(/'/g, "%27").replace(/"/g, "%22");
             
             // EL IFRAME SE COLOCA PRIMERO PARA QUE EL WATERMARK SE RENDERICE POR ENCIMA
