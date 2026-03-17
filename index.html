@@ -29,7 +29,7 @@ html { scroll-behavior: smooth; }
 
 body, html {
     width: 100%; max-width: 100%; overflow-x: hidden;
-    background-color: #000000;
+    background-color: #000000; /* Fondo base negro */
     font-family: 'Outfit', sans-serif;
     color: var(--text-main); line-height: 1.6;
 }
@@ -38,16 +38,17 @@ body {
     min-height: 100vh; padding-bottom: 0px;
 }
 
-/* 🔥 FONDO DE GALAXIA ANIMADO 🔥 */
+/* 🔥 FONDO DE GALAXIA ANIMADO - MIMETIZADO CON HEADER 🔥 */
 .galaxy-bg {
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
     z-index: -1;
-    background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2000&auto=format&fit=crop');
+    /* NUEVA IMAGEN: Estilo y colores idénticos a la imagen de tu header */
+    background-image: url('https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2016%20mar%202026%2c%2004_20_20%20a.m..png');
     background-size: cover;
     background-position: center;
-    opacity: 0.5;
+    opacity: 0.5; /* Mantenemos semi-transparente para blend con negro base y legibilidad */
     animation: panSpace 60s alternate infinite linear;
 }
 
