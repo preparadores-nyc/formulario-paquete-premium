@@ -29,14 +29,26 @@ html { scroll-behavior: smooth; }
 
 body, html {
     width: 100%; max-width: 100%; overflow-x: hidden;
-    background-color: #050505; font-family: 'Outfit', sans-serif;
+    background-color: #000000;
+    font-family: 'Outfit', sans-serif;
     color: var(--text-main); line-height: 1.6;
 }
 
 body {
-    background-image: url('https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2014%20mar%202026%2c%2005_53_40%20a.m..png');
-    background-size: cover; background-position: center; background-attachment: fixed;
-    min-height: 100vh; padding-bottom: 0px; /* Ajustado por el footer */
+    min-height: 100vh; padding-bottom: 0px;
+}
+
+/* 🔥 FONDO DE GALAXIA ANIMADO 🔥 */
+.galaxy-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -1;
+    background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5;
+    animation: panSpace 60s alternate infinite linear;
 }
 
 h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
@@ -64,9 +76,10 @@ h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
 @keyframes mobileFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 @keyframes orbit { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(30px, -40px) scale(1.1); } 100% { transform: translate(0, 0) scale(1); } }
+@keyframes panSpace { 0% { transform: scale(1); background-position: 0% 0%; } 100% { transform: scale(1.15); background-position: 100% 100%; } }
 
 /* ─── HERO SECTION CON FONDO ANIMADO ─── */
-.hero-section { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; background-color: #000; padding: 0; }
+.hero-section { position: relative; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: flex-end; overflow: hidden; background-color: transparent; padding: 0; }
 
 /* Orbes animados de fondo */
 .hero-bg-fx { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; pointer-events: none; }
@@ -127,6 +140,7 @@ button:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0, 136,
 button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform: none; box-shadow: none; }
 
 .spinner { width: 40px; height: 40px; border: 4px solid rgba(255, 255, 255, 0.1); border-left-color: var(--secondary-glow); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
+.loading-text { font-size: 0.9rem; color: var(--text-main); font-weight: 500; animation: pulse 1.5s infinite; }
 
 /* DOCUMENT PREVIEW */
 .preview-box {
@@ -182,11 +196,10 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 
 /* MOBILE EDGE TO EDGE & NAVBAR FIX */
 @media (max-width: 992px) {
-    .nav-links a:not(.nav-btn) { display: none; } /* En móvil ocultamos links, dejamos botón principal */
+    .nav-links a:not(.nav-btn) { display: none; } 
     .navbar { padding: 15px 20px; }
     
     .banner-web { display: none; } 
-    /* Imagen Mobile intacta: Centrada, contain, animada, sin cortes ni márgenes */
     .banner-mobile { 
         display: block; 
         left: 0; 
@@ -211,6 +224,8 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 
 <body>
 
+<div class="galaxy-bg"></div>
+
 <header class="navbar">
     <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20nyc%20(no%20background).png" alt="NYC Preparadores Logo" class="nav-logo">
     <nav class="nav-links">
@@ -228,7 +243,7 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
         <div class="orb orb-3"></div>
     </div>
 
-    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/HEADER%20NYC%201-1.png" alt="NYC Preparadores Web" class="hero-image banner-web">
+    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2016%20mar%202026%2c%2004_20_20%20a.m..png" alt="NYC Preparadores Web" class="hero-image banner-web">
     <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2016%20mar%202026%2c%2004_20_20%20a.m..png" alt="NYC Preparadores Mobile" class="hero-image banner-mobile">
     
     <div class="scroll-arrow" onclick="document.getElementById('seccion-formulario').scrollIntoView({behavior: 'smooth'})">
@@ -249,6 +264,17 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 <div><label>RUT</label><input id="rut" required maxlength="12" placeholder="Ej: 12.345.678-9"></div>
 <div><label>Fecha nacimiento</label><input type="date" id="fecha" required></div>
 <div><label>Nacionalidad</label><input id="nacionalidad" required placeholder="Ej: Chilena"></div>
+
+<div>
+<label>Estado Civil</label>
+<select id="estado_civil" required>
+    <option value="" disabled selected>Seleccione...</option>
+    <option value="Soltero">Soltero</option>
+    <option value="Casado">Casado</option>
+    <option value="Divorciado">Divorciado</option>
+</select>
+</div>
+
 <div><label>Email</label><input type="email" id="email" required placeholder="tu@correo.com"></div>
 <div><label>Cargo deseado</label><input type="text" id="cargo" required placeholder="Ej: Contador Auditor"></div>
 <div><label>Sueldo Líquido</label><input type="number" id="sueldo" required placeholder="Ej: 800000"></div>
@@ -282,6 +308,21 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 </div>
 
 <div class="full"><label>Dirección (Calle y Número)</label><input type="text" id="direccion" required placeholder="Ej: Av. Providencia 1234"></div>
+
+<div class="full">
+<label>Tipo de Contrato</label>
+<select id="tipo_contrato" required>
+    <option value="" disabled selected>Seleccione el tipo de contrato...</option>
+    <option value="Contrato Agencia 1">Contrato Agencia 1</option>
+    <option value="Contrato Agencia 2">Contrato Agencia 2</option>
+    <option value="Contrato Agencia 3">Contrato Agencia 3</option>
+    <option value="Contrato Agencia 4">Contrato Agencia 4</option>
+    <option value="Contrato Farmacia">Contrato Farmacia</option>
+    <option value="Contrato Fabrica">Contrato Fabrica</option>
+    <option value="Contrato Salud">Contrato Salud</option>
+    <option value="Contrato Empresa a Pedido">Contrato Empresa a Pedido</option>
+</select>
+</div>
 
 <div class="full"><label>AFP</label>
 <select id="afp" required>
@@ -483,11 +524,13 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         "rut": document.getElementById('rut').value,
         "fecha": document.getElementById('fecha').value,
         "nacionalidad": document.getElementById('nacionalidad').value,
+        "estado_civil": document.getElementById('estado_civil').value, // 🔥 NUEVO CAMPO AÑADIDO AL PAYLOAD
         "email": document.getElementById('email').value,
         "cargo": document.getElementById('cargo').value,
         "sueldo": parseInt(document.getElementById('sueldo').value),
         "direccion": `${document.getElementById('direccion').value}, ${document.getElementById('comuna').value}, ${document.getElementById('region').value}`,
-        "afp": document.getElementById('afp').value
+        "afp": document.getElementById('afp').value,
+        "tipo_contrato": document.getElementById('tipo_contrato').value // 🔥 NUEVO CAMPO AÑADIDO AL PAYLOAD
     };
 
     let segundos = 0;
