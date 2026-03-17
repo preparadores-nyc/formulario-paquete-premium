@@ -642,7 +642,7 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         const data = await res.json();
 
         // 🔥 FUNCIÓN DE VISTA PREVIA COMPLETA CON PATRÓN DE MARCA DE AGUA 🔥
-        const applyPreview = (url, watermarkText = "PENDIENTE DE PAGO") => {
+       const applyPreview = (url, watermarkText = "PENDIENTE DE PAGO") => {
             const safeUrl = url + "#toolbar=0&navpanes=0&scrollbar=0&view=Fit";
             
             const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280"><text x="50%" y="50%" transform="rotate(-45 140 140)" fill="rgba(0,0,0,0.4)" font-size="32" font-family="sans-serif" font-weight="bold" text-anchor="middle">${watermarkText}</text></svg>`;
