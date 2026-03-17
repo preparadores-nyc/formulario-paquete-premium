@@ -7,9 +7,10 @@
 <title>NYC Preparadores - Plataforma de Documentos</title>
 <link rel="icon" type="image/png" href="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20miniatura%20preparadores%20nyc.png">
 
+<!-- Agregamos Cinzel Decorative para la fuente exótica/elegante, junto con las demás -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Outfit:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -38,14 +39,14 @@ body {
     min-height: 100vh; padding-bottom: 0px;
 }
 
-/* 🔥 FONDO DE GALAXIA ANIMADO - MIMETIZADO CON HEADER 🔥 */
+/* 🔥 FONDO DE GALAXIA ANIMADO - MIMETIZADO CON EL NUEVO HEADER 🔥 */
 .galaxy-bg {
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
     z-index: -1;
-    /* NUEVA IMAGEN: Estilo y colores idénticos a la imagen de tu header */
-    background-image: url('https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2016%20mar%202026%2c%2004_20_20%20a.m..png');
+    /* NUEVA IMAGEN: Estilo y colores idénticos a la nueva imagen de tu header */
+    background-image: url('https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/hero%204%20(hermoso).png');
     background-size: cover;
     background-position: center;
     opacity: 0.5; /* Mantenemos semi-transparente para blend con negro base y legibilidad */
@@ -62,7 +63,27 @@ h1, h2, h3, h4, button { font-family: 'Space Grotesk', sans-serif; }
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--glass-border);
 }
+
+/* Contenedor del Logo + Nombre */
+.brand-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 .nav-logo { height: 45px; object-fit: contain; filter: drop-shadow(0 2px 10px rgba(0,136,255,0.4)); }
+
+/* Marca Exótica y Elegante */
+.brand-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px rgba(0, 136, 255, 0.5);
+    line-height: 1;
+}
+
 .nav-links { display: flex; gap: 25px; align-items: center; }
 .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.3s; }
 .nav-links a:hover { color: var(--secondary-glow); }
@@ -168,15 +189,6 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 .liq-blurred { filter: blur(8px); user-select: none; pointer-events: none; }
 .liq-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 600; color: var(--text-main); z-index: 20; font-size: 1.1rem; text-shadow: 0px 2px 10px rgba(0,0,0,0.8); backdrop-filter: blur(2px); }
 
-/* ─── SECCIÓN TESTIMONIOS ─── */
-.testimonials-sec { max-width: 1440px; margin: 20px auto 60px auto; padding: 0 20px; z-index: 5; position: relative; }
-.testimonials-sec h2 { text-align: center; font-size: 2rem; margin-bottom: 40px; }
-.test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-.test-card { background: var(--glass-bg); backdrop-filter: blur(25px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px; text-align: center; }
-.test-card p { font-style: italic; color: #d1d1d1; margin-bottom: 15px; font-size: 0.95rem; }
-.test-card h4 { color: var(--primary-glow); font-size: 1.1rem; }
-.stars { color: #ffb400; margin-bottom: 10px; font-size: 1.2rem; }
-
 /* ─── FOOTER (PAGOS Y OTROS PRODUCTOS) ─── */
 .footer-sec { background: rgba(0, 0, 0, 0.8); border-top: 1px solid var(--glass-border); padding: 60px 20px; text-align: center; position: relative; z-index: 10; }
 .footer-logo { height: 60px; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(0,136,255,0.3)); }
@@ -187,6 +199,15 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 .btn-pay:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 230, 118, 0.5); }
 .btn-other { display: inline-block; background: transparent; border: 2px solid var(--primary-glow); color: var(--text-main); padding: 14px 40px; border-radius: 50px; font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s; }
 .btn-other:hover { background: var(--primary-glow); color: #fff; box-shadow: 0 10px 25px rgba(0, 136, 255, 0.3); }
+
+/* ─── SECCIÓN TESTIMONIOS ─── */
+.testimonials-sec { max-width: 1440px; margin: 60px auto 60px auto; padding: 0 20px; z-index: 5; position: relative; }
+.testimonials-sec h2 { text-align: center; font-size: 2rem; margin-bottom: 40px; }
+.test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.test-card { background: var(--glass-bg); backdrop-filter: blur(25px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 30px; text-align: center; }
+.test-card p { font-style: italic; color: #d1d1d1; margin-bottom: 15px; font-size: 0.95rem; }
+.test-card h4 { color: var(--primary-glow); font-size: 1.1rem; }
+.stars { color: #ffb400; margin-bottom: 10px; font-size: 1.2rem; }
 
 /* WHATSAPP FLOAT */
 .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: var(--glass-bg); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; padding: 8px 20px 8px 8px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.4); transition: all 0.3s; }
@@ -199,6 +220,8 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 @media (max-width: 992px) {
     .nav-links a:not(.nav-btn) { display: none; } 
     .navbar { padding: 15px 20px; }
+    
+    .brand-name { font-size: 1rem; letter-spacing: 1px; } /* Ajuste de letra en móvil */
     
     .banner-web { display: none; } 
     .banner-mobile { 
@@ -228,7 +251,10 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 <div class="galaxy-bg"></div>
 
 <header class="navbar">
-    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20nyc%20(no%20background).png" alt="NYC Preparadores Logo" class="nav-logo">
+    <div class="brand-container">
+        <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20nyc%20(no%20background).png" alt="NYC Preparadores Logo" class="nav-logo">
+        <span class="brand-name">Preparadores NYC</span>
+    </div>
     <nav class="nav-links">
         <a href="#inicio">Inicio</a>
         <a href="#seccion-formulario">Emitir Documentos</a>
@@ -244,8 +270,9 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
         <div class="orb orb-3"></div>
     </div>
 
-    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2016%20mar%202026%2c%2004_20_20%20a.m..png" alt="NYC Preparadores Web" class="hero-image banner-web">
-    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/ChatGPT%20Image%2016%20mar%202026%2c%2004_20_20%20a.m..png" alt="NYC Preparadores Mobile" class="hero-image banner-mobile">
+    <!-- MISMA IMAGEN PARA WEB Y MÓVIL -->
+    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/hero%204%20(hermoso).png" alt="NYC Preparadores Web" class="hero-image banner-web">
+    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/hero%204%20(hermoso).png" alt="NYC Preparadores Mobile" class="hero-image banner-mobile">
     
     <div class="scroll-arrow" onclick="document.getElementById('seccion-formulario').scrollIntoView({behavior: 'smooth'})">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -399,6 +426,18 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
 </div>
 </div>
 
+<!-- 🔥 SECCIÓN DE PAGO (Movida antes de Testimonios) 🔥 -->
+<section class="footer-sec">
+    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20miniatura%20preparadores%20nyc.png" class="footer-logo" alt="NYC Logo Mini">
+    <h2>¿Listo para tramitar tu arriendo?</h2>
+    <p>Si ya visualizaste tus documentos y la simulación está correcta, procede con el pago para liberar las descargas.</p>
+    <div class="footer-btns">
+        <a href="https://wa.me/56933686427" target="_blank" class="btn-pay">Pagar Servicio Premium ($35.000)</a>
+        <a href="#" class="btn-other">Ver Otros Productos</a>
+    </div>
+</section>
+
+<!-- ─── SECCIÓN TESTIMONIOS ─── -->
 <section id="testimonios" class="testimonials-sec">
     <h2>Lo que dicen nuestros clientes</h2>
     <div class="test-grid">
@@ -419,16 +458,6 @@ button:disabled { background: #333; color: #aaa; cursor: not-allowed; transform:
         </div>
     </div>
 </section>
-
-<footer class="footer-sec">
-    <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/logo%20miniatura%20preparadores%20nyc.png" class="footer-logo" alt="NYC Logo Mini">
-    <h2>¿Listo para tramitar tu arriendo?</h2>
-    <p>Si ya visualizaste tus documentos y la simulación está correcta, procede con el pago para liberar las descargas.</p>
-    <div class="footer-btns">
-        <a href="https://wa.me/56933686427" target="_blank" class="btn-pay">Pagar Servicio Premium ($35.000)</a>
-        <a href="#" class="btn-other">Ver Otros Productos</a>
-    </div>
-</footer>
 
 <a href="https://wa.me/56933686427" target="_blank" class="whatsapp-float">
     <img src="https://49659256.fs1.hubspotusercontent-na1.net/hubfs/49659256/PDFS/LOGOS%20AFP/LOGO%20WHATSAPP.png" alt="WhatsApp" class="wa-logo">
@@ -525,13 +554,13 @@ document.getElementById("form").addEventListener("submit", async function(e) {
         "rut": document.getElementById('rut').value,
         "fecha": document.getElementById('fecha').value,
         "nacionalidad": document.getElementById('nacionalidad').value,
-        "estado_civil": document.getElementById('estado_civil').value, // 🔥 NUEVO CAMPO AÑADIDO AL PAYLOAD
+        "estado_civil": document.getElementById('estado_civil').value,
         "email": document.getElementById('email').value,
         "cargo": document.getElementById('cargo').value,
         "sueldo": parseInt(document.getElementById('sueldo').value),
         "direccion": `${document.getElementById('direccion').value}, ${document.getElementById('comuna').value}, ${document.getElementById('region').value}`,
         "afp": document.getElementById('afp').value,
-        "tipo_contrato": document.getElementById('tipo_contrato').value // 🔥 NUEVO CAMPO AÑADIDO AL PAYLOAD
+        "tipo_contrato": document.getElementById('tipo_contrato').value
     };
 
     let segundos = 0;
